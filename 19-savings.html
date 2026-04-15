@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예·적금 이자 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link ">급여</a>
+<a href="index.html#realestate" class="nav-link ">부동산</a>
+<a href="index.html#investment" class="nav-link active">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">SAVINGS CALCULATOR</div><h1>예·적금 이자 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">예·적금 정보 입력</div>
+<div class="field"><label>상품 유형</label><div class="btn-group"><button class="btn-option active" data-p="예금">정기예금</button><button class="btn-option" data-p="적금">정기적금</button></div></div>
+<div class="field" id="depositField"><label>예치금</label><div class="input-wrap"><input type="number" id="deposit" value="10000000" step="1000000"><span class="unit">원</span></div></div>
+<div class="field" id="savingsField" style="display:none"><label>월 적립액</label><div class="input-wrap"><input type="number" id="savings" value="500000" step="10000"><span class="unit">원</span></div></div>
+<div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="rate" value="3.5" min="0.1" max="20" step="0.1"><span class="unit">%</span></div></div>
+<div class="field"><label>만기 기간</label><div class="input-wrap"><input type="number" id="term" value="12" min="1" max="60"><span class="unit">개월</span></div></div>
+<div class="field"><label>이자 방식</label><div class="btn-group"><button class="btn-option active" data-i="단리">단리</button><button class="btn-option" data-i="복리">복리(월)</button></div></div>
+<button class="calc-btn" onclick="c19()">계산하기</button></div>
+<div class="card anim-2" id="r19"><div class="card-title">이자 계산 결과</div><div class="empty-state"><div class="empty-icon">🏦</div><div class="empty-text">정보를 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+let ptype='예금',itype='단리';
+document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-p]').forEach(x=>x.classList.remove('active'));this.classList.add('active');ptype=this.dataset.p;document.getElementById('depositField').style.display=ptype==='예금'?'':'none';document.getElementById('savingsField').style.display=ptype==='적금'?'':'none';}));
+document.querySelectorAll('[data-i]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-i]').forEach(x=>x.classList.remove('active'));this.classList.add('active');itype=this.dataset.i;}));
+function fw(n){return Math.round(n).toLocaleString()+'원';}
+function c19(){
+  const r=parseFloat(document.getElementById('rate').value)||0;
+  const t=parseInt(document.getElementById('term').value)||0;
+  let principal=0,interest=0;
+  if(ptype==='예금'){
+    const d=parseFloat(document.getElementById('deposit').value)||0;
+    principal=d;
+    if(itype==='단리')interest=Math.round(d*r/100*t/12);
+    else interest=Math.round(d*(Math.pow(1+r/100/12,t)-1));
+  } else {
+    const s=parseFloat(document.getElementById('savings').value)||0;
+    principal=s*t;
+    if(itype==='단리')interest=Math.round(s*(t*(t+1)/2)*(r/100/12));
+    else{let bal=0;for(let i=0;i<t;i++)bal=(bal+s)*(1+r/100/12);interest=Math.round(bal-principal);}
+  }
+  const gross=principal+interest;
+  const tax=Math.round(interest*0.154);
+  const net=gross-tax;
+  document.getElementById('r19').innerHTML=`<div class="card-title">이자 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">원금 합계</div><div class="result-value">${fw(principal)}</div></div>
+    <div class="result-item gold"><div class="result-label">세전 이자</div><div class="result-value">${fw(interest)}</div></div>
+    <div class="result-item danger"><div class="result-label">이자소득세 (15.4%)</div><div class="result-value">-${fw(tax)}</div></div>
+    <div class="result-item highlight"><div class="result-label">세후 수령액</div><div class="result-value">${fw(net)}</div></div>
+  </div>`;}
+c19();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="18-compound.html" class="related-link">🌱 복리 계산기<span class="arrow">→</span></a><a href="20-pension.html" class="related-link">🎯 노후연금 계산기<span class="arrow">→</span></a><a href="07-vat.html" class="related-link">🧮 부가세 계산기<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>

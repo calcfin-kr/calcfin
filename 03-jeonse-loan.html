@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>전세자금대출 계산기 | CalcFin</title><meta name="description" content="전세자금대출 월 이자 및 총 비용을 계산하세요."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link active">대출</a><a href="index.html#tax" class="nav-link">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">JEONSE LOAN CALCULATOR</div><h1>전세자금대출 <span>계산기</span></h1><p>버팀목·시중은행 전세대출 금리 적용 · 월 이자 및 총 비용 계산</p></div>
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">전세 정보 입력</div>
+    <div class="field"><label>전세 보증금</label><div class="input-wrap"><input type="number" id="deposit" value="300000000" step="10000000"><span class="unit">원</span></div><input type="range" id="depR" min="10000000" max="1000000000" step="10000000" value="300000000"><div class="slider-labels"><span>1천만</span><span>10억</span></div></div>
+    <div class="field"><label>대출 금액</label><div class="input-wrap"><input type="number" id="loan" value="200000000" step="10000000"><span class="unit">원</span></div><input type="range" id="loanR" min="10000000" max="800000000" step="10000000" value="200000000"><div class="slider-labels"><span>1천만</span><span>8억</span></div></div>
+    <div class="field"><label>대출 유형</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-r="3.3">버팀목(3.3%)</button>
+        <button class="btn-option" data-r="4.0">카뱅(4.0%)</button>
+        <button class="btn-option" data-r="4.5">시중은행(4.5%)</button>
+      </div>
+    </div>
+    <div class="field"><label>연 이자율 (직접 입력)</label><div class="input-wrap"><input type="number" id="rate" value="3.3" min="0.1" max="15" step="0.1"><span class="unit">%</span></div></div>
+    <div class="field"><label>전세 계약 기간</label><div class="input-wrap"><input type="number" id="term" value="24" min="1" max="60"><span class="unit">개월</span></div></div>
+    <button class="calc-btn" onclick="calc()">계산하기</button>
+  </div>
+  <div class="card anim-2" id="result">
+    <div class="card-title">계산 결과</div>
+    <div class="empty-state"><div class="empty-icon">🏢</div><div class="empty-text">전세 정보를 입력하고 계산하세요</div></div>
+  </div>
+</div>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="01-credit-loan.html" class="related-link">💳 신용대출 이자 계산기<span class="arrow">→</span></a>
+  <a href="02-mortgage.html" class="related-link">🏠 주택담보대출 계산기<span class="arrow">→</span></a>
+  <a href="15-jeonse-convert.html" class="related-link">🔄 전월세전환 계산기<span class="arrow">→</span></a>
+  <a href="17-realestate-fee.html" class="related-link">🤝 중개수수료 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+<script>
+const sync=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max);});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value;});};
+sync('deposit','depR');sync('loan','loanR');
+document.querySelectorAll('.btn-option').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.btn-option').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById('rate').value=this.dataset.r;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function calc(){
+  const d=parseFloat(document.getElementById('deposit').value)||0;
+  const l=parseFloat(document.getElementById('loan').value)||0;
+  const r=parseFloat(document.getElementById('rate').value)||0;
+  const t=parseInt(document.getElementById('term').value)||0;
+  const mi=Math.round(l*r/100/12);
+  const ti=mi*t;
+  const ratio=(d>0?(l/d*100)).toFixed(1);
+  document.getElementById('result').innerHTML=`
+  <div class="card-title">계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item highlight"><div class="result-label">월 이자</div><div class="result-value">${mi.toLocaleString()}원</div><div class="result-sub">(이자 전용 상품)</div></div>
+    <div class="result-item danger"><div class="result-label">계약 기간 총 이자</div><div class="result-value">${fw(ti)}</div><div class="result-sub">${t}개월 기준</div></div>
+    <div class="result-item info"><div class="result-label">대출 비율</div><div class="result-value">${ratio}%</div><div class="result-sub">보증금 대비</div></div>
+    <div class="result-item"><div class="result-label">만기 반환금</div><div class="result-value">${fw(l)}</div><div class="result-sub">원금 전액</div></div>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:'DM Mono',monospace;">
+    💡 전세대출은 만기일시 상환 방식으로<br>매월 이자만 납부하고 만기에 원금 상환합니다<br>보증금 대비 80% 이내 대출 권장
+  </div>`;
+}
+calc();
+</script>
+</body></html>

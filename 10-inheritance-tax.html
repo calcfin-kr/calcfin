@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상속·증여세 계산기 | CalcFin</title><meta name="description" content="상속·증여 재산별 세율·공제 계산">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body><nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link">대출</a><a href="index.html#tax" class="nav-link active">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav><div class="container"><div class="page-header"><div class="header-badge">INHERITANCE & GIFT TAX</div><h1>상속·증여세 <span>계산기</span></h1><p>상속·증여 재산별 세율·공제 계산</p></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">정보 입력</div>
+<div class="field"><label>상속·증여 재산가액</label><div class="input-wrap"><input type="number" id="asset" value="500000000" step="10000000"><span class="unit">원</span></div></div>
+<div class="field"><label>구분</label><div class="btn-group"><button class="btn-option active" data-t="상속">상속</button><button class="btn-option" data-t="증여">증여</button></div></div>
+<div class="field"><label>관계</label><div class="btn-group"><button class="btn-option active" data-r="배우자">배우자</button><button class="btn-option" data-r="직계">직계비속</button><button class="btn-option" data-r="기타">기타</button></div></div>
+<button class="calc-btn" onclick="calc10()">계산하기</button></div>
+<div class="card anim-2" id="r10"><div class="card-title">계산 결과</div><div class="empty-state"><div class="empty-icon">📜</div><div class="empty-text">정보를 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+let t10='상속',r10='배우자';
+document.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-t]').forEach(x=>x.classList.remove('active'));this.classList.add('active');t10=this.dataset.t;}));
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('active'));this.classList.add('active');r10=this.dataset.r;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function calc10(){
+  const a=parseFloat(document.getElementById('asset').value)||0;
+  let ded=0;
+  if(t10==='상속'){if(r10==='배우자')ded=Math.min(a*0.5,3000000000);else if(r10==='직계')ded=500000000;else ded=200000000;}
+  else{if(r10==='배우자')ded=600000000;else if(r10==='직계')ded=50000000;else ded=10000000;}
+  const base=Math.max(0,a-ded);
+  let tax=0;
+  if(base<=100000000)tax=base*0.10;
+  else if(base<=500000000)tax=10000000+(base-100000000)*0.20;
+  else if(base<=1000000000)tax=90000000+(base-500000000)*0.30;
+  else if(base<=3000000000)tax=240000000+(base-1000000000)*0.40;
+  else tax=1040000000+(base-3000000000)*0.50;
+  const local=Math.round(tax*0.1);
+  document.getElementById('r10').innerHTML=`<div class="card-title">계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item"><div class="result-label">공제액</div><div class="result-value">${fw(ded)}</div></div>
+    <div class="result-item"><div class="result-label">과세표준</div><div class="result-value">${fw(base)}</div></div>
+    <div class="result-item danger"><div class="result-label">${t10}세</div><div class="result-value">${fw(Math.round(tax))}</div></div>
+    <div class="result-item highlight"><div class="result-label">지방세 포함 총액</div><div class="result-value">${fw(Math.round(tax)+local)}</div></div>
+  </div>`;}
+calc10();
+</script><div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="06-income-tax.html" class="related-link">📋 종합소득세 계산기<span class="arrow">→</span></a><a href="08-acquisition-tax.html" class="related-link">🏛️ 취득세 계산기<span class="arrow">→</span></a><a href="09-capital-gains.html" class="related-link">📈 양도소득세 계산기<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div></div></body></html>

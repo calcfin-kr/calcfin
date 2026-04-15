@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최저임금·주휴수당 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link active">급여</a>
+<a href="index.html#realestate" class="nav-link ">부동산</a>
+<a href="index.html#investment" class="nav-link ">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">MINIMUM WAGE CALCULATOR</div><h1>최저임금·주휴수당 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">근무 조건 입력 (2025년 최저시급 10,030원)</div>
+<div class="field"><label>시급 (최저임금 이상 입력)</label><div class="input-wrap"><input type="number" id="hourly" value="10030" min="10030" step="10"><span class="unit">원</span></div></div>
+<div class="field"><label>1일 근무시간</label><div class="input-wrap"><input type="number" id="daily" value="8" min="1" max="12" step="0.5"><span class="unit">시간</span></div></div>
+<div class="field"><label>주 근무일수</label><div class="input-wrap"><input type="number" id="days" value="5" min="1" max="6"><span class="unit">일</span></div></div>
+<button class="calc-btn" onclick="c13()">계산하기</button></div>
+<div class="card anim-2" id="r13"><div class="card-title">급여 계산 결과</div><div class="empty-state"><div class="empty-icon">⏰</div><div class="empty-text">근무 조건을 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+function fw(n){return Math.round(n).toLocaleString()+'원';}
+function c13(){
+  const h=parseFloat(document.getElementById('hourly').value)||0;
+  const d=parseFloat(document.getElementById('daily').value)||0;
+  const w=parseInt(document.getElementById('days').value)||0;
+  const weekly=d*w;
+  const juju=weekly>=15?d:0;
+  const totalWeek=weekly+juju;
+  const monthly=Math.round(h*totalWeek*4.345);
+  const jujuPay=Math.round(h*juju*4.345);
+  document.getElementById('r13').innerHTML=`<div class="card-title">급여 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">주간 소정근로시간</div><div class="result-value">${weekly}시간</div></div>
+    <div class="result-item gold"><div class="result-label">주휴수당 (주)</div><div class="result-value">${fw(Math.round(h*juju))}</div><div class="result-sub">${juju}시간 × ${h.toLocaleString()}원</div></div>
+    <div class="result-item danger"><div class="result-label">주휴수당 포함 월 합계</div><div class="result-value">${fw(monthly)}</div></div>
+    <div class="result-item highlight"><div class="result-label">순 근로 월급</div><div class="result-value">${fw(Math.round(h*weekly*4.345))}</div></div>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:'DM Mono',monospace;">
+    💡 2025년 최저시급: 10,030원 · 주 15시간 이상 근무 시 주휴수당 발생
+  </div>`;}
+c13();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="11-salary.html" class="related-link">💴 연봉 실수령액<span class="arrow">→</span></a><a href="12-severance.html" class="related-link">👔 퇴직금 계산기<span class="arrow">→</span></a><a href="14-insurance.html" class="related-link">🛡️ 4대보험 계산기<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>

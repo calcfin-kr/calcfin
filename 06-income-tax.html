@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>종합소득세 계산기 | CalcFin</title><meta name="description" content="2025년 기준 종합소득세를 계산하세요."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link">대출</a><a href="index.html#tax" class="nav-link active">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">INCOME TAX CALCULATOR</div><h1>종합소득세 <span>계산기</span></h1><p>2025년 세율 기준 · 각종 공제 반영 · 납부세액 및 지방소득세 계산</p></div>
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">소득 정보 입력</div>
+    <div class="field"><label>총 소득금액 (연간)</label><div class="input-wrap"><input type="number" id="income" value="60000000" step="1000000"><span class="unit">원</span></div></div>
+    <div class="field"><label>소득 유형</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-t="근로">근로소득</button>
+        <button class="btn-option" data-t="사업">사업소득</button>
+        <button class="btn-option" data-t="기타">기타소득</button>
+      </div>
+    </div>
+    <div class="field"><label>기본공제 인원 (본인 포함)</label><div class="input-wrap"><input type="number" id="dep" value="1" min="1" max="10"><span class="unit">명</span></div></div>
+    <div class="field"><label>추가 소득공제 (의료비·교육비 등)</label><div class="input-wrap"><input type="number" id="extra" value="0" step="100000"><span class="unit">원</span></div></div>
+    <div class="field"><label>세액공제 (자녀·연금 등)</label><div class="input-wrap"><input type="number" id="taxCredit" value="0" step="10000"><span class="unit">원</span></div></div>
+    <button class="calc-btn" onclick="calc()">계산하기</button>
+  </div>
+  <div class="card anim-2" id="result">
+    <div class="card-title">세금 계산 결과</div>
+    <div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">소득 정보를 입력하고 계산하세요</div></div>
+  </div>
+</div>
+<div class="card full-card anim-3">
+  <div class="section-title">2025년 종합소득세율표</div>
+  <div class="table-wrap"><table><thead><tr><th>과세표준</th><th>세율</th><th>누진공제</th></tr></thead><tbody>
+  <tr><td style="text-align:left">1,400만원 이하</td><td class="td-accent">6%</td><td class="td-muted">—</td></tr>
+  <tr><td style="text-align:left">1,400만 ~ 5,000만원</td><td class="td-accent">15%</td><td class="td-muted">126만원</td></tr>
+  <tr><td style="text-align:left">5,000만 ~ 8,800만원</td><td class="td-accent">24%</td><td class="td-muted">576만원</td></tr>
+  <tr><td style="text-align:left">8,800만 ~ 1.5억원</td><td class="td-accent">35%</td><td class="td-muted">1,544만원</td></tr>
+  <tr><td style="text-align:left">1.5억 ~ 3억원</td><td class="td-accent">38%</td><td class="td-muted">1,994만원</td></tr>
+  <tr><td style="text-align:left">3억 ~ 5억원</td><td class="td-accent">40%</td><td class="td-muted">2,594만원</td></tr>
+  <tr><td style="text-align:left">5억 ~ 10억원</td><td class="td-accent">42%</td><td class="td-muted">3,594만원</td></tr>
+  <tr><td style="text-align:left">10억원 초과</td><td class="td-danger">45%</td><td class="td-muted">6,594만원</td></tr>
+  </tbody></table></div>
+</div>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="07-vat.html" class="related-link">🧮 부가세 계산기<span class="arrow">→</span></a>
+  <a href="11-salary.html" class="related-link">💴 연봉 실수령액 계산기<span class="arrow">→</span></a>
+  <a href="14-insurance.html" class="related-link">🛡️ 4대보험 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+<script>
+let incType='근로';
+document.querySelectorAll('.btn-option').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.btn-option').forEach(x=>x.classList.remove('active'));this.classList.add('active');incType=this.dataset.t;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function calc(){
+  const inc=parseFloat(document.getElementById('income').value)||0;
+  const dep=parseInt(document.getElementById('dep').value)||1;
+  const extra=parseFloat(document.getElementById('extra').value)||0;
+  const credit=parseFloat(document.getElementById('taxCredit').value)||0;
+  let stdDed=0;
+  if(incType==='근로'){if(inc<=5000000)stdDed=inc*0.7;else if(inc<=15000000)stdDed=3500000+(inc-5000000)*0.4;else if(inc<=45000000)stdDed=7500000+(inc-15000000)*0.15;else if(inc<=100000000)stdDed=12000000+(inc-45000000)*0.05;else stdDed=14750000;}
+  else stdDed=inc*0.2;
+  const basicDed=1500000*dep;
+  let taxBase=Math.max(0,inc-stdDed-basicDed-extra);
+  let tax=0;
+  if(taxBase<=14000000)tax=taxBase*0.06;
+  else if(taxBase<=50000000)tax=840000+(taxBase-14000000)*0.15;
+  else if(taxBase<=88000000)tax=6240000+(taxBase-50000000)*0.24;
+  else if(taxBase<=150000000)tax=15360000+(taxBase-88000000)*0.35;
+  else if(taxBase<=300000000)tax=37060000+(taxBase-150000000)*0.38;
+  else if(taxBase<=500000000)tax=94060000+(taxBase-300000000)*0.40;
+  else tax=174060000+(taxBase-500000000)*0.42;
+  tax=Math.max(0,tax-credit);
+  const local=Math.round(tax*0.1);
+  const total=Math.round(tax)+local;
+  document.getElementById('result').innerHTML=`
+  <div class="card-title">세금 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item"><div class="result-label">과세표준</div><div class="result-value">${fw(taxBase)}</div></div>
+    <div class="result-item danger"><div class="result-label">산출세액</div><div class="result-value">${fw(Math.round(tax))}</div></div>
+    <div class="result-item info"><div class="result-label">지방소득세 (10%)</div><div class="result-value">${fw(local)}</div></div>
+    <div class="result-item highlight"><div class="result-label">총 납부세액</div><div class="result-value">${fw(total)}</div></div>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:'DM Mono',monospace;">
+    유효세율: ${inc>0?((total/inc)*100).toFixed(2):'0.00'}% · 공제 후 소득: ${fw(taxBase)}
+  </div>`;
+}
+calc();
+</script>
+</body></html>

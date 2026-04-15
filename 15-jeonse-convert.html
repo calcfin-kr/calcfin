@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전월세전환 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link ">급여</a>
+<a href="index.html#realestate" class="nav-link active">부동산</a>
+<a href="index.html#investment" class="nav-link ">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">JEONSE CONVERSION CALCULATOR</div><h1>전월세전환 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">전환 정보 입력</div>
+<div class="field"><label>계산 방향</label><div class="btn-group"><button class="btn-option active" data-d="jeon2wol">전세→월세</button><button class="btn-option" data-d="wol2jeon">월세→전세</button></div></div>
+<div class="field" id="f1"><label>전세 보증금</label><div class="input-wrap"><input type="number" id="jeon" value="300000000" step="10000000"><span class="unit">원</span></div></div>
+<div class="field" id="f2" style="display:none"><label>보증금</label><div class="input-wrap"><input type="number" id="dep2" value="50000000" step="1000000"><span class="unit">원</span></div></div>
+<div class="field" id="f3" style="display:none"><label>월세</label><div class="input-wrap"><input type="number" id="monthly" value="800000" step="10000"><span class="unit">원</span></div></div>
+<div class="field"><label>전월세 전환율</label><div class="btn-group"><button class="btn-option active" data-r="5.0">법정 5.0%</button><button class="btn-option" data-r="6.0">시장 6.0%</button><button class="btn-option" data-r="7.0">고금리 7.0%</button></div></div>
+<div class="field"><label>전환율 직접 입력</label><div class="input-wrap"><input type="number" id="convRate" value="5.0" min="1" max="20" step="0.1"><span class="unit">%</span></div></div>
+<button class="calc-btn" onclick="c15()">계산하기</button></div>
+<div class="card anim-2" id="r15"><div class="card-title">전환 결과</div><div class="empty-state"><div class="empty-icon">🔄</div><div class="empty-text">정보를 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+let dir15='jeon2wol',rate15=5.0;
+document.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-d]').forEach(x=>x.classList.remove('active'));this.classList.add('active');dir15=this.dataset.d;document.getElementById('f1').style.display=dir15==='jeon2wol'?'':'none';document.getElementById('f2').style.display=dir15==='wol2jeon'?'':'none';document.getElementById('f3').style.display=dir15==='wol2jeon'?'':'none';}));
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById('convRate').value=this.dataset.r;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function c15(){
+  const r=parseFloat(document.getElementById('convRate').value)||5;
+  let res='';
+  if(dir15==='jeon2wol'){
+    const j=parseFloat(document.getElementById('jeon').value)||0;
+    const wol=Math.round(j*r/100/12);
+    res=`<div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">전세 보증금</div><div class="result-value">${fw(j)}</div></div>
+    <div class="result-item highlight"><div class="result-label">월세 전환액</div><div class="result-value">${wol.toLocaleString()}원</div><div class="result-sub">전환율 ${r}% 적용</div></div>
+    <div class="result-item"><div class="result-label">보증금 0원 시 월세</div><div class="result-value">${wol.toLocaleString()}원</div></div>
+    <div class="result-item gold"><div class="result-label">보증금 5천만 시 월세</div><div class="result-value">${Math.round((j-50000000)*r/100/12).toLocaleString()}원</div></div></div>`;
+  } else {
+    const d=parseFloat(document.getElementById('dep2').value)||0;
+    const m=parseFloat(document.getElementById('monthly').value)||0;
+    const jeon2=Math.round(m*12/r*100+d);
+    res=`<div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">보증금</div><div class="result-value">${fw(d)}</div></div>
+    <div class="result-item"><div class="result-label">월세</div><div class="result-value">${m.toLocaleString()}원</div></div>
+    <div class="result-item highlight" style="grid-column:1/-1"><div class="result-label">전세 전환금액</div><div class="result-value" style="font-size:26px">${fw(jeon2)}</div><div class="result-sub">전환율 ${r}% 적용</div></div></div>`;
+  }
+  document.getElementById('r15').innerHTML='<div class="card-title">전환 결과</div>'+res;
+}
+c15();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="02-mortgage.html" class="related-link">🏠 주택담보대출<span class="arrow">→</span></a><a href="16-rent-roi.html" class="related-link">📊 임대수익률<span class="arrow">→</span></a><a href="17-realestate-fee.html" class="related-link">🤝 중개수수료<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>

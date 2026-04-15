@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연봉 실수령액 계산기 | CalcFin</title><meta name="description" content="2025년 4대보험·소득세 공제 후 월 실수령액 계산">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body><nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link">대출</a><a href="index.html#tax" class="nav-link">세금</a><a href="index.html#salary" class="nav-link active">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav><div class="container"><div class="page-header"><div class="header-badge">SALARY CALCULATOR</div><h1>연봉 실수령액 <span>계산기</span></h1><p>2025년 4대보험·소득세 공제 후 월 실수령액 계산</p></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">급여 정보 입력</div>
+<div class="field"><label>연봉</label><div class="input-wrap"><input type="number" id="annual" value="40000000" step="1000000"><span class="unit">원</span></div><input type="range" id="annR" min="10000000" max="300000000" step="1000000" value="40000000"><div class="slider-labels"><span>1천만</span><span>3억</span></div></div>
+<div class="field"><label>부양가족 수 (본인 포함)</label><div class="input-wrap"><select id="dep"><option value="1">1명(본인)</option><option value="2">2명</option><option value="3">3명</option><option value="4">4명</option><option value="5">5명+</option></select></div></div>
+<div class="field"><label>20세 이하 자녀 수</label><div class="input-wrap"><input type="number" id="child" value="0" min="0" max="10"><span class="unit">명</span></div></div>
+<div class="field"><label>비과세 소득 (월, 식대 등)</label><div class="input-wrap"><input type="number" id="nontax" value="200000" step="10000"><span class="unit">원</span></div></div>
+<button class="calc-btn" onclick="calc11()">계산하기</button></div>
+<div class="card anim-2" id="r11"><div class="card-title">실수령액</div><div class="empty-state"><div class="empty-icon">💴</div><div class="empty-text">연봉을 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+const s=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max);});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value;});};
+s('annual','annR');
+function fw(n){return Math.round(n).toLocaleString()+'원';}
+function calc11(){
+  const ann=parseFloat(document.getElementById('annual').value)||0;
+  const dep=parseInt(document.getElementById('dep').value)||1;
+  const child=parseInt(document.getElementById('child').value)||0;
+  const nt=parseFloat(document.getElementById('nontax').value)||0;
+  const ms=ann/12, mt=Math.max(0,ms-nt);
+  const np=Math.round(Math.min(ms,5900000)*0.045);
+  const hi=Math.round(mt*0.03545);
+  const lt=Math.round(hi*0.1295);
+  const ei=Math.round(mt*0.009);
+  const atx=Math.max(0,ann-Math.min(ann<=5000000?ann*0.7:ann<=15000000?3500000+(ann-5000000)*0.4:ann<=45000000?7500000+(ann-15000000)*0.15:12000000+(ann-45000000)*0.05:14750000,14750000)-1500000*dep-1500000*child);
+  let tax=0;if(atx<=14000000)tax=atx*0.06;else if(atx<=50000000)tax=840000+(atx-14000000)*0.15;else if(atx<=88000000)tax=6240000+(atx-50000000)*0.24;else tax=15360000+(atx-88000000)*0.35;
+  const it=Math.max(0,Math.round(tax/12)), lt2=Math.round(it*0.1);
+  const total=np+hi+lt+ei+it+lt2;
+  const net=Math.round(ms-total);
+  document.getElementById('r11').innerHTML=`<div class="card-title">실수령액</div>
+  <div class="result-item highlight" style="text-align:center;padding:24px;margin-bottom:16px;border:1px solid rgba(0,212,170,0.3);border-radius:10px;background:rgba(0,212,170,0.05)">
+    <div class="result-label">월 실수령액</div><div class="result-value" style="font-size:28px">${net.toLocaleString()}원</div>
+    <div class="result-sub">연 ${Math.round(net*12/10000).toLocaleString()}만원</div>
+  </div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item"><div class="result-label">국민연금</div><div class="result-value" style="font-size:15px">-${fw(np)}</div></div>
+    <div class="result-item"><div class="result-label">건강보험</div><div class="result-value" style="font-size:15px">-${fw(hi)}</div></div>
+    <div class="result-item"><div class="result-label">장기요양</div><div class="result-value" style="font-size:15px">-${fw(lt)}</div></div>
+    <div class="result-item"><div class="result-label">고용보험</div><div class="result-value" style="font-size:15px">-${fw(ei)}</div></div>
+    <div class="result-item"><div class="result-label">소득세</div><div class="result-value" style="font-size:15px">-${fw(it)}</div></div>
+    <div class="result-item danger"><div class="result-label">총 공제액</div><div class="result-value" style="font-size:15px">-${fw(total)}</div></div>
+  </div>`;}
+calc11();
+</script><div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="12-severance.html" class="related-link">👔 퇴직금 계산기<span class="arrow">→</span></a><a href="13-minimum-wage.html" class="related-link">⏰ 최저임금 계산기<span class="arrow">→</span></a><a href="14-insurance.html" class="related-link">🛡️ 4대보험 계산기<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div></div></body></html>

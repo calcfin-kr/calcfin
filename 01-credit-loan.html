@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신용대출 이자 계산기 | CalcFin</title>
+<meta name="description" content="원리금균등·원금균등·만기일시 상환 방식별 월 상환금과 총 이자를 즉시 계산하세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link active">대출</a><a href="index.html#tax" class="nav-link">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header">
+  <div class="header-badge">CREDIT LOAN CALCULATOR</div>
+  <h1>신용대출 <span>이자 계산기</span></h1>
+  <p>원리금균등·원금균등·만기일시 상환 방식 비교 · 월 상환금액과 총 이자를 정확하게 계산하세요</p>
+</div>
+
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">대출 정보 입력</div>
+    <div class="field"><label>대출 금액</label><div class="input-wrap"><input type="number" id="amt" value="30000000" min="100000" step="100000"><span class="unit">원</span></div><input type="range" id="amtR" min="1000000" max="100000000" step="1000000" value="30000000"><div class="slider-labels"><span>100만</span><span>1억</span></div></div>
+    <div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="rate" value="5.5" min="0.1" max="30" step="0.1"><span class="unit">%</span></div><input type="range" id="rateR" min="0.1" max="20" step="0.1" value="5.5"><div class="slider-labels"><span>0.1%</span><span>20%</span></div></div>
+    <div class="field"><label>대출 기간</label><div class="input-wrap"><input type="number" id="term" value="36" min="1" max="360"><span class="unit">개월</span></div><input type="range" id="termR" min="1" max="120" step="1" value="36"><div class="slider-labels"><span>1개월</span><span>120개월</span></div></div>
+    <div class="field"><label>상환 방식</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-m="equal">원리금균등</button>
+        <button class="btn-option" data-m="principal">원금균등</button>
+        <button class="btn-option" data-m="bullet">만기일시</button>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calc()">계산하기</button>
+  </div>
+  <div class="card anim-2" id="summaryCard">
+    <div class="card-title">계산 결과</div>
+    <div class="empty-state"><div class="empty-icon">🧮</div><div class="empty-text">정보를 입력하고 계산하기를 눌러주세요</div></div>
+  </div>
+</div>
+
+<div class="card full-card anim-3" id="detailCard">
+  <div class="empty-state"><div class="empty-icon">📊</div><div class="empty-text">월별 상환 스케줄이 여기에 표시됩니다</div></div>
+</div>
+
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="02-mortgage.html" class="related-link">🏠 주택담보대출 계산기<span class="arrow">→</span></a>
+  <a href="03-jeonse-loan.html" class="related-link">🏢 전세자금대출 계산기<span class="arrow">→</span></a>
+  <a href="04-early-repayment.html" class="related-link">⚡ 중도상환 수수료 계산기<span class="arrow">→</span></a>
+  <a href="05-loan-compare.html" class="related-link">⚖️ 대출 금리 비교 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+
+<script>
+let method='equal';
+const sync=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max);});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value;});};
+sync('amt','amtR');sync('rate','rateR');sync('term','termR');
+document.querySelectorAll('.btn-option').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.btn-option').forEach(x=>x.classList.remove('active'));this.classList.add('active');method=this.dataset.m;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function fwf(n){return Math.round(n).toLocaleString()+'원';}
+function calc(){
+  const p=parseFloat(document.getElementById('amt').value)||0;
+  const ar=parseFloat(document.getElementById('rate').value)||0;
+  const m=parseInt(document.getElementById('term').value)||0;
+  if(!p||!ar||!m)return;
+  const mr=ar/100/12;
+  let sch=[],tp=0,ti=0;
+  if(method==='equal'){
+    const pay=p*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
+    let bal=p;
+    for(let i=1;i<=m;i++){const int=bal*mr;const prn=pay-int;bal-=prn;sch.push({i,pay:Math.round(pay),prn:Math.round(prn),int:Math.round(int),bal:Math.max(0,Math.round(bal))});tp+=pay;ti+=int;}
+  } else if(method==='principal'){
+    const prn=p/m;let bal=p;
+    for(let i=1;i<=m;i++){const int=bal*mr;const pay=prn+int;bal-=prn;sch.push({i,pay:Math.round(pay),prn:Math.round(prn),int:Math.round(int),bal:Math.max(0,Math.round(bal))});tp+=pay;ti+=int;}
+  } else {
+    const int=p*mr;
+    for(let i=1;i<=m;i++){const pay=i===m?p+int:int;sch.push({i,pay:Math.round(pay),prn:i===m?Math.round(p):0,int:Math.round(int),bal:i===m?0:Math.round(p)});tp+=pay;ti+=int;}
+  }
+  const ir=(ti/tp*100).toFixed(1);
+  document.getElementById('summaryCard').innerHTML=`<div class="card-title">계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item highlight"><div class="result-label">월 상환금 (첫달)</div><div class="result-value">${fw(sch[0].pay)}</div><div class="result-sub">${fwf(sch[0].pay)}</div></div>
+    <div class="result-item"><div class="result-label">총 상환금액</div><div class="result-value">${fw(tp)}</div><div class="result-sub">${fwf(tp)}</div></div>
+    <div class="result-item info"><div class="result-label">대출 원금</div><div class="result-value">${fw(p)}</div><div class="result-sub">${fwf(p)}</div></div>
+    <div class="result-item danger"><div class="result-label">총 이자</div><div class="result-value">${fw(ti)}</div><div class="result-sub">${fwf(ti)}</div></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-labels"><span>원금 ${(100-ir)}%</span><span>이자 ${ir}%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="pf" style="background:linear-gradient(90deg,var(--accent2),var(--danger))"></div></div>
+  </div>`;
+  setTimeout(()=>{document.getElementById('pf').style.width=ir+'%';},100);
+  const rows=sch.slice(0,12).map(r=>`<tr><td>${r.i}회</td><td>${r.pay.toLocaleString()}</td><td class="td-accent2">${r.prn.toLocaleString()}</td><td class="td-danger">${r.int.toLocaleString()}</td><td class="td-muted">${r.bal.toLocaleString()}</td></tr>`).join('');
+  document.getElementById('detailCard').innerHTML=`<div class="section-title">월별 상환 스케줄 ${m>12?'(상위 12개월)':''}</div><div class="table-wrap"><table><thead><tr><th>회차</th><th>상환금(원)</th><th>원금(원)</th><th>이자(원)</th><th>잔액(원)</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+calc();
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>양도소득세 계산기 | CalcFin</title><meta name="description" content="부동산·주식 양도소득세를 계산하세요."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link">대출</a><a href="index.html#tax" class="nav-link active">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">CAPITAL GAINS TAX CALCULATOR</div><h1>양도소득세 <span>계산기</span></h1><p>부동산·주식 매도 시 양도차익 대비 세금 · 장기보유특별공제 자동 적용</p></div>
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">양도 정보 입력</div>
+    <div class="field"><label>취득가액</label><div class="input-wrap"><input type="number" id="buy" value="300000000" step="10000000"><span class="unit">원</span></div></div>
+    <div class="field"><label>양도가액</label><div class="input-wrap"><input type="number" id="sell" value="500000000" step="10000000"><span class="unit">원</span></div></div>
+    <div class="field"><label>필요경비 (중개수수료·취득세 등)</label><div class="input-wrap"><input type="number" id="cost" value="10000000" step="1000000"><span class="unit">원</span></div></div>
+    <div class="field"><label>보유 기간</label>
+      <div class="btn-group">
+        <button class="btn-option" data-y="0">1년 미만</button>
+        <button class="btn-option" data-y="1">1~2년</button>
+        <button class="btn-option active" data-y="3">3~5년</button>
+        <button class="btn-option" data-y="10">10년+</button>
+      </div>
+    </div>
+    <div class="field"><label>현재 보유 주택 수</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-h="1">1주택</button>
+        <button class="btn-option" data-h="2">2주택</button>
+        <button class="btn-option" data-h="3">3주택+</button>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calc()">계산하기</button>
+  </div>
+  <div class="card anim-2" id="result">
+    <div class="card-title">양도세 계산 결과</div>
+    <div class="empty-state"><div class="empty-icon">📈</div><div class="empty-text">양도 정보를 입력하고 계산하세요</div></div>
+  </div>
+</div>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="08-acquisition-tax.html" class="related-link">🏛️ 취득세 계산기<span class="arrow">→</span></a>
+  <a href="10-inheritance-tax.html" class="related-link">📜 상속·증여세 계산기<span class="arrow">→</span></a>
+  <a href="16-rent-roi.html" class="related-link">📊 임대수익률 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+<script>
+let holdYear=3,houses=1;
+document.querySelectorAll('[data-y]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-y]').forEach(x=>x.classList.remove('active'));this.classList.add('active');holdYear=parseInt(this.dataset.y);}));
+document.querySelectorAll('[data-h]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-h]').forEach(x=>x.classList.remove('active'));this.classList.add('active');houses=parseInt(this.dataset.h);}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function calc(){
+  const buy=parseFloat(document.getElementById('buy').value)||0;
+  const sell=parseFloat(document.getElementById('sell').value)||0;
+  const cost=parseFloat(document.getElementById('cost').value)||0;
+  const gain=sell-buy-cost;
+  if(gain<=0){document.getElementById('result').innerHTML='<div class="card-title">계산 결과</div><div class="result-item danger" style="text-align:center;padding:24px;margin:0"><div class="result-label">양도차익 없음</div><div class="result-value">손실 발생</div></div>';return;}
+  let dedRate=0;
+  if(holdYear>=10&&houses===1)dedRate=0.8;
+  else if(holdYear>=10)dedRate=0.3;
+  else if(holdYear>=5&&houses===1)dedRate=0.4;
+  else if(holdYear>=5)dedRate=0.15;
+  else if(holdYear>=3)dedRate=0.06;
+  const ded=Math.round(gain*dedRate);
+  const basic=2500000;
+  let taxBase=Math.max(0,gain-ded-basic);
+  let baseRate=0;
+  if(holdYear===0)baseRate=0.70;
+  else if(holdYear===1)baseRate=0.60;
+  else if(houses>=2)baseRate=houses>=3?0.60+0.30:0.60+0.20;
+  let tax=0;
+  if(baseRate>0)tax=taxBase*baseRate;
+  else{if(taxBase<=14000000)tax=taxBase*0.06;else if(taxBase<=50000000)tax=840000+(taxBase-14000000)*0.15;else if(taxBase<=88000000)tax=6240000+(taxBase-50000000)*0.24;else if(taxBase<=150000000)tax=15360000+(taxBase-88000000)*0.35;else tax=37060000+(taxBase-150000000)*0.38;}
+  const local=Math.round(tax*0.1);
+  document.getElementById('result').innerHTML=`
+  <div class="card-title">양도세 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">양도차익</div><div class="result-value">${fw(gain)}</div></div>
+    <div class="result-item"><div class="result-label">장기보유공제 (${(dedRate*100).toFixed(0)}%)</div><div class="result-value">-${fw(ded)}</div></div>
+    <div class="result-item"><div class="result-label">과세표준</div><div class="result-value">${fw(taxBase)}</div></div>
+    <div class="result-item danger"><div class="result-label">양도소득세</div><div class="result-value">${fw(Math.round(tax))}</div></div>
+    <div class="result-item info"><div class="result-label">지방소득세</div><div class="result-value">${fw(local)}</div></div>
+    <div class="result-item highlight"><div class="result-label">총 납부세액</div><div class="result-value">${fw(Math.round(tax)+local)}</div></div>
+  </div>`;
+}
+calc();
+</script>
+</body></html>

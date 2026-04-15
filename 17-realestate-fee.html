@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부동산 중개수수료 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link ">급여</a>
+<a href="index.html#realestate" class="nav-link active">부동산</a>
+<a href="index.html#investment" class="nav-link ">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">REALTOR FEE CALCULATOR</div><h1>부동산 중개수수료 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">거래 정보 입력</div>
+<div class="field"><label>거래 유형</label><div class="btn-group"><button class="btn-option active" data-t="매매">매매</button><button class="btn-option" data-t="전세">전세</button><button class="btn-option" data-t="월세">월세</button></div></div>
+<div class="field"><label>거래 금액 (매매가 또는 전세금)</label><div class="input-wrap"><input type="number" id="price" value="500000000" step="10000000"><span class="unit">원</span></div></div>
+<div class="field" id="wolField" style="display:none"><label>월세</label><div class="input-wrap"><input type="number" id="monthly" value="500000" step="10000"><span class="unit">원</span></div></div>
+<button class="calc-btn" onclick="c17()">계산하기</button></div>
+<div class="card anim-2" id="r17"><div class="card-title">중개수수료 계산 결과</div><div class="empty-state"><div class="empty-icon">🤝</div><div class="empty-text">거래 정보를 입력하고 계산하세요</div></div></div>
+</div>
+<div class="card full-card anim-3"><div class="section-title">법정 중개수수료 상한요율표</div>
+<div class="table-wrap"><table><thead><tr><th>거래유형</th><th>거래금액</th><th>상한요율</th></tr></thead><tbody>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">5천만 미만</td><td class="td-accent">0.6%</td></tr>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">5천만~2억</td><td class="td-accent">0.5%</td></tr>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">2억~9억</td><td class="td-accent">0.4%</td></tr>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">9억~12억</td><td class="td-gold">0.5%</td></tr>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">12억~15억</td><td class="td-gold">0.6%</td></tr>
+<tr><td style="text-align:left">매매</td><td style="text-align:left">15억 이상</td><td class="td-danger">0.7%</td></tr>
+</tbody></table></div></div>
+<script>
+let type17='매매';
+document.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-t]').forEach(x=>x.classList.remove('active'));this.classList.add('active');type17=this.dataset.t;document.getElementById('wolField').style.display=type17==='월세'?'':'none';}));
+function fw(n){return Math.round(n).toLocaleString()+'원';}
+function c17(){
+  const p=parseFloat(document.getElementById('price').value)||0;
+  const m=parseFloat(document.getElementById('monthly').value)||0;
+  let base=p,rate=0;
+  if(type17==='매매'){if(p<50000000)rate=0.006;else if(p<200000000)rate=0.005;else if(p<900000000)rate=0.004;else if(p<1200000000)rate=0.005;else if(p<1500000000)rate=0.006;else rate=0.007;}
+  else if(type17==='전세'){if(p<50000000)rate=0.005;else if(p<100000000)rate=0.004;else if(p<300000000)rate=0.003;else if(p<600000000)rate=0.004;else rate=0.005;}
+  else{base=p+m*100;if(base<50000000)rate=0.005;else if(base<100000000)rate=0.004;else rate=0.003;}
+  const fee=Math.round(base*rate);
+  const maxFee={매매:{50000000:250000,200000000:800000},전세:{50000000:200000}}[type17];
+  document.getElementById('r17').innerHTML=`<div class="card-title">중개수수료 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item"><div class="result-label">적용 요율</div><div class="result-value">${(rate*100).toFixed(2)}%</div></div>
+    <div class="result-item highlight"><div class="result-label">중개수수료 상한액</div><div class="result-value">${fw(fee)}</div></div>
+    <div class="result-item info"><div class="result-label">부가세 포함 (10%)</div><div class="result-value">${fw(Math.round(fee*1.1))}</div></div>
+    <div class="result-item gold"><div class="result-label">거래 유형</div><div class="result-value" style="font-size:16px">${type17}</div></div>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:'DM Mono',monospace;">
+    💡 중개수수료는 상한액 이내에서 중개사와 협의 가능합니다
+  </div>`;}
+c17();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="02-mortgage.html" class="related-link">🏠 주택담보대출<span class="arrow">→</span></a><a href="08-acquisition-tax.html" class="related-link">🏛️ 취득세 계산기<span class="arrow">→</span></a><a href="15-jeonse-convert.html" class="related-link">🔄 전월세전환<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>

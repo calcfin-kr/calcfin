@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>취득세 계산기 | CalcFin</title><meta name="description" content="주택 취득세를 계산하세요. 농특세·지방교육세 포함."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link">대출</a><a href="index.html#tax" class="nav-link active">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">ACQUISITION TAX CALCULATOR</div><h1>취득세 <span>계산기</span></h1><p>주택 보유 수·가격별 취득세율 자동 적용 · 농특세·지방교육세 포함 계산</p></div>
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">주택 정보 입력</div>
+    <div class="field"><label>주택 취득가액</label><div class="input-wrap"><input type="number" id="price" value="500000000" step="10000000"><span class="unit">원</span></div><input type="range" id="priceR" min="10000000" max="3000000000" step="10000000" value="500000000"><div class="slider-labels"><span>1천만</span><span>30억</span></div></div>
+    <div class="field"><label>현재 보유 주택 수 (취득 전)</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-h="0">무주택</button>
+        <button class="btn-option" data-h="1">1주택</button>
+        <button class="btn-option" data-h="2">2주택</button>
+        <button class="btn-option" data-h="3">3주택+</button>
+      </div>
+    </div>
+    <div class="field"><label>지역 유형</label>
+      <div class="btn-group">
+        <button class="btn-option active" data-a="조정">조정대상지역</button>
+        <button class="btn-option" data-a="비조정">비조정지역</button>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calc()">계산하기</button>
+  </div>
+  <div class="card anim-2" id="result">
+    <div class="card-title">취득세 계산 결과</div>
+    <div class="empty-state"><div class="empty-icon">🏛️</div><div class="empty-text">주택 정보를 입력하고 계산하세요</div></div>
+  </div>
+</div>
+<div class="card full-card anim-3">
+  <div class="section-title">취득세율표 (2025년 기준)</div>
+  <div class="table-wrap"><table><thead><tr><th>구분</th><th>6억 이하</th><th>6~9억</th><th>9억 초과</th></tr></thead><tbody>
+  <tr><td style="text-align:left">무주택 (1주택 취득)</td><td class="td-accent">1%</td><td class="td-gold">1~3%</td><td class="td-gold">3%</td></tr>
+  <tr><td style="text-align:left">1주택 → 2주택 (조정)</td><td class="td-danger">8%</td><td class="td-danger">8%</td><td class="td-danger">8%</td></tr>
+  <tr><td style="text-align:left">1주택 → 2주택 (비조정)</td><td class="td-accent">1%</td><td class="td-gold">3%</td><td class="td-gold">3%</td></tr>
+  <tr><td style="text-align:left">3주택 이상 (조정)</td><td class="td-danger">12%</td><td class="td-danger">12%</td><td class="td-danger">12%</td></tr>
+  </tbody></table></div>
+</div>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="02-mortgage.html" class="related-link">🏠 주택담보대출 계산기<span class="arrow">→</span></a>
+  <a href="09-capital-gains.html" class="related-link">📈 양도소득세 계산기<span class="arrow">→</span></a>
+  <a href="15-jeonse-convert.html" class="related-link">🔄 전월세전환 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+<script>
+let houses=0,area='조정';
+const sync=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max);});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value;});};
+sync('price','priceR');
+document.querySelectorAll('[data-h]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-h]').forEach(x=>x.classList.remove('active'));this.classList.add('active');houses=parseInt(this.dataset.h);}));
+document.querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-a]').forEach(x=>x.classList.remove('active'));this.classList.add('active');area=this.dataset.a;}));
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function calc(){
+  const p=parseFloat(document.getElementById('price').value)||0;
+  let rate=0;
+  if(houses===0){if(p<=600000000)rate=0.01;else if(p<=900000000)rate=((p-600000000)/300000000)*0.02+0.01;else rate=0.03;}
+  else if(houses===1){if(area==='조정')rate=0.08;else{if(p<=600000000)rate=0.01;else if(p<=900000000)rate=0.03;else rate=0.03;}}
+  else if(houses===2){if(area==='조정')rate=0.12;else rate=0.08;}
+  else rate=0.12;
+  const acq=Math.round(p*rate);
+  const farm=rate<=0.01?Math.round(p*0.002):0;
+  const edu=Math.round(p*rate*0.1);
+  const total=acq+farm+edu;
+  document.getElementById('result').innerHTML=`
+  <div class="card-title">취득세 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item"><div class="result-label">취득세율</div><div class="result-value">${(rate*100).toFixed(1)}%</div></div>
+    <div class="result-item danger"><div class="result-label">취득세</div><div class="result-value">${fw(acq)}</div></div>
+    <div class="result-item info"><div class="result-label">농어촌특별세</div><div class="result-value">${fw(farm)}</div></div>
+    <div class="result-item info"><div class="result-label">지방교육세</div><div class="result-value">${fw(edu)}</div></div>
+  </div>
+  <div class="result-item highlight" style="text-align:center;padding:20px;border:1px solid rgba(0,212,170,0.3);border-radius:10px;background:rgba(0,212,170,0.05)">
+    <div class="result-label">총 납부세액</div>
+    <div class="result-value" style="font-size:28px">${fw(total)}</div>
+  </div>`;
+}
+calc();
+</script>
+</body></html>

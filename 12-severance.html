@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퇴직금 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link active">급여</a>
+<a href="index.html#realestate" class="nav-link ">부동산</a>
+<a href="index.html#investment" class="nav-link ">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">SEVERANCE CALCULATOR</div><h1>퇴직금 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">근무 정보 입력</div>
+<div class="field"><label>입사일</label><input type="date" id="start" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:DM Mono,monospace;font-size:14px;outline:none;" value="2020-01-01"></div>
+<div class="field"><label>퇴사일</label><input type="date" id="end" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:DM Mono,monospace;font-size:14px;outline:none;" value="2025-01-01"></div>
+<div class="field"><label>최근 3개월 평균 임금 (월)</label><div class="input-wrap"><input type="number" id="wage" value="3500000" step="100000"><span class="unit">원</span></div></div>
+<div class="field"><label>퇴직금 추가 수당 (상여 등 1/12)</label><div class="input-wrap"><input type="number" id="bonus" value="0" step="10000"><span class="unit">원</span></div></div>
+<button class="calc-btn" onclick="c12()">계산하기</button></div>
+<div class="card anim-2" id="r12"><div class="card-title">퇴직금 계산 결과</div><div class="empty-state"><div class="empty-icon">👔</div><div class="empty-text">근무 기간과 임금을 입력하세요</div></div></div>
+</div>
+<script>
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function c12(){
+  const s=new Date(document.getElementById('start').value);
+  const e=new Date(document.getElementById('end').value);
+  const days=Math.floor((e-s)/86400000);
+  const years=days/365;
+  if(years<1){document.getElementById('r12').innerHTML='<div class="result-item danger" style="padding:24px;text-align:center"><div class="result-label">퇴직금 미발생</div><div class="result-value">근속 1년 미만</div></div>';return;}
+  const w=parseFloat(document.getElementById('wage').value)||0;
+  const b=parseFloat(document.getElementById('bonus').value)||0;
+  const daily=(w+b)/30;
+  const ret=Math.round(daily*30*years);
+  document.getElementById('r12').innerHTML=`<div class="card-title">퇴직금 계산 결과</div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">근속 기간</div><div class="result-value">${Math.floor(years)}년 ${Math.floor((years%1)*12)}개월</div></div>
+    <div class="result-item"><div class="result-label">일 평균임금</div><div class="result-value">${fw(Math.round(daily))}</div></div>
+    <div class="result-item highlight" style="grid-column:1/-1"><div class="result-label">퇴직금 (법정)</div><div class="result-value" style="font-size:28px">${fw(ret)}</div><div class="result-sub">일 평균임금 × 30일 × 근속연수</div></div>
+  </div>`;}
+c12();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="11-salary.html" class="related-link">💴 연봉 실수령액<span class="arrow">→</span></a><a href="13-minimum-wage.html" class="related-link">⏰ 최저임금 계산기<span class="arrow">→</span></a><a href="14-insurance.html" class="related-link">🛡️ 4대보험 계산기<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>

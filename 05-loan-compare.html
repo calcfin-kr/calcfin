@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>대출 금리 비교 계산기 | CalcFin</title><meta name="description" content="두 대출 상품을 비교하고 총이자 차이를 분석하세요."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css"></head>
+<body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links"><a href="index.html#loan" class="nav-link active">대출</a><a href="index.html#tax" class="nav-link">세금</a><a href="index.html#salary" class="nav-link">급여</a><a href="index.html#realestate" class="nav-link">부동산</a><a href="index.html#investment" class="nav-link">투자</a></div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">LOAN COMPARE CALCULATOR</div><h1>대출 금리 비교 <span>계산기</span></h1><p>두 가지 대출 상품을 나란히 비교 · 총이자 차이와 월 납입금 비교</p></div>
+<div class="two-col">
+  <div class="card anim-1">
+    <div class="card-title">대출 A</div>
+    <div class="field"><label>대출 금액 (동일 적용)</label><div class="input-wrap"><input type="number" id="amt" value="30000000" step="1000000"><span class="unit">원</span></div></div>
+    <div class="field"><label>대출 기간 (개월, 동일 적용)</label><div class="input-wrap"><input type="number" id="term" value="36" min="1" max="360"><span class="unit">개월</span></div></div>
+    <div class="field"><label>A 은행 이자율</label><div class="input-wrap"><input type="number" id="rateA" value="4.5" min="0.1" max="30" step="0.1"><span class="unit">%</span></div></div>
+    <div class="field"><label>A 취급 수수료 (일시불)</label><div class="input-wrap"><input type="number" id="feeA" value="0" min="0" step="10000"><span class="unit">원</span></div></div>
+  </div>
+  <div class="card anim-2">
+    <div class="card-title">대출 B</div>
+    <div style="height:70px"></div>
+    <div class="field"><label>B 은행 이자율</label><div class="input-wrap"><input type="number" id="rateB" value="5.2" min="0.1" max="30" step="0.1"><span class="unit">%</span></div></div>
+    <div class="field"><label>B 취급 수수료 (일시불)</label><div class="input-wrap"><input type="number" id="feeB" value="0" min="0" step="10000"><span class="unit">원</span></div></div>
+    <div style="height:20px"></div>
+    <button class="calc-btn" onclick="calc()">비교하기</button>
+  </div>
+</div>
+<div class="card full-card anim-3" id="result">
+  <div class="empty-state"><div class="empty-icon">⚖️</div><div class="empty-text">두 대출의 금리를 입력하고 비교하세요</div></div>
+</div>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid">
+  <a href="01-credit-loan.html" class="related-link">💳 신용대출 이자 계산기<span class="arrow">→</span></a>
+  <a href="02-mortgage.html" class="related-link">🏠 주택담보대출 계산기<span class="arrow">→</span></a>
+  <a href="04-early-repayment.html" class="related-link">⚡ 중도상환 수수료 계산기<span class="arrow">→</span></a>
+</div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div>
+<script>
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function loanCalc(p,ar,m){const mr=ar/100/12;const pay=p*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);return{pay:Math.round(pay),total:Math.round(pay*m),interest:Math.round(pay*m-p)};}
+function calc(){
+  const amt=parseFloat(document.getElementById('amt').value)||0;
+  const term=parseInt(document.getElementById('term').value)||0;
+  const rA=parseFloat(document.getElementById('rateA').value)||0;
+  const rB=parseFloat(document.getElementById('rateB').value)||0;
+  const fA=parseFloat(document.getElementById('feeA').value)||0;
+  const fB=parseFloat(document.getElementById('feeB').value)||0;
+  const A=loanCalc(amt,rA,term), B=loanCalc(amt,rB,term);
+  const totalA=A.interest+fA, totalB=B.interest+fB;
+  const winner=totalA<=totalB?'A':'B';
+  const diff=Math.abs(totalA-totalB);
+  document.getElementById('result').innerHTML=`
+  <div class="result-hero result-grid-4" style="margin-bottom:20px">
+    <div class="result-item ${winner==='A'?'highlight':''}"><div class="result-label">A 월 상환금</div><div class="result-value">${A.pay.toLocaleString()}원</div></div>
+    <div class="result-item ${winner==='A'?'highlight':''}"><div class="result-label">A 총 이자+수수료</div><div class="result-value">${fw(totalA)}</div></div>
+    <div class="result-item ${winner==='B'?'highlight':''}"><div class="result-label">B 월 상환금</div><div class="result-value">${B.pay.toLocaleString()}원</div></div>
+    <div class="result-item ${winner==='B'?'highlight':''}"><div class="result-label">B 총 이자+수수료</div><div class="result-value">${fw(totalB)}</div></div>
+  </div>
+  <div class="result-item" style="text-align:center;padding:24px;background:rgba(0,212,170,0.05);border:1px solid rgba(0,212,170,0.2);border-radius:10px;">
+    <div class="result-label">최적 선택</div>
+    <div style="font-family:'DM Mono',monospace;font-size:32px;color:var(--accent);margin:10px 0">대출 ${winner}가 유리</div>
+    <div style="color:var(--text-muted);font-family:'DM Mono',monospace;font-size:13px">총 ${fw(diff)} 절약 가능 (${term}개월 기준)</div>
+  </div>`;
+}
+calc();
+</script>
+</body></html>

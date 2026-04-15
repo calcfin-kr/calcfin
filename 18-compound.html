@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복리 계산기 | CalcFin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css"></head><body>
+<nav class="site-nav"><div class="site-nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><div class="nav-links">
+<a href="index.html#loan" class="nav-link">대출</a>
+<a href="index.html#tax" class="nav-link">세금</a>
+<a href="index.html#salary" class="nav-link ">급여</a>
+<a href="index.html#realestate" class="nav-link ">부동산</a>
+<a href="index.html#investment" class="nav-link active">투자</a>
+</div></div></nav>
+<div class="container">
+<div class="page-header"><div class="header-badge">COMPOUND INTEREST CALCULATOR</div><h1>복리 <span>계산기</span></h1></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">투자 정보 입력</div>
+<div class="field"><label>초기 투자금</label><div class="input-wrap"><input type="number" id="init" value="10000000" step="1000000"><span class="unit">원</span></div></div>
+<div class="field"><label>월 적립액</label><div class="input-wrap"><input type="number" id="monthly" value="500000" step="10000"><span class="unit">원</span></div></div>
+<div class="field"><label>연 수익률</label><div class="input-wrap"><input type="number" id="rate" value="7" min="0.1" max="30" step="0.1"><span class="unit">%</span></div><input type="range" id="rateR" min="1" max="20" step="0.1" value="7"><div class="slider-labels"><span>1%</span><span>20%</span></div></div>
+<div class="field"><label>투자 기간</label><div class="input-wrap"><input type="number" id="years" value="20" min="1" max="50"><span class="unit">년</span></div></div>
+<button class="calc-btn" onclick="c18()">계산하기</button></div>
+<div class="card anim-2" id="r18"><div class="card-title">복리 수익 결과</div><div class="empty-state"><div class="empty-icon">🌱</div><div class="empty-text">투자 정보를 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+const sr=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max);});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value;});};
+sr('rate','rateR');
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return n.toLocaleString()+'원';}
+function c18(){
+  const init=parseFloat(document.getElementById('init').value)||0;
+  const mo=parseFloat(document.getElementById('monthly').value)||0;
+  const r=parseFloat(document.getElementById('rate').value)||0;
+  const y=parseInt(document.getElementById('years').value)||0;
+  const mr=r/100/12, months=y*12;
+  let bal=init;
+  for(let i=0;i<months;i++){bal=bal*(1+mr)+mo;}
+  const total=Math.round(bal);
+  const invested=init+mo*months;
+  const profit=total-invested;
+  document.getElementById('r18').innerHTML=`<div class="card-title">복리 수익 결과</div>
+  <div class="result-item highlight" style="text-align:center;padding:24px;margin-bottom:16px;border:1px solid rgba(0,212,170,0.3);border-radius:10px;background:rgba(0,212,170,0.05)">
+    <div class="result-label">${y}년 후 총 자산</div>
+    <div class="result-value" style="font-size:32px">${fw(total)}</div>
+  </div>
+  <div class="result-hero result-grid-2">
+    <div class="result-item info"><div class="result-label">총 투자원금</div><div class="result-value">${fw(invested)}</div></div>
+    <div class="result-item gold"><div class="result-label">복리 수익</div><div class="result-value">${fw(profit)}</div><div class="result-sub">수익률 ${((profit/invested)*100).toFixed(1)}%</div></div>
+  </div>`;}
+c18();
+</script>
+<div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+<div class="related-grid"><a href="19-savings.html" class="related-link">🏦 예·적금 이자<span class="arrow">→</span></a><a href="20-pension.html" class="related-link">🎯 노후연금 계산기<span class="arrow">→</span></a><a href="11-salary.html" class="related-link">💴 연봉 실수령액<span class="arrow">→</span></a></div>
+<div class="site-footer">© 2025 CalcFin · 참고용 계산기입니다</div>
+</div></body></html>
