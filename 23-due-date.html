@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>출산 예정일 계산기 | CalcFin</title><meta name="description" content="출산 예정일 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DUE DATE</div><h1>출산 예정일 <span>계산기</span></h1><p>마지막 생리 시작일로 출산 예정일을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">생리 정보</div>
+<div class="field"><label>마지막 생리 시작일 (LMP)</label><div class="input-wrap"><input type="date" id="lmp" style="padding-right:14px;font-size:14px"></div></div>
+<div class="field"><label>생리 주기</label><div class="btn-group"><button class="btn-opt active" data-c="28">28일</button><button class="btn-opt" data-c="30">30일</button><button class="btn-opt" data-c="35">35일</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🤱</div><div>마지막 생리 시작일을 입력하고 계산하세요</div></div></div></div>
+<script>
+let cycle=28;document.querySelectorAll('[data-c]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-c]').forEach(x=>x.classList.remove('active'));this.classList.add('active');cycle=+this.dataset.c}));
+function fmt(d){return d.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'})}
+document.getElementById('lmp').valueAsDate=new Date(Date.now()-30*86400000);
+function calc(){
+  const lmp=new Date(document.getElementById('lmp').value);if(isNaN(lmp))return;
+  const adj=cycle-28,due=new Date(lmp.getTime()+(280+adj)*86400000);
+  const now=new Date(),ddays=Math.round((due-now)/86400000);
+  const weeks=Math.floor((now-lmp)/86400000/7),wdays=Math.floor(((now-lmp)/86400000)%7);
+  const trimester=weeks<14?'1삼분기 (1~13주)':weeks<28?'2삼분기 (14~27주)':'3삼분기 (28주~)';
+  document.getElementById('res').innerHTML=`<div class="card-title">출산 예정일 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">출산 예정일</div><div class="rv" style="font-size:16px">${fmt(due)}</div></div><div class="ri gold"><div class="rl">D-Day</div><div class="rv">${ddays>0?'D-'+ddays:'D+'+Math.abs(ddays)}</div></div><div class="ri info"><div class="rl">현재 임신 주수</div><div class="rv">${weeks}주 ${wdays}일</div></div><div class="ri"><div class="rl">삼분기</div><div class="rv" style="font-size:13px">${trimester}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

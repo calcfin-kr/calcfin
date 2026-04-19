@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>복리 계산기 | CalcFin</title><meta name="description" content="원금+월적립 복리 수익 시뮬레이션"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">COMPOUND INTEREST</div><h1>복리 <span>계산기</span></h1><p>초기 투자금과 월 적립액으로 복리 수익을 계산합니다</p></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">투자 정보</div>
+<div class="field"><label>초기 투자금</label><div class="input-wrap"><input type="number" id="init" value="10000000" step="1000000"><span class="unit">원</span></div></div>
+<div class="field"><label>월 적립액</label><div class="input-wrap"><input type="number" id="monthly" value="500000" step="10000"><span class="unit">원</span></div></div>
+<div class="field"><label>연 수익률</label><div class="input-wrap"><input type="number" id="rate" value="7" min="0.1" max="30" step="0.1"><span class="unit">%</span></div><input type="range" id="rateR" min="1" max="20" step="0.1" value="7"><div class="slider-labels"><span>1%</span><span>20%</span></div></div>
+<div class="field"><label>투자 기간</label><div class="input-wrap"><input type="number" id="yrs" value="20" min="1" max="50"><span class="unit">년</span></div><input type="range" id="yrsR" min="1" max="50" step="1" value="20"><div class="slider-labels"><span>1년</span><span>50년</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🌱</div><div>정보를 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max)});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value})};
+sy('rate','rateR');sy('yrs','yrsR');
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const init=+document.getElementById('init').value,mo=+document.getElementById('monthly').value,r=+document.getElementById('rate').value,y=+document.getElementById('yrs').value;
+  const mr=r/100/12,months=y*12;
+  let bal=init;
+  for(let i=0;i<months;i++) bal=bal*(1+mr)+mo;
+  const total=Math.round(bal),invested=init+mo*months,profit=total-invested;
+  const roi=((profit/invested)*100).toFixed(1);
+  document.getElementById('res').innerHTML=`<div class="card-title">복리 수익 결과</div>
+  <div class="ri hl" style="padding:24px;text-align:center;margin-bottom:14px;border:1px solid rgba(0,212,170,.3);border-radius:10px;background:rgba(0,212,170,.05)"><div class="rl">${y}년 후 총 자산</div><div class="rv" style="font-size:28px">${fw(total)}</div></div>
+  <div class="result-hero r2"><div class="ri info"><div class="rl">총 투자원금</div><div class="rv">${fw(invested)}</div></div><div class="ri gold"><div class="rl">복리 수익</div><div class="rv">${fw(profit)}</div><div class="rs">수익률 ${roi}%</div></div></div>
+  <div class="prog-wrap"><div class="prog-labels"><span>원금 ${(100-+roi>0?(100-+roi).toFixed(1):0)}%</span><span>수익 ${roi}%</span></div><div class="prog-track"><div class="prog-fill" id="pf" style="background:linear-gradient(90deg,var(--accent),var(--gold))"></div></div></div>`;
+  setTimeout(()=>{document.getElementById('pf').style.width=Math.min(+roi,100)+'%'},100)
+}
+calc();
+</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

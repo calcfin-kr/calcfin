@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>원가 계산기 | CalcFin</title><meta name="description" content="원가 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">COST CALCULATOR</div><h1>원가 <span>계산기</span></h1><p>원가·판가·마진·이익률을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">원가 정보</div>
+<div class="field"><label>계산 방식</label><div class="btn-group"><button class="btn-opt active" data-m="cost2price">원가+마진율 → 판매가</button><button class="btn-opt" data-m="price2margin">원가+판매가 → 마진율</button></div></div>
+<div class="field"><label>원가 (매입가)</label><div class="input-wrap"><input type="number" id="cost" value="10000" step="100"><span class="unit">원</span></div></div>
+<div class="field" id="marginField"><label>목표 마진율</label><div class="input-wrap"><input type="number" id="margin" value="40" min="0" max="99" step="0.1"><span class="unit">%</span></div></div>
+<div class="field" id="priceField" style="display:none"><label>판매가</label><div class="input-wrap"><input type="number" id="price" value="15000" step="100"><span class="unit">원</span></div></div>
+<div class="field"><label>부가세 포함 여부</label><div class="btn-group"><button class="btn-opt active" data-v="0">VAT 별도</button><button class="btn-opt" data-v="1">VAT 포함</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🏭</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let mode='cost2price',vat=0;
+document.querySelectorAll('[data-m]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-m]').forEach(x=>x.classList.remove('active'));this.classList.add('active');mode=this.dataset.m;document.getElementById('marginField').style.display=mode==='cost2price'?'':'none';document.getElementById('priceField').style.display=mode==='price2margin'?'':'none'}));
+document.querySelectorAll('[data-v]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-v]').forEach(x=>x.classList.remove('active'));this.classList.add('active');vat=+this.dataset.v}));
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const cost=+document.getElementById('cost').value;
+  let price,margin,profit;
+  if(mode==='cost2price'){margin=+document.getElementById('margin').value;price=Math.round(cost/(1-margin/100));profit=price-cost}
+  else{price=+document.getElementById('price').value;profit=price-cost;margin=((profit/price)*100).toFixed(1)}
+  const vatAmt=vat?Math.round(price*0.1):0,finalPrice=price+vatAmt;
+  document.getElementById('res').innerHTML=`<div class="card-title">원가 계산 결과</div><div class="result-hero r2"><div class="ri info"><div class="rl">원가</div><div class="rv">${fw(cost)}</div></div><div class="ri hl"><div class="rl">판매가 (VAT 전)</div><div class="rv">${fw(price)}</div></div><div class="ri gold"><div class="rl">마진율</div><div class="rv">${margin}%</div></div><div class="ri"><div class="rl">이익 금액</div><div class="rv">${fw(profit)}</div></div>${vat?`<div class="ri"><div class="rl">부가세 (10%)</div><div class="rv">${fw(vatAmt)}</div></div><div class="ri danger"><div class="rl">최종 판매가</div><div class="rv">${fw(finalPrice)}</div></div>`:''}</div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

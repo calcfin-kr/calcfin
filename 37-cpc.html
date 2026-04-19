@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>광고 CPC 계산기 | CalcFin</title><meta name="description" content="광고 CPC 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">CPC CALCULATOR</div><h1>광고 CPC <span>계산기</span></h1><p>클릭당 비용(CPC) 광고비와 클릭수를 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">광고 정보</div>
+<div class="field"><label>계산 방식</label><div class="btn-group"><button class="btn-opt active" data-m="budget2clicks">예산+CPC → 클릭수</button><button class="btn-opt" data-m="clicks2budget">클릭수+CPC → 예산</button><button class="btn-opt" data-m="calc-cpc">예산+클릭 → CPC</button></div></div>
+<div class="field" id="budgetF"><label>광고 예산</label><div class="input-wrap"><input type="number" id="budget" value="500000" step="10000"><span class="unit">원</span></div></div>
+<div class="field" id="cpcF"><label>CPC (클릭당 비용)</label><div class="input-wrap"><input type="number" id="cpc" value="500" step="10"><span class="unit">원</span></div></div>
+<div class="field" id="clicksF" style="display:none"><label>클릭 수</label><div class="input-wrap"><input type="number" id="clicks" value="1000" step="10"><span class="unit">회</span></div></div>
+<div class="field"><label>전환율 (CTR→구매)</label><div class="input-wrap"><input type="number" id="cvr" value="3" min="0" max="100" step="0.1"><span class="unit">%</span></div></div>
+<div class="field"><label>전환당 수익 (객단가)</label><div class="input-wrap"><input type="number" id="value" value="30000" step="1000"><span class="unit">원</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">📣</div><div>광고 정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let mode='budget2clicks';
+document.querySelectorAll('[data-m]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-m]').forEach(x=>x.classList.remove('active'));this.classList.add('active');mode=this.dataset.m;
+document.getElementById('budgetF').style.display=mode!=='clicks2budget'?'':'none';
+document.getElementById('cpcF').style.display=mode!=='calc-cpc'?'':'none';
+document.getElementById('clicksF').style.display=mode!=='budget2clicks'?'':'none'}));
+function fw(n){return Math.round(n).toLocaleString()}
+function calc(){
+  const budget=+document.getElementById('budget').value,cpc=+document.getElementById('cpc').value,clicks_in=+document.getElementById('clicks').value;
+  const cvr=+document.getElementById('cvr').value/100,val=+document.getElementById('value').value;
+  let totalClicks,totalBudget,actualCPC;
+  if(mode==='budget2clicks'){actualCPC=cpc;totalBudget=budget;totalClicks=Math.floor(budget/cpc)}
+  else if(mode==='clicks2budget'){actualCPC=cpc;totalClicks=clicks_in;totalBudget=clicks_in*cpc}
+  else{totalClicks=clicks_in;totalBudget=budget;actualCPC=budget/clicks_in}
+  const conversions=Math.floor(totalClicks*cvr),revenue=conversions*val,roas=totalBudget>0?((revenue/totalBudget)*100).toFixed(0):0;
+  const profit=revenue-totalBudget;
+  document.getElementById('res').innerHTML=`<div class="card-title">CPC 광고 분석</div><div class="result-hero r2"><div class="ri hl"><div class="rl">총 클릭 수</div><div class="rv">${fw(totalClicks)}회</div></div><div class="ri"><div class="rl">총 광고비</div><div class="rv">${fw(totalBudget)}원</div></div><div class="ri info"><div class="rl">CPC</div><div class="rv">${actualCPC.toFixed(0)}원</div></div><div class="ri"><div class="rl">전환 수</div><div class="rv">${fw(conversions)}건</div></div><div class="ri gold"><div class="rl">예상 매출</div><div class="rv">${fw(revenue)}원</div></div><div class="ri ${profit>=0?'hl':'danger'}"><div class="rl">ROAS</div><div class="rv">${roas}%</div><div class="rs">${profit>=0?'✅ 흑자':'❌ 적자'}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

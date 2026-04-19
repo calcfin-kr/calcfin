@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>수도요금 계산기 | CalcFin</title><meta name="description" content="수도요금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">WATER BILL</div><h1>수도요금 <span>계산기</span></h1><p>수도 사용량 기반 요금을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">사용량 정보</div>
+<div class="field"><label>월 사용량</label><div class="input-wrap"><input type="number" id="ton" value="20" min="0" max="500"><span class="unit">톤(㎥)</span></div><input type="range" id="tonR" min="0" max="100" step="1" value="20"><div class="slider-labels"><span>0</span><span>100톤</span></div></div>
+<div class="field"><label>가구 구분</label><div class="btn-group"><button class="btn-opt active" data-t="home">가정용</button><button class="btn-opt" data-t="biz">일반(상업)</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🚰</div><div>사용량을 입력하고 계산하세요</div></div></div></div>
+<script>
+let ttype='home';
+document.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-t]').forEach(x=>x.classList.remove('active'));this.classList.add('active');ttype=this.dataset.t}));
+const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max)});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value})};sy('ton','tonR');
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const ton=+document.getElementById('ton').value;
+  let water=0;
+  if(ton<=10)water=ton*380;else if(ton<=20)water=10*380+(ton-10)*550;else if(ton<=30)water=10*380+10*550+(ton-20)*730;else water=10*380+10*550+10*730+(ton-30)*880;
+  const sewage=Math.round(water*0.8),base=750,sub=base+water+sewage;
+  const vat=ttype==='biz'?Math.round(sub*0.1):0,total=sub+vat;
+  document.getElementById('res').innerHTML=`<div class="card-title">수도요금 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">예상 청구액</div><div class="rv">${fw(total)}</div></div><div class="ri"><div class="rl">상수도 요금</div><div class="rv">${fw(Math.round(water))}</div></div><div class="ri info"><div class="rl">하수도 요금</div><div class="rv">${fw(sewage)}</div></div><div class="ri"><div class="rl">기본요금</div><div class="rv">${fw(base)}</div></div></div>
+  <div style="font-size:11px;color:var(--text-muted);font-family:DM Mono,monospace;margin-top:10px">※ 서울시 기준 추정치 · 지자체별 요금 상이</div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

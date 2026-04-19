@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>가스요금 계산기 | CalcFin</title><meta name="description" content="가스요금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">GAS BILL</div><h1>가스요금 <span>계산기</span></h1><p>도시가스 사용량 기반 요금을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">사용량 정보</div>
+<div class="field"><label>월 사용량</label><div class="input-wrap"><input type="number" id="m3" value="30" min="0" max="500" step="0.1"><span class="unit">m³</span></div><input type="range" id="m3R" min="0" max="200" step="1" value="30"><div class="slider-labels"><span>0</span><span>200m³</span></div></div>
+<div class="field"><label>계절 선택</label><div class="btn-group"><button class="btn-opt active" data-s="spring">봄·가을</button><button class="btn-opt" data-s="summer">여름</button><button class="btn-opt" data-s="winter">겨울</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🔥</div><div>사용량을 입력하고 계산하세요</div></div></div></div>
+<script>
+let season='spring';
+document.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-s]').forEach(x=>x.classList.remove('active'));this.classList.add('active');season=this.dataset.s}));
+const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max)});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value})};
+sy('m3','m3R');
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const m3=+document.getElementById('m3').value;
+  const unitPrice={spring:840,summer:780,winter:970}[season];
+  const base=1900,usage=Math.round(m3*unitPrice);
+  const sub=base+usage,vat=Math.round(sub*0.1),total=sub+vat;
+  document.getElementById('res').innerHTML=`<div class="card-title">가스요금 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">예상 청구액</div><div class="rv">${fw(total)}</div></div><div class="ri"><div class="rl">사용 요금</div><div class="rv">${fw(usage)}</div></div><div class="ri info"><div class="rl">기본요금</div><div class="rv">${fw(base)}</div></div><div class="ri gold"><div class="rl">부가세 (10%)</div><div class="rv">${fw(vat)}</div></div></div>
+  <div style="background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:DM Mono,monospace">🔥 지역별 단가 차이가 있습니다. 실제 요금은 도시가스 앱에서 확인하세요.</div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

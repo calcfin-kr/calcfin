@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>주택담보대출 계산기 | CalcFin</title><meta name="description" content="주택담보대출 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">MORTGAGE</div><h1>주택담보대출 <span>계산기</span></h1><p>LTV·DSR·월 상환금을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">대출 정보</div>
+<div class="field"><label>주택 가격</label><div class="input-wrap"><input type="number" id="home" value="500000000" step="10000000"><span class="unit">원</span></div></div>
+<div class="field"><label>대출 금액</label><div class="input-wrap"><input type="number" id="loan" value="300000000" step="10000000"><span class="unit">원</span></div></div>
+<div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="r" value="3.5" min="0.1" max="15" step="0.1"><span class="unit">%</span></div></div>
+<div class="field"><label>대출 기간</label><div class="input-wrap"><input type="number" id="y" value="30" min="1" max="50"><span class="unit">년</span></div></div>
+<div class="field"><label>연 소득 (DSR 계산)</label><div class="input-wrap"><input type="number" id="inc" value="60000000" step="1000000"><span class="unit">원</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🏠</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';return Math.round(n/10000).toLocaleString()+'만원'}
+function calc(){
+  const home=+document.getElementById('home').value,loan=+document.getElementById('loan').value,r=+document.getElementById('r').value,y=+document.getElementById('y').value,inc=+document.getElementById('inc').value;
+  const m=y*12,mr=r/100/12,pay=Math.round(loan*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1));
+  const tp=pay*m,ti=tp-loan,ltv=(loan/home*100).toFixed(1),dsr=(pay*12/inc*100).toFixed(1);
+  document.getElementById('res').innerHTML=`<div class="card-title">주담대 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">월 상환금</div><div class="rv">${pay.toLocaleString()}원</div></div><div class="ri danger"><div class="rl">총 이자</div><div class="rv">${fw(ti)}</div></div><div class="ri ${+ltv>70?'danger':'info'}"><div class="rl">LTV</div><div class="rv">${ltv}%</div><div class="rs">${+ltv>70?'❌ 규제 초과':'✅ 기준 충족'}</div></div><div class="ri ${+dsr>40?'danger':'gold'}"><div class="rl">DSR</div><div class="rv">${dsr}%</div><div class="rs">${+dsr>40?'❌ 40% 초과':'✅ 기준 충족'}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

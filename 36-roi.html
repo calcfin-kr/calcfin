@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ROI 계산기 | CalcFin</title><meta name="description" content="ROI 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">ROI CALCULATOR</div><h1>ROI <span>계산기</span></h1><p>투자 대비 수익률(ROI)을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">투자 정보</div>
+<div class="field"><label>투자 비용 (총 투자금)</label><div class="input-wrap"><input type="number" id="cost" value="10000000" step="100000"><span class="unit">원</span></div></div>
+<div class="field"><label>투자로 인한 수익</label><div class="input-wrap"><input type="number" id="gain" value="14000000" step="100000"><span class="unit">원</span></div></div>
+<div class="field"><label>투자 기간</label><div class="input-wrap"><input type="number" id="months" value="12" min="1"><span class="unit">개월</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🎯</div><div>투자 정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const cost=+document.getElementById('cost').value,gain=+document.getElementById('gain').value,months=+document.getElementById('months').value;
+  const profit=gain-cost,roi=((profit/cost)*100).toFixed(2),annualROI=(roi/months*12).toFixed(2);
+  const isPos=profit>=0;
+  document.getElementById('res').innerHTML=`<div class="card-title">ROI 계산 결과</div><div class="result-hero r2"><div class="ri ${isPos?'hl':'danger'}"><div class="rl">ROI</div><div class="rv">${isPos?'+':''}${roi}%</div></div><div class="ri ${isPos?'gold':'danger'}"><div class="rl">순이익</div><div class="rv">${isPos?'+':''}${fw(profit)}</div></div><div class="ri info"><div class="rl">연환산 ROI</div><div class="rv">${annualROI}%</div></div><div class="ri"><div class="rl">수익/투자 배수</div><div class="rv">${(gain/cost).toFixed(2)}x</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

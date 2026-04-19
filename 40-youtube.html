@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>유튜브 수익 계산기 | CalcFin</title><meta name="description" content="유튜브 수익 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">YOUTUBE REVENUE</div><h1>유튜브 수익 <span>계산기</span></h1><p>조회수·RPM 기반 유튜브 예상 수익을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">채널 정보</div>
+<div class="field"><label>월 조회수</label><div class="input-wrap"><input type="number" id="views" value="100000" step="10000"><span class="unit">회</span></div><input type="range" id="viewsR" min="1000" max="10000000" step="10000" value="100000"><div class="slider-labels"><span>1천</span><span>1천만</span></div></div>
+<div class="field"><label>RPM (1,000회당 수익)</label><div class="input-wrap"><input type="number" id="rpm" value="2500" step="100"><span class="unit">원</span></div></div>
+<div class="field"><label>채널 주제 (RPM 참고)</label><div class="btn-group"><button class="btn-opt" data-r="1000">엔터·게임 1,000</button><button class="btn-opt active" data-r="2500">일반 2,500</button><button class="btn-opt" data-r="5000">금융·IT 5,000</button></div></div>
+<div class="field"><label>수익화 조건 달성 여부</label><div class="btn-group"><button class="btn-opt active" data-q="1">달성 (구독 500+/조회 3000)</button><button class="btn-opt" data-q="0">미달성</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">▶️</div><div>채널 정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let qualified=1;
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById('rpm').value=this.dataset.r}));
+document.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-q]').forEach(x=>x.classList.remove('active'));this.classList.add('active');qualified=+this.dataset.q}));
+const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max)});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value})};
+sy('views','viewsR');
+function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  if(!qualified){document.getElementById('res').innerHTML='<div class="ri danger" style="padding:24px;text-align:center"><div class="rl">수익화 불가</div><div class="rv">수익화 조건을 먼저 달성하세요</div><div class="rs">구독자 500명 + 최근 12개월 조회수 3,000시간</div></div>';return}
+  const views=+document.getElementById('views').value,rpm=+document.getElementById('rpm').value;
+  const monthRev=Math.round(views/1000*rpm),yearRev=monthRev*12;
+  const superchat=Math.round(monthRev*0.05),membership=Math.round(monthRev*0.1),total=monthRev+superchat+membership;
+  document.getElementById('res').innerHTML=`<div class="card-title">유튜브 수익 예측</div><div class="result-hero r2"><div class="ri hl"><div class="rl">AdSense 월 수익</div><div class="rv">${fw(monthRev)}</div><div class="rs">RPM ${rpm.toLocaleString()}원 기준</div></div><div class="ri gold"><div class="rl">연간 AdSense</div><div class="rv">${fw(yearRev)}</div></div><div class="ri info"><div class="rl">슈퍼챗 예상</div><div class="rv">${fw(superchat)}</div></div><div class="ri"><div class="rl">멤버십 예상</div><div class="rv">${fw(membership)}</div></div><div class="ri gold" style="grid-column:1/-1"><div class="rl">총 월 예상 수익</div><div class="rv" style="font-size:24px">${fw(total)}</div></div></div>
+  <div style="background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:DM Mono,monospace">▶️ RPM은 채널 주제·시청자 지역·시즌에 따라 크게 변동됩니다 · 유튜브 스튜디오에서 실제 RPM 확인 권장</div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

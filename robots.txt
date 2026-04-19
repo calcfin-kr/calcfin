@@ -1,8 +1,53 @@
+# CalcFin robots.txt
+# https://calcfin.kr/robots.txt
+
 User-agent: *
 Allow: /
+
+# 모든 계산기 페이지 허용
+Allow: /01-loan.html
+Allow: /02-compound.html
+Allow: /03-simple-interest.html
+Allow: /04-salary.html
+Allow: /05-hourly.html
+Allow: /06-monthly.html
+Allow: /07-severance.html
+Allow: /08-vat.html
+Allow: /09-discount.html
+Allow: /10-return-rate.html
+Allow: /11-investment.html
+Allow: /12-savings.html
+Allow: /13-deposit.html
+Allow: /14-car-loan.html
+Allow: /15-mortgage.html
+Allow: /16-card-interest.html
+Allow: /17-tax.html
+Allow: /18-bodyfat.html
+Allow: /19-bmi.html
+Allow: /20-bmr.html
+Allow: /21-calorie.html
+Allow: /22-water.html
+Allow: /23-due-date.html
+Allow: /24-pregnancy.html
+Allow: /25-age.html
+Allow: /26-date-diff.html
+Allow: /27-dday.html
+Allow: /28-time.html
+Allow: /29-electricity.html
+Allow: /30-gas-bill.html
+Allow: /31-water-bill.html
+Allow: /32-shipping.html
+Allow: /33-exchange.html
+Allow: /34-cost.html
+Allow: /35-margin.html
+Allow: /36-roi.html
+Allow: /37-cpc.html
+Allow: /38-cpm.html
+Allow: /39-cpm-revenue.html
+Allow: /40-youtube.html
 
 # 사이트맵 위치
 Sitemap: https://calcfin.kr/sitemap.xml
 
-# 크롤링 속도 (선택사항)
+# 크롤링 간격 (초)
 Crawl-delay: 1

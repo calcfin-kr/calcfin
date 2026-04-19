@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>BMI 계산기 | CalcFin</title><meta name="description" content="BMI 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">BMI CALCULATOR</div><h1>BMI <span>계산기</span></h1><p>키와 몸무게로 체질량지수와 비만도를 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">신체 정보</div>
+<div class="field"><label>키</label><div class="input-wrap"><input type="number" id="h" value="175" min="100" max="250" step="0.1"><span class="unit">cm</span></div><input type="range" id="hR" min="140" max="220" step="0.5" value="175"><div class="slider-labels"><span>140cm</span><span>220cm</span></div></div>
+<div class="field"><label>몸무게</label><div class="input-wrap"><input type="number" id="w" value="70" min="20" max="300" step="0.1"><span class="unit">kg</span></div><input type="range" id="wR" min="30" max="150" step="0.5" value="70"><div class="slider-labels"><span>30kg</span><span>150kg</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">⚖️</div><div>키와 몸무게를 입력하고 계산하세요</div></div></div></div>
+<div class="card full-card anim-3"><div class="section-title">BMI 기준표 (대한비만학회)</div><div class="table-wrap"><table><thead><tr><th>구분</th><th>BMI 범위</th><th>판정</th></tr></thead><tbody>
+<tr><td style="text-align:left">저체중</td><td class="td-b">18.5 미만</td><td class="td-b">체중 부족</td></tr>
+<tr><td style="text-align:left">정상</td><td class="td-a">18.5~22.9</td><td class="td-a">정상</td></tr>
+<tr><td style="text-align:left">과체중</td><td class="td-g">23.0~24.9</td><td class="td-g">주의 필요</td></tr>
+<tr><td style="text-align:left">비만 1단계</td><td class="td-d">25.0~29.9</td><td class="td-d">비만</td></tr>
+<tr><td style="text-align:left">비만 2단계</td><td class="td-d">30.0 이상</td><td class="td-d">고도비만</td></tr></tbody></table></div></div>
+<script>
+const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){document.getElementById(b).value=Math.min(this.value,document.getElementById(b).max)});document.getElementById(b).addEventListener('input',function(){document.getElementById(a).value=this.value})};
+sy('h','hR');sy('w','wR');
+function calc(){
+  const h=+document.getElementById('h').value/100,w=+document.getElementById('w').value;
+  const bmi=(w/(h*h)).toFixed(1);
+  const status=bmi<18.5?'저체중':bmi<23?'정상':bmi<25?'과체중':bmi<30?'비만':'고도비만';
+  const cls=bmi<18.5?'info':bmi<23?'hl':bmi<25?'gold':'danger';
+  const ideal=[18.5*(h*h),22.9*(h*h)];
+  document.getElementById('res').innerHTML=`<div class="card-title">BMI 계산 결과</div><div class="result-hero r2"><div class="ri ${cls}"><div class="rl">BMI 지수</div><div class="rv">${bmi}</div><div class="rs">${status}</div></div><div class="ri"><div class="rl">현재 체중</div><div class="rv">${w}kg</div></div><div class="ri gold"><div class="rl">정상 체중 범위</div><div class="rv">${ideal[0].toFixed(1)}~${ideal[1].toFixed(1)}kg</div></div><div class="ri ${+bmi>=23?'danger':'info'}"><div class="rl">목표 체중 조정</div><div class="rv">${(w-ideal[1]).toFixed(1)>0?(w-ideal[1]).toFixed(1)+'kg 감량':'정상 범위'}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

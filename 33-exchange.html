@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>환율 계산기 | CalcFin</title><meta name="description" content="환율 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">EXCHANGE RATE</div><h1>환율 <span>계산기</span></h1><p>주요 통화 환율 변환을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">환율 정보</div>
+<div class="field"><label>금액</label><div class="input-wrap"><input type="number" id="amt" value="100" min="0" step="0.01"><span class="unit" id="fromUnit">USD</span></div></div>
+<div class="field"><label>변환 방향</label>
+  <select id="pair" style="padding-right:14px">
+    <option value="usd_krw">USD → KRW (달러→원)</option>
+    <option value="krw_usd">KRW → USD (원→달러)</option>
+    <option value="eur_krw">EUR → KRW (유로→원)</option>
+    <option value="krw_eur">KRW → EUR (원→유로)</option>
+    <option value="jpy_krw">JPY → KRW (엔→원)</option>
+    <option value="krw_jpy">KRW → JPY (원→엔)</option>
+    <option value="cny_krw">CNY → KRW (위안→원)</option>
+    <option value="gbp_krw">GBP → KRW (파운드→원)</option>
+  </select>
+</div>
+<div style="background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--danger);margin-bottom:16px;font-family:DM Mono,monospace">⚠️ 아래 환율은 예시입니다. 실제 환율은 실시간으로 변동됩니다.</div>
+<div class="field"><label>적용 환율 (직접 수정 가능)</label><div class="input-wrap"><input type="number" id="rate" value="1380" step="0.01"><span class="unit" id="rateUnit">KRW/USD</span></div></div>
+<button class="calc-btn" onclick="calc()">변환하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">💱</div><div>금액과 통화를 선택하고 변환하세요</div></div></div></div>
+<script>
+const RATES={usd_krw:{r:1380,u:'KRW/USD'},krw_usd:{r:1/1380,u:'USD/KRW'},eur_krw:{r:1490,u:'KRW/EUR'},krw_eur:{r:1/1490,u:'EUR/KRW'},jpy_krw:{r:9.2,u:'KRW/JPY'},krw_jpy:{r:1/9.2,u:'JPY/KRW'},cny_krw:{r:190,u:'KRW/CNY'},gbp_krw:{r:1740,u:'KRW/GBP'}};
+document.getElementById('pair').addEventListener('change',function(){const p=RATES[this.value];document.getElementById('rate').value=p.r.toFixed(4);document.getElementById('rateUnit').textContent=p.u});
+function calc(){
+  const amt=+document.getElementById('amt').value,rate=+document.getElementById('rate').value;
+  const pair=document.getElementById('pair').value;
+  const result=amt*rate;
+  const [from,to]=pair.split('_').map(x=>x.toUpperCase());
+  document.getElementById('res').innerHTML=`<div class="card-title">환율 변환 결과</div><div class="ri hl" style="padding:24px;text-align:center;margin-bottom:14px;border:1px solid rgba(0,212,170,.3);border-radius:10px"><div class="rl">${amt.toLocaleString()} ${from} =</div><div class="rv" style="font-size:26px">${result.toLocaleString(undefined,{maximumFractionDigits:2})} ${to}</div><div class="rs">적용 환율: ${rate} ${to}/${from}</div></div><div class="result-hero r2"><div class="ri"><div class="rl">역환율</div><div class="rv">${(1/rate).toFixed(6)} ${from}/${to}</div></div><div class="ri info"><div class="rl">1 ${from}</div><div class="rv">${rate.toLocaleString()} ${to}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

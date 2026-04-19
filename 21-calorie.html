@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>칼로리 계산기 | CalcFin</title><meta name="description" content="칼로리 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">CALORIE CALCULATOR</div><h1>칼로리 <span>계산기</span></h1><p>목표 칼로리·활동별 소모 칼로리를 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">칼로리 정보</div>
+<div class="field"><label>성별</label><div class="btn-group"><button class="btn-opt active" data-g="m">남성</button><button class="btn-opt" data-g="f">여성</button></div></div>
+<div class="field"><label>나이</label><div class="input-wrap"><input type="number" id="age" value="30"><span class="unit">세</span></div></div>
+<div class="field"><label>키</label><div class="input-wrap"><input type="number" id="h" value="175" step="0.5"><span class="unit">cm</span></div></div>
+<div class="field"><label>체중</label><div class="input-wrap"><input type="number" id="w" value="70" step="0.5"><span class="unit">kg</span></div></div>
+<div class="field"><label>목표</label><div class="btn-group"><button class="btn-opt" data-g2="cut">다이어트</button><button class="btn-opt active" data-g2="maintain">유지</button><button class="btn-opt" data-g2="bulk">벌크업</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🍎</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let gender='m',goal='maintain';
+document.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-g]').forEach(x=>x.classList.remove('active'));this.classList.add('active');gender=this.dataset.g}));
+document.querySelectorAll('[data-g2]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-g2]').forEach(x=>x.classList.remove('active'));this.classList.add('active');goal=this.dataset.g2}));
+function calc(){
+  const age=+document.getElementById('age').value,h=+document.getElementById('h').value,w=+document.getElementById('w').value;
+  const bmr=gender==='m'?88.362+13.397*w+4.799*h-5.677*age:447.593+9.247*w+3.098*h-4.330*age;
+  const tdee=Math.round(bmr*1.375),target=goal==='cut'?tdee-500:goal==='bulk'?tdee+500:tdee;
+  const prot=Math.round(w*2),fat=Math.round(target*0.25/9),carb=Math.round((target-prot*4-fat*9)/4);
+  document.getElementById('res').innerHTML=`<div class="card-title">칼로리 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">목표 칼로리</div><div class="rv">${target} kcal</div></div><div class="ri"><div class="rl">기초대사량</div><div class="rv">${Math.round(bmr)} kcal</div></div><div class="ri info"><div class="rl">단백질</div><div class="rv">${prot}g</div><div class="rs">${prot*4}kcal</div></div><div class="ri gold"><div class="rl">탄수화물</div><div class="rv">${carb}g</div><div class="rs">${carb*4}kcal</div></div><div class="ri danger"><div class="rl">지방</div><div class="rv">${fat}g</div><div class="rs">${fat*9}kcal</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>예금 계산기 | CalcFin</title><meta name="description" content="예금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DEPOSIT CALCULATOR</div><h1>예금 <span>계산기</span></h1><p>예금 이자와 세후 수령액을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">예금 정보</div>
+<div class="field"><label>예치 원금</label><div class="input-wrap"><input type="number" id="p" value="10000000" step="1000000"><span class="unit">원</span></div></div>
+<div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="r" value="3.5" min="0.1" max="20" step="0.1"><span class="unit">%</span></div></div>
+<div class="field"><label>예치 기간</label><div class="input-wrap"><input type="number" id="t" value="12" min="1" max="60"><span class="unit">개월</span></div></div>
+<div class="field"><label>세금 우대 여부</label><div class="btn-group"><button class="btn-opt active" data-tx="15.4">일반 15.4%</button><button class="btn-opt" data-tx="9.5">세금우대 9.5%</button><button class="btn-opt" data-tx="0">비과세</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">💵</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let txRate=15.4;document.querySelectorAll('[data-tx]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-tx]').forEach(x=>x.classList.remove('active'));this.classList.add('active');txRate=+this.dataset.tx}));
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const p=+document.getElementById('p').value,r=+document.getElementById('r').value,t=+document.getElementById('t').value;
+  const interest=Math.round(p*r/100*t/12),tax=Math.round(interest*txRate/100),net=p+interest-tax;
+  document.getElementById('res').innerHTML=`<div class="card-title">예금 계산 결과</div><div class="result-hero r2"><div class="ri info"><div class="rl">원금</div><div class="rv">${fw(p)}</div></div><div class="ri gold"><div class="rl">세전 이자</div><div class="rv">${fw(interest)}</div></div><div class="ri danger"><div class="rl">이자소득세 (${txRate}%)</div><div class="rv">-${fw(tax)}</div></div><div class="ri hl"><div class="rl">세후 수령액</div><div class="rv">${fw(net)}</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

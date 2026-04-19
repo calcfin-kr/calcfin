@@ -1,588 +1,268 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalcFin - 금융 계산기 모음 | 대출·세금·급여·부동산 계산기</title>
-<meta name="description" content="대출이자, 연봉실수령액, 주택담보대출, 전월세전환, 퇴직금, 부가세, 종합소득세 등 20가지 금융 계산기를 무료로 제공합니다.">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcFin - 무료 계산기 모음 40가지 | 금융·건강·날짜·광고</title>
+<meta name="description" content="대출이자, 연봉실수령액, BMI, 칼로리, 디데이, 환율, 유튜브수익 등 40가지 무료 계산기 모음. 광고 없이 즉시 계산.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="common.css">
 <style>
-  /* 인덱스 전용 스타일 */
-  .hero {
-    text-align: center;
-    padding: 64px 0 52px;
-    animation: fadeDown 0.7s ease both;
-  }
+/* 히어로 */
+.hero{text-align:center;padding:64px 0 48px;animation:fadeDown .7s ease both;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.25);color:var(--accent);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;padding:6px 18px;border-radius:2px;margin-bottom:24px;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.hero h1{font-size:clamp(34px,7vw,60px);font-weight:700;line-height:1.1;letter-spacing:-2px;margin-bottom:16px;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero-desc{color:var(--text-muted);font-size:15px;line-height:1.7;margin-bottom:36px;}
+.hero-stats{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;margin-bottom:36px;}
+.hero-stat-v{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--accent);}
+.hero-stat-l{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-top:4px;}
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,212,170,0.08);
-    border: 1px solid rgba(0,212,170,0.25);
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    padding: 6px 18px;
-    border-radius: 2px;
-    margin-bottom: 28px;
-  }
+/* 검색 */
+.search-wrap{max-width:500px;margin:0 auto 48px;position:relative;animation:fadeUp .6s ease .2s both;}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 52px 16px 20px;color:var(--text);font-family:'Noto Serif KR',serif;font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s;}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,170,.1);}
+.search-input::placeholder{color:var(--text-muted);}
+.search-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;}
 
-  .hero-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s ease infinite;
-  }
+/* 카테고리 탭 */
+.cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px;animation:fadeUp .6s ease .3s both;}
+.cat-tab{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+.cat-tab:hover{border-color:var(--accent);color:var(--accent);}
+.cat-tab.active{background:rgba(0,212,170,.1);border-color:var(--accent);color:var(--accent);}
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
+/* 섹션 */
+.cat-section{margin-bottom:44px;}
+.cat-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.cat-icon{font-size:20px;}
+.cat-name{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;}
+.cat-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);background:rgba(0,212,170,.1);padding:2px 8px;border-radius:4px;margin-left:auto;}
 
-  .hero h1 {
-    font-size: clamp(36px, 7vw, 64px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -2px;
-    margin-bottom: 18px;
-  }
-
-  .hero h1 .logo-calc { color: var(--accent); }
-  .hero h1 .logo-fin { color: var(--text); }
-
-  .hero-desc {
-    color: var(--text-muted);
-    font-size: 15px;
-    line-height: 1.7;
-    max-width: 500px;
-    margin: 0 auto 36px;
-  }
-
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat {
-    text-align: center;
-  }
-
-  .hero-stat-value {
-    font-family: 'DM Mono', monospace;
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--accent);
-  }
-
-  .hero-stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    margin-top: 4px;
-  }
-
-  /* 검색바 */
-  .search-wrap {
-    max-width: 520px;
-    margin: 0 auto 48px;
-    position: relative;
-    animation: fadeUp 0.6s ease 0.2s both;
-  }
-
-  .search-input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 52px 16px 20px;
-    color: var(--text);
-    font-family: 'Noto Serif KR', serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .search-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,212,170,0.1);
-  }
-
-  .search-input::placeholder { color: var(--text-muted); }
-
-  .search-icon {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 18px;
-    pointer-events: none;
-  }
-
-  /* 카테고리 탭 */
-  .category-tabs {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
-    animation: fadeUp 0.6s ease 0.3s both;
-  }
-
-  .cat-tab {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-  }
-
-  .cat-tab:hover { border-color: var(--accent); color: var(--text); }
-  .cat-tab.active {
-    background: rgba(0,212,170,0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* 계산기 그리드 */
-  .calc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    animation: fadeUp 0.6s ease 0.35s both;
-  }
-
-  .calc-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    text-decoration: none;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .calc-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
-  .calc-card:hover {
-    border-color: rgba(0,212,170,0.35);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-  }
-
-  .calc-card:hover::after { transform: scaleX(1); }
-
-  .calc-card-icon {
-    font-size: 32px;
-    line-height: 1;
-  }
-
-  .calc-card-badge {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    background: rgba(0,212,170,0.12);
-    border: 1px solid rgba(0,212,170,0.25);
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1px;
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-
-  .calc-card-badge.hot {
-    background: rgba(255,107,107,0.12);
-    border-color: rgba(255,107,107,0.25);
-    color: var(--danger);
-  }
-
-  .calc-card-badge.new {
-    background: rgba(0,153,255,0.12);
-    border-color: rgba(0,153,255,0.25);
-    color: var(--accent2);
-  }
-
-  .calc-card-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .calc-card-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  .calc-card-arrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    transform: translateX(-6px);
-  }
-
-  .calc-card:hover .calc-card-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* 카테고리 섹션 헤더 */
-  .cat-section {
-    margin-bottom: 48px;
-  }
-
-  .cat-section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .cat-section-icon { font-size: 20px; }
-
-  .cat-section-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-
-  .cat-section-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    background: rgba(0,212,170,0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: auto;
-  }
-
-  .hidden-card { display: none; }
+/* 계산기 그리드 */
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;animation:fadeUp .5s ease .35s both;}
+.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:10px;transition:all .25s;position:relative;overflow:hidden;}
+.calc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;}
+.calc-card:hover{border-color:rgba(0,212,170,.35);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4);}
+.calc-card:hover::after{transform:scaleX(1);}
+.calc-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:1px;}
+.calc-icon{font-size:28px;line-height:1;}
+.calc-title{font-size:14px;font-weight:700;color:var(--text);line-height:1.35;}
+.calc-desc{font-size:11px;color:var(--text-muted);line-height:1.5;flex:1;}
+.calc-arrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);opacity:0;transition:opacity .2s,transform .2s;transform:translateX(-6px);}
+.calc-card:hover .calc-arrow{opacity:1;transform:translateX(0);}
 </style>
+
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
 </head>
 <body>
 
 <nav class="site-nav">
-  <div class="site-nav-inner">
+  <div class="nav-inner">
     <a href="index.html" class="site-logo">CALCFIN</a>
-    <div class="nav-links">
-      <a href="#loan" class="nav-link">대출</a>
-      <a href="#tax" class="nav-link">세금</a>
-      <a href="#salary" class="nav-link">급여</a>
-      <a href="#realestate" class="nav-link">부동산</a>
-      <a href="#investment" class="nav-link">투자</a>
-    </div>
+    <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);">40가지 무료 계산기</div>
   </div>
 </nav>
 
 <div class="container">
 
   <div class="hero">
-    <div class="hero-badge">KOREA'S FINANCIAL CALCULATOR HUB</div>
-    <h1><span class="logo-calc">Calc</span><span class="logo-fin">Fin</span></h1>
-    <p class="hero-desc">대출이자부터 세금, 급여, 부동산까지<br>한국 금융 계산기 20가지를 무료로 제공합니다</p>
+    <div class="hero-badge">FREE CALCULATOR HUB</div>
+    <h1><em>40가지</em><br>무료 계산기</h1>
+    <p class="hero-desc">금융·건강·날짜·광고·생활요금까지<br>자주 쓰는 계산기를 한 곳에서</p>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-value">20+</div>
-        <div class="hero-stat-label">계산기</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-value">2025</div>
-        <div class="hero-stat-label">최신 기준</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-value">100%</div>
-        <div class="hero-stat-label">무료</div>
-      </div>
+      <div><div class="hero-stat-v">40</div><div class="hero-stat-l">계산기</div></div>
+      <div><div class="hero-stat-v">7</div><div class="hero-stat-l">카테고리</div></div>
+      <div><div class="hero-stat-v">100%</div><div class="hero-stat-l">무료</div></div>
     </div>
   </div>
 
   <!-- 검색 -->
   <div class="search-wrap">
-    <input type="text" class="search-input" id="searchInput" placeholder="계산기 검색... (예: 대출, 세금, 퇴직금)">
+    <input type="text" class="search-input" id="searchInput" placeholder="계산기 검색... (예: 대출, BMI, 환율)">
     <span class="search-icon">🔍</span>
   </div>
 
   <!-- 카테고리 탭 -->
-  <div class="category-tabs">
-    <div class="cat-tab active" data-cat="all">전체 (20)</div>
-    <div class="cat-tab" data-cat="loan">대출 (5)</div>
-    <div class="cat-tab" data-cat="tax">세금 (5)</div>
-    <div class="cat-tab" data-cat="salary">급여·노무 (4)</div>
-    <div class="cat-tab" data-cat="realestate">부동산 (3)</div>
-    <div class="cat-tab" data-cat="investment">투자·저축 (3)</div>
+  <div class="cat-tabs" id="catTabs">
+    <div class="cat-tab active" data-cat="all">전체 (40)</div>
+    <div class="cat-tab" data-cat="finance">💰 금융 (13)</div>
+    <div class="cat-tab" data-cat="salary">💴 급여·노무 (4)</div>
+    <div class="cat-tab" data-cat="health">💪 건강 (5)</div>
+    <div class="cat-tab" data-cat="date">📅 날짜·시간 (4)</div>
+    <div class="cat-tab" data-cat="bill">⚡ 생활요금 (4)</div>
+    <div class="cat-tab" data-cat="business">📊 사업·마케팅 (8)</div>
+    <div class="cat-tab" data-cat="etc">🔧 기타 (2)</div>
   </div>
 
-  <div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+  <!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+-->
 
-  <!-- 대출 섹션 -->
-  <div class="cat-section" id="loan">
-    <div class="cat-section-header">
-      <span class="cat-section-icon">💳</span>
-      <span class="cat-section-title">대출 계산기</span>
-      <span class="cat-section-count">5개</span>
-    </div>
+  <!-- 💰 금융 -->
+  <div class="cat-section" id="sec-finance">
+    <div class="cat-header"><span class="cat-icon">💰</span><span class="cat-name">금융·투자</span><span class="cat-count">13개</span></div>
     <div class="calc-grid">
-      <a href="01-credit-loan.html" class="calc-card" data-cat="loan" data-keywords="신용대출 이자 원리금 원금균등 만기일시">
-        <div class="calc-card-badge hot">HOT</div>
-        <div class="calc-card-icon">💳</div>
-        <div class="calc-card-title">신용대출 이자 계산기</div>
-        <div class="calc-card-desc">원리금균등·원금균등·만기일시 상환 방식별 월 납입금과 총 이자 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="02-mortgage.html" class="calc-card" data-cat="loan" data-keywords="주택담보대출 아파트 LTV DSR 이자">
-        <div class="calc-card-badge hot">HOT</div>
-        <div class="calc-card-icon">🏠</div>
-        <div class="calc-card-title">주택담보대출 계산기</div>
-        <div class="calc-card-desc">LTV·DSR 자동 분석, 고정·변동·혼합 금리 비교, 월별 상환 스케줄 제공</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="03-jeonse-loan.html" class="calc-card" data-cat="loan" data-keywords="전세자금대출 전세 버팀목 이자">
-        <div class="calc-card-badge">NEW</div>
-        <div class="calc-card-icon">🏢</div>
-        <div class="calc-card-title">전세자금대출 계산기</div>
-        <div class="calc-card-desc">버팀목·카카오뱅크·시중은행 전세대출 금리 적용, 월 이자 및 총 비용 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="04-early-repayment.html" class="calc-card" data-cat="loan" data-keywords="중도상환 수수료 계산 대출 상환">
-        <div class="calc-card-icon">⚡</div>
-        <div class="calc-card-title">중도상환 수수료 계산기</div>
-        <div class="calc-card-desc">대출 잔액·경과 기간별 중도상환 수수료 계산, 상환 시점 최적화 분석</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="05-loan-compare.html" class="calc-card" data-cat="loan" data-keywords="대출 비교 금리 이자 상환">
-        <div class="calc-card-icon">⚖️</div>
-        <div class="calc-card-title">대출 금리 비교 계산기</div>
-        <div class="calc-card-desc">두 가지 대출 상품을 나란히 비교, 총이자 차이와 손익분기점 분석</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
+      <a href="01-loan.html" class="calc-card" data-cat="finance" data-kw="대출 이자 원리금 상환"><div class="calc-num">01</div><div class="calc-icon">💳</div><div class="calc-title">대출 계산기</div><div class="calc-desc">원리금균등·원금균등·만기일시 이자 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="02-compound.html" class="calc-card" data-cat="finance" data-kw="복리 투자 수익 적립"><div class="calc-num">02</div><div class="calc-icon">🌱</div><div class="calc-title">복리 계산기</div><div class="calc-desc">초기 투자금+월 적립 복리 수익 시뮬레이션</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="03-simple-interest.html" class="calc-card" data-cat="finance" data-kw="단리 이자 원금"><div class="calc-num">03</div><div class="calc-icon">📐</div><div class="calc-title">단리 계산기</div><div class="calc-desc">단리 이자와 만기 수령액 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="08-vat.html" class="calc-card" data-cat="finance" data-kw="부가세 VAT 공급가"><div class="calc-num">08</div><div class="calc-icon">🧮</div><div class="calc-title">부가세 계산기</div><div class="calc-desc">공급가액↔부가세 포함가 양방향 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="09-discount.html" class="calc-card" data-cat="finance" data-kw="할인율 할인가 정가"><div class="calc-num">09</div><div class="calc-icon">🏷️</div><div class="calc-title">할인율 계산기</div><div class="calc-desc">정가+할인율→할인가 양방향 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="10-return-rate.html" class="calc-card" data-cat="finance" data-kw="수익률 손익 투자"><div class="calc-num">10</div><div class="calc-icon">📊</div><div class="calc-title">수익률 계산기</div><div class="calc-desc">매수·매도 가격 기반 투자 수익률 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="11-investment.html" class="calc-card" data-cat="finance" data-kw="투자수익 미래가치"><div class="calc-num">11</div><div class="calc-icon">📈</div><div class="calc-title">투자 수익 계산기</div><div class="calc-desc">원금·기간·수익률로 미래 투자 수익 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="12-savings.html" class="calc-card" data-cat="finance" data-kw="적금 이자 만기"><div class="calc-num">12</div><div class="calc-icon">🏦</div><div class="calc-title">적금 계산기</div><div class="calc-desc">월 적립 기준 만기 수령액·세후 이자</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="13-deposit.html" class="calc-card" data-cat="finance" data-kw="예금 이자 세후"><div class="calc-num">13</div><div class="calc-icon">💵</div><div class="calc-title">예금 계산기</div><div class="calc-desc">예금 이자·세후 수령액·실효 금리</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="14-car-loan.html" class="calc-card" data-cat="finance" data-kw="자동차 할부 이자"><div class="calc-num">14</div><div class="calc-icon">🚗</div><div class="calc-title">자동차 할부 계산기</div><div class="calc-desc">차량 할부 월 납입금·총 이자 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="15-mortgage.html" class="calc-card" data-cat="finance" data-kw="주택담보대출 LTV DSR"><div class="calc-num">15</div><div class="calc-icon">🏠</div><div class="calc-title">주택담보대출 계산기</div><div class="calc-desc">LTV·DSR·월 상환금 자동 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="16-card-interest.html" class="calc-card" data-cat="finance" data-kw="카드 이자 리볼빙"><div class="calc-num">16</div><div class="calc-icon">💳</div><div class="calc-title">카드 이자 계산기</div><div class="calc-desc">신용카드 리볼빙·현금서비스 이자</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="17-tax.html" class="calc-card" data-cat="finance" data-kw="세금 소득세 종합소득"><div class="calc-num">17</div><div class="calc-icon">🧾</div><div class="calc-title">세금 계산기</div><div class="calc-desc">소득세·지방세·실효세율 계산</div><div class="calc-arrow">계산하기 →</div></a>
     </div>
   </div>
 
-  <!-- 세금 섹션 -->
-  <div class="cat-section" id="tax">
-    <div class="cat-section-header">
-      <span class="cat-section-icon">🧾</span>
-      <span class="cat-section-title">세금 계산기</span>
-      <span class="cat-section-count">5개</span>
-    </div>
+  <!-- 💴 급여·노무 -->
+  <div class="cat-section" id="sec-salary">
+    <div class="cat-header"><span class="cat-icon">💴</span><span class="cat-name">급여·노무</span><span class="cat-count">4개</span></div>
     <div class="calc-grid">
-      <a href="06-income-tax.html" class="calc-card" data-cat="tax" data-keywords="종합소득세 소득세 세금 신고">
-        <div class="calc-card-badge hot">HOT</div>
-        <div class="calc-card-icon">📋</div>
-        <div class="calc-card-title">종합소득세 계산기</div>
-        <div class="calc-card-desc">2025년 기준 종합소득세 세율 적용, 각종 공제 반영 후 납부세액 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="07-vat.html" class="calc-card" data-cat="tax" data-keywords="부가세 부가가치세 VAT 공급가액">
-        <div class="calc-card-icon">🧮</div>
-        <div class="calc-card-title">부가세 계산기</div>
-        <div class="calc-card-desc">공급가액·부가세 포함가 양방향 계산, 사업자 부가세 신고 기준 적용</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="08-acquisition-tax.html" class="calc-card" data-cat="tax" data-keywords="취득세 부동산 아파트 세금">
-        <div class="calc-card-icon">🏛️</div>
-        <div class="calc-card-title">취득세 계산기</div>
-        <div class="calc-card-desc">주택 가격·보유 수별 취득세율 자동 적용, 농특세·지방교육세 포함 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="09-capital-gains.html" class="calc-card" data-cat="tax" data-keywords="양도소득세 양도세 부동산 주식 매도">
-        <div class="calc-card-icon">📈</div>
-        <div class="calc-card-title">양도소득세 계산기</div>
-        <div class="calc-card-desc">부동산·주식 매도 시 양도차익 대비 세금, 장기보유특별공제 자동 적용</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="10-inheritance-tax.html" class="calc-card" data-cat="tax" data-keywords="상속세 증여세 상속 증여">
-        <div class="calc-card-icon">📜</div>
-        <div class="calc-card-title">상속·증여세 계산기</div>
-        <div class="calc-card-desc">상속·증여 재산 규모별 세율과 공제액 계산, 세 부담 최소화 전략 안내</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
+      <a href="04-salary.html" class="calc-card" data-cat="salary" data-kw="연봉 실수령액 4대보험"><div class="calc-num">04</div><div class="calc-icon">💴</div><div class="calc-title">연봉 실수령액 계산기</div><div class="calc-desc">2025년 4대보험·소득세 공제 후 월 실수령액</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="05-hourly.html" class="calc-card" data-cat="salary" data-kw="시급 일급 주급 월급"><div class="calc-num">05</div><div class="calc-icon">⏰</div><div class="calc-title">시급 계산기</div><div class="calc-desc">시급으로 일급·주급·월급·연봉 자동 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="06-monthly.html" class="calc-card" data-cat="salary" data-kw="월급 연봉 시급 환산"><div class="calc-num">06</div><div class="calc-icon">💰</div><div class="calc-title">월급 계산기</div><div class="calc-desc">월급으로 연봉·시급·주휴수당 자동 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="07-severance.html" class="calc-card" data-cat="salary" data-kw="퇴직금 평균임금 근속"><div class="calc-num">07</div><div class="calc-icon">👔</div><div class="calc-title">퇴직금 계산기</div><div class="calc-desc">근속기간·평균임금 기반 법정 퇴직금</div><div class="calc-arrow">계산하기 →</div></a>
     </div>
   </div>
 
-  <!-- 급여·노무 섹션 -->
-  <div class="cat-section" id="salary">
-    <div class="cat-section-header">
-      <span class="cat-section-icon">💰</span>
-      <span class="cat-section-title">급여·노무 계산기</span>
-      <span class="cat-section-count">4개</span>
-    </div>
+  <!-- 💪 건강 -->
+  <div class="cat-section" id="sec-health">
+    <div class="cat-header"><span class="cat-icon">💪</span><span class="cat-name">건강·신체</span><span class="cat-count">5개</span></div>
     <div class="calc-grid">
-      <a href="11-salary.html" class="calc-card" data-cat="salary" data-keywords="연봉 실수령액 4대보험 소득세 월급">
-        <div class="calc-card-badge hot">HOT</div>
-        <div class="calc-card-icon">💴</div>
-        <div class="calc-card-title">연봉 실수령액 계산기</div>
-        <div class="calc-card-desc">2025년 기준 국민연금·건강보험·소득세 공제 후 월 실수령액 즉시 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="12-severance.html" class="calc-card" data-cat="salary" data-keywords="퇴직금 퇴직 계산 평균임금">
-        <div class="calc-card-icon">👔</div>
-        <div class="calc-card-title">퇴직금 계산기</div>
-        <div class="calc-card-desc">근속 연수·평균 임금 기반 법정 퇴직금, 퇴직소득세 계산까지 한번에</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="13-minimum-wage.html" class="calc-card" data-cat="salary" data-keywords="최저임금 2025 시급 주휴수당">
-        <div class="calc-card-badge new">NEW</div>
-        <div class="calc-card-icon">⏰</div>
-        <div class="calc-card-title">최저임금·주휴수당 계산기</div>
-        <div class="calc-card-desc">2025년 최저시급 10,030원 기준, 근무시간별 주휴수당 포함 월급 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="14-insurance.html" class="calc-card" data-cat="salary" data-keywords="4대보험 건강보험 국민연금 고용보험 산재보험">
-        <div class="calc-card-icon">🛡️</div>
-        <div class="calc-card-title">4대보험 계산기</div>
-        <div class="calc-card-desc">급여 기반 4대보험 개인·사업주 부담분 분리 계산, 정확한 공제액 확인</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
+      <a href="18-bodyfat.html" class="calc-card" data-cat="health" data-kw="체지방 체지방률 근육량"><div class="calc-num">18</div><div class="calc-icon">💪</div><div class="calc-title">체지방 계산기</div><div class="calc-desc">체지방률·체지방량·제지방량 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="19-bmi.html" class="calc-card" data-cat="health" data-kw="BMI 비만도 체질량지수"><div class="calc-num">19</div><div class="calc-icon">⚖️</div><div class="calc-title">BMI 계산기</div><div class="calc-desc">키·몸무게 기반 체질량지수·비만도</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="20-bmr.html" class="calc-card" data-cat="health" data-kw="기초대사량 칼로리 소비"><div class="calc-num">20</div><div class="calc-icon">🔥</div><div class="calc-title">기초대사량 계산기</div><div class="calc-desc">해리스-베네딕트 공식 BMR 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="21-calorie.html" class="calc-card" data-cat="health" data-kw="칼로리 다이어트 식단"><div class="calc-num">21</div><div class="calc-icon">🍎</div><div class="calc-title">칼로리 계산기</div><div class="calc-desc">목표 칼로리·영양소 비율 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="22-water.html" class="calc-card" data-cat="health" data-kw="물 섭취량 하루 권장"><div class="calc-num">22</div><div class="calc-icon">💧</div><div class="calc-title">물 섭취량 계산기</div><div class="calc-desc">체중·활동량 기반 하루 권장 수분량</div><div class="calc-arrow">계산하기 →</div></a>
     </div>
   </div>
 
-  <!-- 부동산 섹션 -->
-  <div class="cat-section" id="realestate">
-    <div class="cat-section-header">
-      <span class="cat-section-icon">🏡</span>
-      <span class="cat-section-title">부동산 계산기</span>
-      <span class="cat-section-count">3개</span>
-    </div>
+  <!-- 👶 임신·출산 -->
+  <div class="cat-section" id="sec-pregnancy">
+    <div class="cat-header"><span class="cat-icon">👶</span><span class="cat-name">임신·출산</span><span class="cat-count">2개</span></div>
     <div class="calc-grid">
-      <a href="15-jeonse-convert.html" class="calc-card" data-cat="realestate" data-keywords="전월세전환 전세 월세 전환율">
-        <div class="calc-card-badge hot">HOT</div>
-        <div class="calc-card-icon">🔄</div>
-        <div class="calc-card-title">전월세전환 계산기</div>
-        <div class="calc-card-desc">전세→월세·월세→전세 양방향 전환, 법정 전환율과 시장 전환율 비교</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="16-rent-roi.html" class="calc-card" data-cat="realestate" data-keywords="임대수익률 부동산 투자 수익률 ROI">
-        <div class="calc-card-icon">📊</div>
-        <div class="calc-card-title">임대수익률 계산기</div>
-        <div class="calc-card-desc">매매가·전세금·월세 기반 총·순 임대수익률, 공실률·관리비 반영 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="17-realestate-fee.html" class="calc-card" data-cat="realestate" data-keywords="공인중개사 중개수수료 부동산 수수료">
-        <div class="calc-card-icon">🤝</div>
-        <div class="calc-card-title">부동산 중개수수료 계산기</div>
-        <div class="calc-card-desc">매매·전세·월세별 법정 중개수수료 상한액 자동 계산, 지역별 요율 적용</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
+      <a href="23-due-date.html" class="calc-card" data-cat="health" data-kw="출산예정일 임신 생리"><div class="calc-num">23</div><div class="calc-icon">🤱</div><div class="calc-title">출산 예정일 계산기</div><div class="calc-desc">마지막 생리일 기준 출산 예정일 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="24-pregnancy.html" class="calc-card" data-cat="health" data-kw="임신주수 개월수 삼분기"><div class="calc-num">24</div><div class="calc-icon">🤰</div><div class="calc-title">임신 주수 계산기</div><div class="calc-desc">현재 임신 주수·개월수·D-Day 계산</div><div class="calc-arrow">계산하기 →</div></a>
     </div>
   </div>
 
-  <!-- 투자·저축 섹션 -->
-  <div class="cat-section" id="investment">
-    <div class="cat-section-header">
-      <span class="cat-section-icon">📈</span>
-      <span class="cat-section-title">투자·저축 계산기</span>
-      <span class="cat-section-count">3개</span>
-    </div>
+  <!-- 📅 날짜·시간 -->
+  <div class="cat-section" id="sec-date">
+    <div class="cat-header"><span class="cat-icon">📅</span><span class="cat-name">날짜·시간</span><span class="cat-count">4개</span></div>
     <div class="calc-grid">
-      <a href="18-compound.html" class="calc-card" data-cat="investment" data-keywords="복리 이자 예금 적금 수익률">
-        <div class="calc-card-icon">🌱</div>
-        <div class="calc-card-title">복리 계산기</div>
-        <div class="calc-card-desc">단리·복리 비교, 월 적립식 투자 원리금 시뮬레이션, 목표금액 역산 기능</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="19-savings.html" class="calc-card" data-cat="investment" data-keywords="예금 적금 이자 세후 수익">
-        <div class="calc-card-badge new">NEW</div>
-        <div class="calc-card-icon">🏦</div>
-        <div class="calc-card-title">예·적금 이자 계산기</div>
-        <div class="calc-card-desc">예금·적금 만기 이자, 이자소득세 15.4% 공제 후 세후 수령액 계산</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
-      <a href="20-pension.html" class="calc-card" data-cat="investment" data-keywords="연금 국민연금 수령액 노후 은퇴">
-        <div class="calc-card-icon">🎯</div>
-        <div class="calc-card-title">노후 연금 계산기</div>
-        <div class="calc-card-desc">국민연금 예상 수령액, 은퇴 후 필요 자금, 매달 저축액 역산 시뮬레이션</div>
-        <div class="calc-card-arrow">계산하기 →</div>
-      </a>
+      <a href="25-age.html" class="calc-card" data-cat="date" data-kw="나이 만나이 생년월일"><div class="calc-num">25</div><div class="calc-icon">🎂</div><div class="calc-title">나이 계산기</div><div class="calc-desc">만 나이·세는 나이·다음 생일 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="26-date-diff.html" class="calc-card" data-cat="date" data-kw="날짜 계산 일수 차이"><div class="calc-num">26</div><div class="calc-icon">📅</div><div class="calc-title">날짜 계산기</div><div class="calc-desc">두 날짜 사이 일수·주·월·년 차이</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="27-dday.html" class="calc-card" data-cat="date" data-kw="디데이 D-Day 목표일"><div class="calc-num">27</div><div class="calc-icon">📆</div><div class="calc-title">디데이 계산기</div><div class="calc-desc">목표 날짜까지 남은 날·지난 날 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="28-time.html" class="calc-card" data-cat="date" data-kw="시간 계산 변환 덧셈"><div class="calc-num">28</div><div class="calc-icon">🕐</div><div class="calc-title">시간 계산기</div><div class="calc-desc">시간 덧셈·뺄셈·단위 변환</div><div class="calc-arrow">계산하기 →</div></a>
     </div>
   </div>
 
-  <div class="ad-banner">📢 GOOGLE ADSENSE 광고 영역 (728×90)</div>
+  <!-- ⚡ 생활요금 -->
+  <div class="cat-section" id="sec-bill">
+    <div class="cat-header"><span class="cat-icon">⚡</span><span class="cat-name">생활요금</span><span class="cat-count">4개</span></div>
+    <div class="calc-grid">
+      <a href="29-electricity.html" class="calc-card" data-cat="bill" data-kw="전기요금 전력 kWh"><div class="calc-num">29</div><div class="calc-icon">⚡</div><div class="calc-title">전기요금 계산기</div><div class="calc-desc">가정용 전력 사용량 기반 전기요금</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="30-gas-bill.html" class="calc-card" data-cat="bill" data-kw="가스요금 도시가스 m3"><div class="calc-num">30</div><div class="calc-icon">🔥</div><div class="calc-title">가스요금 계산기</div><div class="calc-desc">도시가스 사용량 기반 요금 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="31-water-bill.html" class="calc-card" data-cat="bill" data-kw="수도요금 상수도 하수도"><div class="calc-num">31</div><div class="calc-icon">🚰</div><div class="calc-title">수도요금 계산기</div><div class="calc-desc">수도 사용량 기반 상·하수도 요금</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="32-shipping.html" class="calc-card" data-cat="bill" data-kw="배송비 택배 무게"><div class="calc-num">32</div><div class="calc-icon">📦</div><div class="calc-title">배송비 계산기</div><div class="calc-desc">택배 무게·크기·배송사별 요금</div><div class="calc-arrow">계산하기 →</div></a>
+    </div>
+  </div>
+
+  <!-- 📊 사업·마케팅 -->
+  <div class="cat-section" id="sec-business">
+    <div class="cat-header"><span class="cat-icon">📊</span><span class="cat-name">사업·마케팅</span><span class="cat-count">8개</span></div>
+    <div class="calc-grid">
+      <a href="33-exchange.html" class="calc-card" data-cat="business" data-kw="환율 달러 원화 변환"><div class="calc-num">33</div><div class="calc-icon">💱</div><div class="calc-title">환율 계산기</div><div class="calc-desc">USD·EUR·JPY·CNY·GBP 환율 변환</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="34-cost.html" class="calc-card" data-cat="business" data-kw="원가 판가 마진 이익률"><div class="calc-num">34</div><div class="calc-icon">🏭</div><div class="calc-title">원가 계산기</div><div class="calc-desc">원가·판가·마진율·이익 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="35-margin.html" class="calc-card" data-cat="business" data-kw="마진율 영업이익 순이익"><div class="calc-num">35</div><div class="calc-icon">💹</div><div class="calc-title">마진 계산기</div><div class="calc-desc">매출·영업·순이익 마진율 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="36-roi.html" class="calc-card" data-cat="business" data-kw="ROI 투자수익률 회수"><div class="calc-num">36</div><div class="calc-icon">🎯</div><div class="calc-title">ROI 계산기</div><div class="calc-desc">투자 대비 수익률(ROI) 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="37-cpc.html" class="calc-card" data-cat="business" data-kw="CPC 클릭비용 광고비 전환"><div class="calc-num">37</div><div class="calc-icon">📣</div><div class="calc-title">광고 CPC 계산기</div><div class="calc-desc">클릭당 비용·ROAS·전환 수익 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="38-cpm.html" class="calc-card" data-cat="business" data-kw="CPM 노출 광고 1000회"><div class="calc-num">38</div><div class="calc-icon">📢</div><div class="calc-title">CPM 계산기</div><div class="calc-desc">1,000회 노출당 광고비·노출수 계산</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="39-cpm-revenue.html" class="calc-card" data-cat="business" data-kw="CPM 수익 블로그 광고 수익"><div class="calc-num">39</div><div class="calc-icon">💸</div><div class="calc-title">CPM 수익 계산기</div><div class="calc-desc">사이트 방문자·CPM 기반 광고 수익 예측</div><div class="calc-arrow">계산하기 →</div></a>
+      <a href="40-youtube.html" class="calc-card" data-cat="business" data-kw="유튜브 수익 RPM 조회수"><div class="calc-num">40</div><div class="calc-icon">▶️</div><div class="calc-title">유튜브 수익 계산기</div><div class="calc-desc">조회수·RPM 기반 유튜브 예상 수익</div><div class="calc-arrow">계산하기 →</div></a>
+    </div>
+  </div>
+
+  <!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+-->
 
   <div class="site-footer">
-    <p>© 2025 CalcFin · 본 계산기는 참고용이며 실제 금융 결정에는 전문가 상담을 권장합니다 · <a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> · <a href="terms.html" style="color:var(--text-muted)">이용약관</a></p>
-    <p style="margin-top:8px;">계산 기준: 2025년 세법 및 금융감독원 기준</p>
+    <p>© 2026 CalcFin · 본 계산기는 참고용이며 실제 결정에는 전문가 상담을 권장합니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p>
   </div>
 
 </div>
 
 <script>
-  // 카테고리 필터
-  const catTabs = document.querySelectorAll('.cat-tab');
-  const calcCards = document.querySelectorAll('.calc-card');
-  const catSections = document.querySelectorAll('.cat-section');
-
-  catTabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      catTabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-      const cat = this.dataset.cat;
-
-      if (cat === 'all') {
-        catSections.forEach(s => s.style.display = '');
-        calcCards.forEach(c => c.style.display = '');
-      } else {
-        catSections.forEach(s => {
-          s.style.display = s.id === cat ? '' : 'none';
-        });
-      }
+// 카테고리 탭
+document.querySelectorAll('.cat-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    const cat = this.dataset.cat;
+    document.querySelectorAll('.cat-card-hidden').forEach(c => c.classList.remove('calc-card-hidden'));
+    document.querySelectorAll('.calc-card').forEach(card => {
+      if(cat === 'all') { card.style.display = ''; }
+      else { card.style.display = card.dataset.cat === cat ? '' : 'none'; }
+    });
+    // 섹션 헤더 숨김
+    document.querySelectorAll('.cat-section').forEach(sec => {
+      if(cat === 'all') { sec.style.display = ''; return; }
+      const cards = sec.querySelectorAll('.calc-card');
+      const visible = [...cards].some(c => c.dataset.cat === cat);
+      sec.style.display = visible ? '' : 'none';
     });
   });
+});
 
-  // 검색
-  document.getElementById('searchInput').addEventListener('input', function() {
-    const q = this.value.trim().toLowerCase();
-    if (!q) {
-      catSections.forEach(s => s.style.display = '');
-      calcCards.forEach(c => c.style.display = '');
-      catTabs.forEach(t => t.classList.remove('active'));
-      catTabs[0].classList.add('active');
-      return;
-    }
-
-    catSections.forEach(s => s.style.display = '');
-    calcCards.forEach(card => {
-      const text = (card.dataset.keywords + ' ' + card.querySelector('.calc-card-title').textContent).toLowerCase();
-      card.style.display = text.includes(q) ? '' : 'none';
-    });
+// 검색
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) {
+    document.querySelectorAll('.calc-card').forEach(c => c.style.display = '');
+    document.querySelectorAll('.cat-section').forEach(s => s.style.display = '');
+    return;
+  }
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.cat-section').forEach(s => s.style.display = '');
+  document.querySelectorAll('.calc-card').forEach(card => {
+    const text = ((card.dataset.kw || '') + ' ' + card.querySelector('.calc-title').textContent).toLowerCase();
+    card.style.display = text.includes(q) ? '' : 'none';
   });
+});
 </script>
 </body>
 </html>

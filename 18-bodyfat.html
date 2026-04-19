@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>체지방 계산기 | CalcFin</title><meta name="description" content="체지방 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">BODY FAT</div><h1>체지방 <span>계산기</span></h1><p>체지방률·체지방량·제지방량을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">신체 정보</div>
+<div class="field"><label>성별</label><div class="btn-group"><button class="btn-opt active" data-g="m">남성</button><button class="btn-opt" data-g="f">여성</button></div></div>
+<div class="field"><label>나이</label><div class="input-wrap"><input type="number" id="age" value="30" min="10" max="90"><span class="unit">세</span></div></div>
+<div class="field"><label>키</label><div class="input-wrap"><input type="number" id="h" value="175" min="140" max="220" step="0.1"><span class="unit">cm</span></div></div>
+<div class="field"><label>몸무게</label><div class="input-wrap"><input type="number" id="w" value="70" min="30" max="200" step="0.1"><span class="unit">kg</span></div></div>
+<div class="field"><label>허리 둘레</label><div class="input-wrap"><input type="number" id="waist" value="80" min="50" max="150" step="0.5"><span class="unit">cm</span></div></div>
+<div class="field"><label>목 둘레</label><div class="input-wrap"><input type="number" id="neck" value="37" min="25" max="60" step="0.5"><span class="unit">cm</span></div></div>
+<div class="field" id="hipField" style="display:none"><label>엉덩이 둘레</label><div class="input-wrap"><input type="number" id="hip" value="90" min="60" max="160" step="0.5"><span class="unit">cm</span></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">💪</div><div>신체 정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let gender='m';document.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-g]').forEach(x=>x.classList.remove('active'));this.classList.add('active');gender=this.dataset.g;document.getElementById('hipField').style.display=gender==='f'?'':'none'}));
+function calc(){
+  const h=+document.getElementById('h').value,w=+document.getElementById('w').value,waist=+document.getElementById('waist').value,neck=+document.getElementById('neck').value;
+  let bf;
+  if(gender==='m')bf=495/(1.0324-0.19077*Math.log10(waist-neck)+0.15456*Math.log10(h))-450;
+  else{const hip=+document.getElementById('hip').value;bf=495/(1.29579-0.35004*Math.log10(waist+hip-neck)+0.22100*Math.log10(h))-450}
+  bf=Math.max(3,Math.min(60,bf));
+  const fatMass=w*bf/100,leanMass=w-fatMass;
+  const std=gender==='m'?{low:6,normal:15,high:25}:{low:14,normal:22,high:32};
+  const status=bf<std.low?'매우 낮음':bf<std.normal?'정상':bf<std.high?'약간 높음':'비만';
+  document.getElementById('res').innerHTML=`<div class="card-title">체지방 분석 결과</div><div class="result-hero r2"><div class="ri ${bf>std.high?'danger':bf<std.low?'info':'hl'}"><div class="rl">체지방률</div><div class="rv">${bf.toFixed(1)}%</div><div class="rs">${status}</div></div><div class="ri"><div class="rl">체지방량</div><div class="rv">${fatMass.toFixed(1)}kg</div></div><div class="ri gold"><div class="rl">근육량(제지방)</div><div class="rv">${leanMass.toFixed(1)}kg</div></div><div class="ri info"><div class="rl">정상 범위</div><div class="rv">${std.low}~${std.normal}%</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

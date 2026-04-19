@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>나이 계산기 | CalcFin</title><meta name="description" content="나이 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">AGE CALCULATOR</div><h1>나이 <span>계산기</span></h1><p>생년월일 기준 만 나이·세는 나이를 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">생년월일 입력</div>
+<div class="field"><label>생년월일</label><div class="input-wrap"><input type="date" id="birth" value="1990-01-01" style="padding-right:14px;font-size:14px"></div></div>
+<div class="field"><label>기준일 (비워두면 오늘)</label><div class="input-wrap"><input type="date" id="base" style="padding-right:14px;font-size:14px"></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🎂</div><div>생년월일을 입력하고 계산하세요</div></div></div></div>
+<script>
+function calc(){
+  const birth=new Date(document.getElementById('birth').value);
+  const base=document.getElementById('base').value?new Date(document.getElementById('base').value):new Date();
+  if(isNaN(birth))return;
+  let manAge=base.getFullYear()-birth.getFullYear();
+  const m=base.getMonth()-birth.getMonth();
+  if(m<0||(m===0&&base.getDate()<birth.getDate()))manAge--;
+  const korAge=base.getFullYear()-birth.getFullYear()+1;
+  const totalDays=Math.floor((base-birth)/86400000);
+  const nextBirth=new Date(birth);nextBirth.setFullYear(base.getFullYear());
+  if(nextBirth<base)nextBirth.setFullYear(base.getFullYear()+1);
+  const dBirth=Math.ceil((nextBirth-base)/86400000);
+  document.getElementById('res').innerHTML=`<div class="card-title">나이 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">만 나이</div><div class="rv">${manAge}세</div></div><div class="ri"><div class="rl">세는 나이 (한국식)</div><div class="rv">${korAge}세</div></div><div class="ri info"><div class="rl">태어난 지</div><div class="rv">${totalDays.toLocaleString()}일</div></div><div class="ri gold"><div class="rl">다음 생일까지</div><div class="rv">${dBirth}일</div></div></div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>배송비 계산기 | CalcFin</title><meta name="description" content="배송비 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">SHIPPING FEE</div><h1>배송비 <span>계산기</span></h1><p>택배 무게·크기 기반 배송비를 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">택배 정보</div>
+<div class="field"><label>무게</label><div class="input-wrap"><input type="number" id="wt" value="2" min="0.1" max="30" step="0.1"><span class="unit">kg</span></div></div>
+<div class="field"><label>크기 합산 (가로+세로+높이)</label><div class="input-wrap"><input type="number" id="size" value="80" min="10" max="300"><span class="unit">cm</span></div></div>
+<div class="field"><label>배송사</label><div class="btn-group"><button class="btn-opt active" data-c="cj">CJ대한통운</button><button class="btn-opt" data-c="lotte">롯데택배</button><button class="btn-opt" data-c="hanjin">한진택배</button></div></div>
+<div class="field"><label>도착지</label><div class="btn-group"><button class="btn-opt active" data-d="base">일반</button><button class="btn-opt" data-d="jeju">제주</button><button class="btn-opt" data-d="island">도서·산간</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">📦</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let company='cj',dest='base';
+document.querySelectorAll('[data-c]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-c]').forEach(x=>x.classList.remove('active'));this.classList.add('active');company=this.dataset.c}));
+document.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-d]').forEach(x=>x.classList.remove('active'));this.classList.add('active');dest=this.dataset.d}));
+function fw(n){return n.toLocaleString()+'원'}
+function calc(){
+  const wt=+document.getElementById('wt').value,size=+document.getElementById('size').value;
+  const base={cj:5000,lotte:4800,hanjin:5000}[company];
+  let fee=base;
+  if(wt>2)fee+=Math.ceil((wt-2)/2)*1000;
+  if(size>80)fee+=Math.ceil((size-80)/20)*1000;
+  const extra={base:0,jeju:4000,island:5500}[dest];
+  const total=fee+extra;
+  document.getElementById('res').innerHTML=`<div class="card-title">배송비 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">예상 배송비</div><div class="rv">${fw(total)}</div></div><div class="ri"><div class="rl">기본 배송비</div><div class="rv">${fw(fee)}</div></div><div class="ri ${extra>0?'danger':''}""><div class="rl">도서·제주 추가</div><div class="rv">${extra>0?'+'+fw(extra):'없음'}</div></div></div>
+  <div style="font-size:11px;color:var(--text-muted);font-family:DM Mono,monospace;margin-top:10px">※ 실제 요금은 배송사 홈페이지 기준으로 확인하세요</div>`
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

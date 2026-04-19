@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>시간 계산기 | CalcFin</title><meta name="description" content="시간 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">TIME CALCULATOR</div><h1>시간 <span>계산기</span></h1><p>시간 덧셈·뺄셈·변환·총 시간을 계산합니다</p></div>
+<div class="two-col"><div class="card anim-1"><div class="card-title">시간 계산</div>
+<div class="field"><label>계산 방식</label><div class="btn-group"><button class="btn-opt active" data-m="add">더하기</button><button class="btn-opt" data-m="sub">빼기</button><button class="btn-opt" data-m="convert">단위 변환</button></div></div>
+<div id="addSub">
+<div class="field"><label>시간 A</label><div style="display:flex;gap:8px"><div class="input-wrap" style="flex:1"><input type="number" id="ah" value="3" min="0" max="999"><span class="unit">시</span></div><div class="input-wrap" style="flex:1"><input type="number" id="am" value="30" min="0" max="59"><span class="unit">분</span></div><div class="input-wrap" style="flex:1"><input type="number" id="as" value="0" min="0" max="59"><span class="unit">초</span></div></div></div>
+<div class="field"><label>시간 B</label><div style="display:flex;gap:8px"><div class="input-wrap" style="flex:1"><input type="number" id="bh" value="1" min="0" max="999"><span class="unit">시</span></div><div class="input-wrap" style="flex:1"><input type="number" id="bm" value="45" min="0" max="59"><span class="unit">분</span></div><div class="input-wrap" style="flex:1"><input type="number" id="bs" value="0" min="0" max="59"><span class="unit">초</span></div></div></div>
+</div>
+<div id="convDiv" style="display:none">
+<div class="field"><label>변환할 시간 값</label><div class="input-wrap"><input type="number" id="cv" value="90" step="0.5"><span class="unit" id="cu">분</span></div></div>
+<div class="field"><label>입력 단위</label><div class="btn-group"><button class="btn-opt" data-u="sec">초</button><button class="btn-opt active" data-u="min">분</button><button class="btn-opt" data-u="hour">시간</button><button class="btn-opt" data-u="day">일</button></div></div>
+</div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🕐</div><div>정보를 입력하고 계산하세요</div></div></div></div>
+<script>
+let mode='add',cunit='min';
+document.querySelectorAll('[data-m]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-m]').forEach(x=>x.classList.remove('active'));this.classList.add('active');mode=this.dataset.m;document.getElementById('addSub').style.display=mode==='convert'?'none':'';document.getElementById('convDiv').style.display=mode==='convert'?'':'none'}));
+document.querySelectorAll('[data-u]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-u]').forEach(x=>x.classList.remove('active'));this.classList.add('active');cunit=this.dataset.u;document.getElementById('cu').textContent={sec:'초',min:'분',hour:'시간',day:'일'}[cunit]}));
+function toSec(h,m,s){return h*3600+m*60+s}
+function fromSec(s){return{h:Math.floor(s/3600),m:Math.floor((s%3600)/60),s:s%60}}
+function fmt(h,m,s){return`${h}시간 ${m}분 ${s}초`}
+function calc(){
+  if(mode==='convert'){
+    const v=+document.getElementById('cv').value;
+    const sec={sec:v,min:v*60,hour:v*3600,day:v*86400}[cunit];
+    const r=fromSec(Math.round(sec));
+    document.getElementById('res').innerHTML=`<div class="card-title">단위 변환 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">변환 결과</div><div class="rv">${fmt(r.h,r.m,r.s)}</div></div><div class="ri"><div class="rl">초(秒)</div><div class="rv">${sec.toLocaleString()}초</div></div><div class="ri info"><div class="rl">분(分)</div><div class="rv">${(sec/60).toFixed(2)}분</div></div><div class="ri gold"><div class="rl">시간(時)</div><div class="rv">${(sec/3600).toFixed(4)}시간</div></div></div>`
+  } else {
+    const a=toSec(+document.getElementById('ah').value,+document.getElementById('am').value,+document.getElementById('as').value);
+    const b=toSec(+document.getElementById('bh').value,+document.getElementById('bm').value,+document.getElementById('bs').value);
+    const res=mode==='add'?a+b:Math.abs(a-b);
+    const r=fromSec(res);
+    document.getElementById('res').innerHTML=`<div class="card-title">시간 ${mode==='add'?'덧셈':'뺄셈'} 결과</div><div class="ri hl" style="padding:20px;text-align:center;margin-bottom:14px;border:1px solid rgba(0,212,170,.3);border-radius:10px"><div class="rl">계산 결과</div><div class="rv" style="font-size:22px">${fmt(r.h,r.m,r.s)}</div></div><div class="result-hero r2"><div class="ri info"><div class="rl">총 분</div><div class="rv">${(res/60).toFixed(1)}분</div></div><div class="ri gold"><div class="rl">총 시간</div><div class="rv">${(res/3600).toFixed(3)}시간</div></div></div>`
+  }
+}calc();</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

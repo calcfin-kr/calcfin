@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>부가세 계산기 | CalcFin</title><meta name="description" content="공급가액↔부가세 포함가 양방향 계산"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+  <!-- Google Analytics GA4 -->
+  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- /Google Analytics -->
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">VAT CALCULATOR</div><h1>부가세 <span>계산기</span></h1><p>공급가액과 부가세 포함가를 양방향으로 계산합니다</p></div>
+<div class="two-col">
+<div class="card anim-1"><div class="card-title">계산 정보</div>
+<div class="field"><label>계산 방향</label><div class="btn-group"><button class="btn-opt active" data-m="add">공급가 → 부가세 추가</button><button class="btn-opt" data-m="remove">총액 → 공급가 분리</button></div></div>
+<div class="field"><label id="amtLbl">공급가액 (VAT 제외)</label><div class="input-wrap"><input type="number" id="amt" value="1000000" step="10000"><span class="unit">원</span></div></div>
+<div class="field"><label>부가세율</label><div class="btn-group"><button class="btn-opt active" data-r="10">10% 일반</button><button class="btn-opt" data-r="0">0% 영세율</button></div></div>
+<button class="calc-btn" onclick="calc()">계산하기</button></div>
+<div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">🧮</div><div>금액을 입력하고 계산하세요</div></div></div>
+</div>
+<script>
+let mode='add',vatR=10;
+document.querySelectorAll('[data-m]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-m]').forEach(x=>x.classList.remove('active'));this.classList.add('active');mode=this.dataset.m;document.getElementById('amtLbl').textContent=mode==='add'?'공급가액 (VAT 제외)':'VAT 포함 총액'}));
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('active'));this.classList.add('active');vatR=+this.dataset.r}));
+function fw(n){return Math.round(n).toLocaleString()+'원'}
+function calc(){
+  const amt=+document.getElementById('amt').value;
+  let supply,vat,total;
+  if(mode==='add'){supply=amt;vat=Math.round(amt*vatR/100);total=supply+vat}
+  else{total=amt;supply=Math.round(amt/(1+vatR/100));vat=total-supply}
+  document.getElementById('res').innerHTML=`<div class="card-title">부가세 계산 결과</div>
+  <div class="result-hero r2"><div class="ri info"><div class="rl">공급가액</div><div class="rv">${fw(supply)}</div></div><div class="ri gold"><div class="rl">부가세 (${vatR}%)</div><div class="rv">${fw(vat)}</div></div><div class="ri hl" style="grid-column:1/-1"><div class="rl">합계 (VAT 포함)</div><div class="rv" style="font-size:24px">${fw(total)}</div></div></div>`
+}
+calc();
+</script><!-- ADSENSE
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+--><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
