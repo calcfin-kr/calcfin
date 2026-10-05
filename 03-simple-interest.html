@@ -1,17 +1,5 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>단리 계산기 | CalcFin</title><meta name="description" content="단리 이자 및 만기 수령액 계산"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
-  <!-- Google Analytics GA4 -->
-  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
-      'cookie_flags': 'SameSite=None;Secure'
-    });
-  </script>
-  <!-- /Google Analytics -->
+ 
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">SIMPLE INTEREST</div><h1>단리 <span>계산기</span></h1><p>원금·이자율·기간으로 단리 이자와 만기 수령액을 계산합니다</p></div>
 <div class="two-col">
 <div class="card anim-1"><div class="card-title">정보 입력</div>
@@ -34,14 +22,16 @@ function calc(){
   <div class="result-hero r2"><div class="ri hl"><div class="rl">이자</div><div class="rv">${fw(interest)}</div></div><div class="ri"><div class="rl">만기 수령액</div><div class="rv">${fw(total)}</div></div><div class="ri info"><div class="rl">원금</div><div class="rv">${fw(p)}</div></div><div class="ri gold"><div class="rl">실효 이자율</div><div class="rv">${(r*yrs*100).toFixed(2)}%</div></div></div>`
 }
 calc();
-</script><!-- ADSENSE
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
---><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
+     crossorigin="anonymous"></script>
+<!-- CALCFIN 수동광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9570087715213390"
+     data-ad-slot="3457075379"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
     <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>

@@ -1,17 +1,5 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>CPM 계산기 | CalcFin</title><meta name="description" content="CPM 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
-  <!-- Google Analytics GA4 -->
-  <!-- 실제 측정 ID로 교체: G-XXXXXXXXXX → 본인 GA4 측정 ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      'anonymize_ip': true,        // IP 익명화 (개인정보처리방침 준수)
-      'cookie_flags': 'SameSite=None;Secure'
-    });
-  </script>
-  <!-- /Google Analytics -->
+  
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">CPM CALCULATOR</div><h1>CPM <span>계산기</span></h1><p>1,000회 노출당 비용(CPM)을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">CPM 정보</div>
 <div class="field"><label>계산 방식</label><div class="btn-group"><button class="btn-opt active" data-m="budget2imp">예산+CPM → 노출수</button><button class="btn-opt" data-m="imp2budget">노출수+CPM → 비용</button><button class="btn-opt" data-m="calc">예산+노출 → CPM</button></div></div>
@@ -36,14 +24,16 @@ function calc(){
   else{imp=imp_in;cost=budget;actualCPM=(budget/imp_in*1000).toFixed(2)}
   const clicks=Math.floor(imp*ctr),cpc=clicks>0?(cost/clicks).toFixed(0):0;
   document.getElementById('res').innerHTML=`<div class="card-title">CPM 광고 분석</div><div class="result-hero r2"><div class="ri hl"><div class="rl">총 노출 수</div><div class="rv">${fw(imp)}회</div></div><div class="ri"><div class="rl">광고 비용</div><div class="rv">${fw(cost)}원</div></div><div class="ri info"><div class="rl">CPM</div><div class="rv">${actualCPM}원</div></div><div class="ri gold"><div class="rl">예상 클릭 수</div><div class="rv">${fw(clicks)}회</div></div><div class="ri"><div class="rl">환산 CPC</div><div class="rv">${cpc}원</div></div></div>`
-}calc();</script><!-- ADSENSE
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
---><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
+}calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
+     crossorigin="anonymous"></script>
+<!-- CALCFIN 수동광고 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9570087715213390"
+     data-ad-slot="3457075379"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
     <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
