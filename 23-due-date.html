@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>출산 예정일 계산기 | CalcFin</title><meta name="description" content="출산 예정일 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>출산 예정일 계산기 | CalcFin</title><meta name="description" content="마지막 생리 시작일을 기준으로 예정일을 추정하는 방식은 보통 생리 주기가 일정하다는 가정을 사용합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DUE DATE</div><h1>출산 예정일 <span>계산기</span></h1><p>마지막 생리 시작일로 출산 예정일을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/23-due-date">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DUE DATE</div><h1>출산 예정일 <span>계산기</span></h1><p>마지막 생리 시작일로 출산 예정일을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">생리 정보</div>
 <div class="field"><label>마지막 생리 시작일 (LMP)</label><div class="input-wrap"><input type="date" id="lmp" style="padding-right:14px;font-size:14px"></div></div>
 <div class="field"><label>생리 주기</label><div class="btn-group"><button class="btn-opt active" data-c="28">28일</button><button class="btn-opt" data-c="30">30일</button><button class="btn-opt" data-c="35">35일</button></div></div>
@@ -19,6 +20,17 @@ function calc(){
   document.getElementById('res').innerHTML=`<div class="card-title">출산 예정일 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">출산 예정일</div><div class="rv" style="font-size:16px">${fmt(due)}</div></div><div class="ri gold"><div class="rl">D-Day</div><div class="rv">${ddays>0?'D-'+ddays:'D+'+Math.abs(ddays)}</div></div><div class="ri info"><div class="rl">현재 임신 주수</div><div class="rv">${weeks}주 ${wdays}일</div></div><div class="ri"><div class="rl">삼분기</div><div class="rv" style="font-size:13px">${trimester}</div></div></div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">출산 예정일 참고 계산: 계산 기준과 활용 방법</h2>
+  <p>마지막 생리 시작일을 기준으로 예정일을 추정하는 방식은 보통 생리 주기가 일정하다는 가정을 사용합니다. 날짜를 입력하기 전에 시작일과 주기 기준이 맞는지 확인하세요.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>배란일과 실제 주기, 임신 경과에 따라 예정일은 달라질 수 있습니다. 이 계산 결과는 진단이나 진료 일정 결정에 사용할 수 없으며 산부인과에서 확인한 예정일을 우선하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/24-pregnancy">임신 주수 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/25-age">나이 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/26-date-diff">날짜 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -29,4 +41,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>자동차 할부 계산기 | CalcFin</title><meta name="description" content="자동차 할부 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>자동차 할부 계산기 | CalcFin</title><meta name="description" content="차량 할부 원금·금리·기간을 기준으로 월 납입금과 총이자를 비교합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">CAR LOAN</div><h1>자동차 할부 <span>계산기</span></h1><p>차량 할부 월 납입금과 총 이자를 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/14-car-loan">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">CAR LOAN</div><h1>자동차 할부 <span>계산기</span></h1><p>차량 할부 월 납입금과 총 이자를 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">할부 정보</div>
 <div class="field"><label>차량 가격</label><div class="input-wrap"><input type="number" id="price" value="30000000" step="500000"><span class="unit">원</span></div></div>
 <div class="field"><label>선수금 (계약금)</label><div class="input-wrap"><input type="number" id="down" value="5000000" step="500000"><span class="unit">원</span></div></div>
@@ -19,6 +20,17 @@ function calc(){
   document.getElementById('res').innerHTML=`<div class="card-title">할부 계산 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">월 납입금</div><div class="rv">${fw(monthly)}</div></div><div class="ri"><div class="rl">할부 원금</div><div class="rv">${fw(loan)}</div></div><div class="ri danger"><div class="rl">총 이자</div><div class="rv">${fw(interest)}</div></div><div class="ri"><div class="rl">총 납입금액</div><div class="rv">${fw(total)}</div></div></div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">자동차 할부 계산: 계산 기준과 활용 방법</h2>
+  <p>차량 할부 원금·금리·기간을 기준으로 월 납입금과 총이자를 비교합니다. 차량 가격 전액이 아니라 선수금이나 보조금을 제외한 실제 금융 원금을 입력해야 비교가 정확해집니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>취급 수수료, 잔존가치, 유예금, 보험·등록 비용과 금융사별 상환 방식은 결과에 반영되지 않을 수 있습니다. 계약서의 월 납입 일정과 총 비용을 함께 확인하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/01-loan">대출 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/15-mortgage">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/10-return-rate">수익률 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -29,4 +41,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

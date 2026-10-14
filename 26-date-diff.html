@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>날짜 계산기 | CalcFin</title><meta name="description" content="날짜 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>날짜 계산기 | CalcFin</title><meta name="description" content="두 날짜 사이의 일수와 주·월·년 차이를 비교합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
  
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DATE CALCULATOR</div><h1>날짜 <span>계산기</span></h1><p>두 날짜 사이의 일수·주·월·년 차이를 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/26-date-diff">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DATE CALCULATOR</div><h1>날짜 <span>계산기</span></h1><p>두 날짜 사이의 일수·주·월·년 차이를 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">날짜 입력</div>
 <div class="field"><label>시작 날짜</label><div class="input-wrap"><input type="date" id="s" style="padding-right:14px;font-size:14px"></div></div>
 <div class="field"><label>종료 날짜</label><div class="input-wrap"><input type="date" id="e" style="padding-right:14px;font-size:14px"></div></div>
@@ -19,6 +20,17 @@ function calc(){
   document.getElementById('res').innerHTML=`<div class="card-title">날짜 차이 결과</div><div class="result-hero r2"><div class="ri hl"><div class="rl">일수</div><div class="rv">${days.toLocaleString()}일</div></div><div class="ri"><div class="rl">주</div><div class="rv">${weeks}주</div></div><div class="ri info"><div class="rl">개월</div><div class="rv">${months}개월</div></div><div class="ri gold"><div class="rl">년</div><div class="rv">${years}년</div></div></div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">날짜 차이 계산: 계산 기준과 활용 방법</h2>
+  <p>두 날짜 사이의 일수와 주·월·년 차이를 비교합니다. 달마다 날짜 수가 다르므로 월·년 환산은 단순 일수 나눗셈과 다른 결과가 될 수 있습니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>시작일과 종료일을 모두 포함하는지 여부에 따라 일수 계산은 달라질 수 있습니다. 계약 기한이나 법정 기간처럼 정확성이 중요한 일정은 해당 업무의 날짜 계산 규칙을 확인하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/27-dday">디데이 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/25-age">나이 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/28-time">시간 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -29,4 +41,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

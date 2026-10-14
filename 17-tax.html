@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>세금 계산기 | CalcFin</title><meta name="description" content="세금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>세금 계산기 | CalcFin</title><meta name="description" content="입력한 소득과 조건을 바탕으로 세금 또는 실효세율을 산술적으로 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">INCOME TAX</div><h1>소득세 <span>계산기</span></h1><p>소득세·지방세·실효세율을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/17-tax">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">INCOME TAX</div><h1>소득세 <span>계산기</span></h1><p>소득세·지방세·실효세율을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">소득 정보</div>
 <div class="field"><label>종합소득금액 (연간)</label><div class="input-wrap"><input type="number" id="inc" value="60000000" step="1000000"><span class="unit">원</span></div></div>
 <div class="field"><label>소득공제 합계</label><div class="input-wrap"><input type="number" id="ded" value="12000000" step="100000"><span class="unit">원</span></div></div>
@@ -26,6 +27,17 @@ function calc(){
   document.getElementById('res').innerHTML=`<div class="card-title">세금 계산 결과</div><div class="result-hero r2"><div class="ri"><div class="rl">과세표준</div><div class="rv">${fw(tb)}</div></div><div class="ri danger"><div class="rl">소득세</div><div class="rv">${fw(Math.round(tax))}</div></div><div class="ri info"><div class="rl">지방소득세 (10%)</div><div class="rv">${fw(local)}</div></div><div class="ri hl"><div class="rl">총 납부세액</div><div class="rv">${fw(total)}</div></div><div class="ri gold"><div class="rl">유효세율</div><div class="rv">${inc>0?((total/inc)*100).toFixed(2):'0.00'}%</div></div></div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">세금 계산 참고: 계산 기준과 활용 방법</h2>
+  <p>입력한 소득과 조건을 바탕으로 세금 또는 실효세율을 산술적으로 추정합니다. 세율 구간형 계산은 과세표준이 구간을 넘을 때 초과분에 다음 세율이 적용되는 구조를 이해하는 데 도움이 됩니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>공제·감면, 소득 종류, 귀속연도, 지방세와 개인별 신고 조건에 따라 실제 납부액은 달라집니다. 화면에 표시된 적용 연도와 계산 항목을 확인하고 신고·납부 전에는 국세청 또는 세무 전문가의 안내를 따르세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/04-salary">연봉 실수령액 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/08-vat">부가세 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/15-mortgage">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -36,4 +48,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

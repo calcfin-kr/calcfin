@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>물 섭취량 계산기 | CalcFin</title><meta name="description" content="물 섭취량 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>물 섭취량 계산기 | CalcFin</title><meta name="description" content="체중과 활동량 등 입력 조건으로 하루 수분 섭취 목표를 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">WATER INTAKE</div><h1>물 섭취량 <span>계산기</span></h1><p>체중과 활동량 기반 하루 권장 물 섭취량을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/22-water">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">WATER INTAKE</div><h1>물 섭취량 <span>계산기</span></h1><p>체중과 활동량 기반 하루 권장 물 섭취량을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">신체·활동 정보</div>
 <div class="field"><label>체중</label><div class="input-wrap"><input type="number" id="w" value="70" min="30" max="200" step="0.5"><span class="unit">kg</span></div><input type="range" id="wR" min="30" max="150" step="0.5" value="70"><div class="slider-labels"><span>30kg</span><span>150kg</span></div></div>
 <div class="field"><label>활동 수준</label><div class="btn-group"><button class="btn-opt" data-a="0">적음</button><button class="btn-opt active" data-a="350">보통</button><button class="btn-opt" data-a="700">활발</button></div></div>
@@ -21,6 +22,17 @@ function calc(){
   <div style="background:rgba(0,153,255,.06);border:1px solid rgba(0,153,255,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:DM Mono,monospace">💡 기상 직후 공복에 물 한 잔 · 식사 30분 전 한 잔 · 운동 전후 충분히 수분 보충</div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">수분 섭취량 참고: 계산 기준과 활용 방법</h2>
+  <p>체중과 활동량 등 입력 조건으로 하루 수분 섭취 목표를 추정합니다. 음식으로 섭취하는 수분이나 기온·운동·생활 환경이 달라지면 필요한 양도 달라질 수 있습니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>모든 사람에게 동일한 물 섭취량이 적절한 것은 아닙니다. 신장·심장 질환 등으로 수분 제한이 있거나 특별한 건강 상태가 있다면 이 결과 대신 의료진의 지침을 따르세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/21-calorie">칼로리 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/20-bmr">기초대사량 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/18-bodyfat">체지방 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -31,4 +43,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

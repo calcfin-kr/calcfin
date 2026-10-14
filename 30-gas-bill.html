@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>가스요금 계산기 | CalcFin</title><meta name="description" content="가스요금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>가스요금 계산기 | CalcFin</title><meta name="description" content="입력 사용량을 기준으로 도시가스 요금을 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
  
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">GAS BILL</div><h1>가스요금 <span>계산기</span></h1><p>도시가스 사용량 기반 요금을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/30-gas-bill">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">GAS BILL</div><h1>가스요금 <span>계산기</span></h1><p>도시가스 사용량 기반 요금을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">사용량 정보</div>
 <div class="field"><label>월 사용량</label><div class="input-wrap"><input type="number" id="m3" value="30" min="0" max="500" step="0.1"><span class="unit">m³</span></div><input type="range" id="m3R" min="0" max="200" step="1" value="30"><div class="slider-labels"><span>0</span><span>200m³</span></div></div>
 <div class="field"><label>계절 선택</label><div class="btn-group"><button class="btn-opt active" data-s="spring">봄·가을</button><button class="btn-opt" data-s="summer">여름</button><button class="btn-opt" data-s="winter">겨울</button></div></div>
@@ -21,6 +22,17 @@ function calc(){
   <div style="background:rgba(255,107,107,.06);border:1px solid rgba(255,107,107,.2);border-radius:8px;padding:12px 16px;font-size:12px;color:var(--text-muted);line-height:1.8;font-family:DM Mono,monospace">🔥 지역별 단가 차이가 있습니다. 실제 요금은 도시가스 앱에서 확인하세요.</div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">도시가스 요금 참고 계산: 계산 기준과 활용 방법</h2>
+  <p>입력 사용량을 기준으로 도시가스 요금을 추정합니다. 공급 지역·용도와 사용량 단위를 실제 고지서와 동일하게 맞춰야 결과를 비교하기 쉽습니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>도시가스 요금은 지역 공급사, 계절, 열량 환산, 기본요금과 부가 항목에 따라 달라집니다. 계산 결과는 청구서와 다를 수 있으므로 공급사의 요금 안내를 확인하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/29-electricity">전기요금 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/31-water-bill">수도요금 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/32-shipping">배송비 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -31,4 +43,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

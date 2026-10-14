@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>예금 계산기 | CalcFin</title><meta name="description" content="예금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>예금 계산기 | CalcFin</title><meta name="description" content="예치 원금과 기간·금리를 이용해 만기 이자와 수령액을 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DEPOSIT CALCULATOR</div><h1>예금 <span>계산기</span></h1><p>예금 이자와 세후 수령액을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/13-deposit">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DEPOSIT CALCULATOR</div><h1>예금 <span>계산기</span></h1><p>예금 이자와 세후 수령액을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">예금 정보</div>
 <div class="field"><label>예치 원금</label><div class="input-wrap"><input type="number" id="p" value="10000000" step="1000000"><span class="unit">원</span></div></div>
 <div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="r" value="3.5" min="0.1" max="20" step="0.1"><span class="unit">%</span></div></div>
@@ -17,6 +18,17 @@ function calc(){
   document.getElementById('res').innerHTML=`<div class="card-title">예금 계산 결과</div><div class="result-hero r2"><div class="ri info"><div class="rl">원금</div><div class="rv">${fw(p)}</div></div><div class="ri gold"><div class="rl">세전 이자</div><div class="rv">${fw(interest)}</div></div><div class="ri danger"><div class="rl">이자소득세 (${txRate}%)</div><div class="rv">-${fw(tax)}</div></div><div class="ri hl"><div class="rl">세후 수령액</div><div class="rv">${fw(net)}</div></div></div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">예금 만기액 계산: 계산 기준과 활용 방법</h2>
+  <p>예치 원금과 기간·금리를 이용해 만기 이자와 수령액을 추정합니다. 입력 조건이 같더라도 단리·복리 방식과 이자 지급 시점이 다르면 결과가 달라질 수 있습니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>중도 해지 금리, 세금, 우대 조건, 이자 지급 방식은 금융상품마다 다릅니다. 이 계산은 상품의 확정 견적이 아니므로 가입 전 해당 금융기관의 상품 설명을 확인하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/12-savings">적금 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/03-simple-interest">단리 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/02-compound">복리 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -27,4 +39,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

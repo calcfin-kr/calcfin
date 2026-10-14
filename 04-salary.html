@@ -1,11 +1,11 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>연봉 실수령액 계산기 | CalcFin</title><meta name="description" content="2026년 4대보험·소득세 공제 후 월 실수령액"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>연봉 실수령액 계산기 | CalcFin</title><meta name="description" content="연봉을 월 단위로 나누고 입력한 부양가족, 자녀와 비과세 급여 조건을 반영해 공제 후 금액을 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">SALARY 2026</div><h1>연봉 <span>실수령액</span> 계산기</h1><p>2026년 기준 4대보험·소득세 공제 후 월 실수령액을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/04-salary">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">SALARY 2026</div><h1>연봉 <span>실수령액</span> 계산기</h1><p>2026년 기준 4대보험·소득세 공제 후 월 실수령액을 계산합니다</p></div>
 <div class="two-col">
 <div class="card anim-1"><div class="card-title">급여 정보</div>
 <div class="field"><label>연봉</label><div class="input-wrap"><input type="number" id="ann" value="40000000" step="1000000"><span class="unit">원</span></div><input type="range" id="annR" min="10000000" max="300000000" step="1000000" value="40000000"><div class="slider-labels"><span>1천만</span><span>3억</span></div></div>
-<div class="field"><label>부양가족 수 (본인 포함)</label><div class="input-wrap"><select id="dep"><option value="1">1명(본인만)</option><option value="2">2명</option><option value="3">3명</option><option value="4">4명</option><option value="5">5명+</option></select></div></div>
-<div class="field"><label>20세 이하 자녀 수</label><div class="input-wrap"><input type="number" id="child" value="0" min="0" max="10"><span class="unit">명</span></div></div>
+<div class="field"><label>공제대상가족 수 (본인 포함, 최대 5명 반영)</label><div class="input-wrap"><select id="dep"><option value="1">1명(본인만)</option><option value="2">2명</option><option value="3">3명</option><option value="4">4명</option><option value="5">5명 이상</option></select></div></div>
 <div class="field"><label>비과세 소득(월, 식대 등)</label><div class="input-wrap"><input type="number" id="nt" value="200000" step="10000"><span class="unit">원</span></div></div>
 <button class="calc-btn" onclick="calc()">계산하기</button></div>
 <div class="card anim-2" id="res"><div class="empty-state"><div class="empty-icon">💴</div><div>연봉을 입력하고 계산하세요</div></div></div>
@@ -15,23 +15,45 @@ const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){
 sy('ann','annR');
 function fw(n){return Math.round(n).toLocaleString()+'원'}
 function calc(){
-  const ann=+document.getElementById('ann').value,dep=+document.getElementById('dep').value,child=+document.getElementById('child').value,nt=+document.getElementById('nt').value;
+  const ann=+document.getElementById('ann').value,dep=+document.getElementById('dep').value,nt=+document.getElementById('nt').value;
   const ms=ann/12,mt=Math.max(0,ms-nt);
-  const np=Math.round(Math.min(ms,5900000)*0.045);
-  const hi=Math.round(mt*0.03545),lt=Math.round(hi*0.1295),ei=Math.round(mt*0.009);
+  const pensionBase=mt>0?Math.min(Math.max(mt,410000),6590000):0;
+  const np=Math.round(pensionBase*0.0475);
+  const hi=Math.round(mt*0.03595),lt=Math.round(hi*(0.9448/7.19)),ei=Math.round(mt*0.009);
   let std=0;
-  if(ann<=5000000)std=ann*0.7;else if(ann<=15000000)std=3500000+(ann-5000000)*0.4;else if(ann<=45000000)std=7500000+(ann-15000000)*0.15;else if(ann<=100000000)std=12000000+(ann-45000000)*0.05;else std=14750000;
-  let tb=Math.max(0,ann-std-1500000*dep-1500000*child);
-  let tax=0;if(tb<=14000000)tax=tb*0.06;else if(tb<=50000000)tax=840000+(tb-14000000)*0.15;else if(tb<=88000000)tax=6240000+(tb-50000000)*0.24;else tax=15360000+(tb-88000000)*0.35;
+  if(ann<=5000000)std=ann*0.7;else if(ann<=15000000)std=3500000+(ann-5000000)*0.4;else if(ann<=45000000)std=7500000+(ann-15000000)*0.15;else if(ann<=100000000)std=12000000+(ann-45000000)*0.05;else std=Math.min(20000000,14750000+(ann-100000000)*0.02);
+  let tb=Math.max(0,ann-std-1500000*dep);
+  let tax=0;
+  if(tb<=14000000)tax=tb*0.06;
+  else if(tb<=50000000)tax=840000+(tb-14000000)*0.15;
+  else if(tb<=88000000)tax=6240000+(tb-50000000)*0.24;
+  else if(tb<=150000000)tax=15360000+(tb-88000000)*0.35;
+  else if(tb<=300000000)tax=37060000+(tb-150000000)*0.38;
+  else if(tb<=500000000)tax=94060000+(tb-300000000)*0.40;
+  else if(tb<=1000000000)tax=174060000+(tb-500000000)*0.42;
+  else tax=384060000+(tb-1000000000)*0.45;
   const it=Math.max(0,Math.round(tax/12)),lt2=Math.round(it*0.1);
   const total=np+hi+lt+ei+it+lt2,net=Math.round(ms-total);
   document.getElementById('res').innerHTML=`<div class="card-title">실수령액</div>
   <div class="ri hl" style="padding:22px;text-align:center;margin-bottom:14px;border:1px solid rgba(0,212,170,.3);border-radius:10px;background:rgba(0,212,170,.05)"><div class="rl">월 실수령액</div><div class="rv" style="font-size:26px">${fw(net)}</div><div class="rs">연 ${Math.round(net*12/10000).toLocaleString()}만원</div></div>
-  <div class="result-hero r2" style="margin-bottom:12px"><div class="ri"><div class="rl">국민연금</div><div class="rv" style="font-size:14px">-${fw(np)}</div></div><div class="ri"><div class="rl">건강보험</div><div class="rv" style="font-size:14px">-${fw(hi)}</div></div><div class="ri"><div class="rl">장기요양</div><div class="rv" style="font-size:14px">-${fw(lt)}</div></div><div class="ri"><div class="rl">고용보험</div><div class="rv" style="font-size:14px">-${fw(ei)}</div></div><div class="ri"><div class="rl">소득세</div><div class="rv" style="font-size:14px">-${fw(it)}</div></div><div class="ri danger"><div class="rl">총 공제</div><div class="rv" style="font-size:14px">-${fw(total)}</div></div></div>`
+  <div class="result-hero r2" style="margin-bottom:12px"><div class="ri"><div class="rl">국민연금</div><div class="rv" style="font-size:14px">-${fw(np)}</div></div><div class="ri"><div class="rl">건강보험</div><div class="rv" style="font-size:14px">-${fw(hi)}</div></div><div class="ri"><div class="rl">장기요양</div><div class="rv" style="font-size:14px">-${fw(lt)}</div></div><div class="ri"><div class="rl">고용보험</div><div class="rv" style="font-size:14px">-${fw(ei)}</div></div><div class="ri"><div class="rl">소득세(추정)</div><div class="rv" style="font-size:14px">-${fw(it)}</div></div><div class="ri danger"><div class="rl">총 공제(추정)</div><div class="rv" style="font-size:14px">-${fw(total)}</div></div></div>`
 }
 calc();
 </script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">연봉 실수령액 추정: 계산 기준과 활용 방법</h2>
+  <p>연봉에서 비과세 월급여를 제외한 월 보수액을 기준으로 근로자 부담 국민연금·건강보험·장기요양보험·고용보험료를 추정합니다. 국민연금은 2026년 7월 이후 기준소득월액 하한 41만 원·상한 659만 원과 근로자 보험료율 4.75%를 반영했습니다. 건강보험 근로자 부담률은 3.595%, 장기요양보험은 건강보험료에 0.9448% ÷ 7.19%를 적용하고, 고용보험 근로자 부담률은 0.9%로 계산합니다.</p>
+  <p>소득세는 입력한 공제대상가족 수와 근로소득공제를 사용한 간이 연간 추정치입니다. 실제 월 원천징수액을 산출하는 국세청 근로소득 간이세액표를 그대로 구현한 것이 아니며, 자녀 세액공제·세액감면·연말정산 공제는 반영하지 않습니다. 2026년 소득세 누진세율 구간은 <a href="https://www.law.go.kr/법령/소득세법/제55조" target="_blank" rel="noopener">소득세법 제55조</a> 기준으로 반영했습니다.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>사회보험료는 보수월액·기준소득월액, 상·하한, 비과세 급여와 개인 자격에 따라 달라질 수 있습니다. 실제 소득세 원천징수액은 <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7871&amp;mi=6595" target="_blank" rel="noopener">국세청 근로소득 간이세액표</a>를 참고하세요. 이 결과는 급여명세서·세무 신고액이나 회사의 실제 지급액을 확정하지 않습니다.</p>
+  <p>요율 출처: <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0016M0.do?menuId=MN24001108" target="_blank" rel="noopener">국민연금공단(2026년 보험료율)</a>, <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noopener">국민건강보험공단(2026년 보험료율)</a>.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/05-hourly">시급 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/06-monthly">월급 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/17-tax">세금 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -42,4 +64,4 @@ calc();
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>

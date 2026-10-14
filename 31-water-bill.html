@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>수도요금 계산기 | CalcFin</title><meta name="description" content="수도요금 계산기"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>수도요금 계산기 | CalcFin</title><meta name="description" content="입력한 사용량을 토대로 상수도와 하수도 요금의 예상 구성을 살펴봅니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-</head><body><nav class="site-nav"><div class="nav-inner"><a href="index.html" class="site-logo">CALCFIN</a><a href="index.html" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">WATER BILL</div><h1>수도요금 <span>계산기</span></h1><p>수도 사용량 기반 요금을 계산합니다</p></div>
+<link rel="canonical" href="https://calcfin.kr/31-water-bill">
+</head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">WATER BILL</div><h1>수도요금 <span>계산기</span></h1><p>수도 사용량 기반 요금을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">사용량 정보</div>
 <div class="field"><label>월 사용량</label><div class="input-wrap"><input type="number" id="ton" value="20" min="0" max="500"><span class="unit">톤(㎥)</span></div><input type="range" id="tonR" min="0" max="100" step="1" value="20"><div class="slider-labels"><span>0</span><span>100톤</span></div></div>
 <div class="field"><label>가구 구분</label><div class="btn-group"><button class="btn-opt active" data-t="home">가정용</button><button class="btn-opt" data-t="biz">일반(상업)</button></div></div>
@@ -21,6 +22,17 @@ function calc(){
   <div style="font-size:11px;color:var(--text-muted);font-family:DM Mono,monospace;margin-top:10px">※ 서울시 기준 추정치 · 지자체별 요금 상이</div>`
 }calc();</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9570087715213390"
      crossorigin="anonymous"></script>
+
+<section class="editorial-content" aria-labelledby="editorial-title">
+  <h2 id="editorial-title">수도요금 참고 계산: 계산 기준과 활용 방법</h2>
+  <p>입력한 사용량을 토대로 상수도와 하수도 요금의 예상 구성을 살펴봅니다. 사용량 단위와 가정한 지역 요금 기준이 실제 주소지 조건과 일치하는지 확인하세요.</p>
+  <h3>결과를 확인할 때</h3>
+  <p>수도요금 체계는 지자체·용도·사용량 구간에 따라 다르며 하수도·물이용부담금과 세대 조건이 추가될 수 있습니다. 최종 금액은 해당 지자체의 요금표와 고지서를 기준으로 확인하세요.</p>
+  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/29-electricity">전기요금 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/30-gas-bill">가스요금 계산기<span class="arr" aria-hidden="true">→</span></a>
+<a class="related-link" href="/32-shipping">배송비 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+</section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -31,4 +43,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="index.html">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
