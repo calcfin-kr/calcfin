@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>마진 계산기 | CalcFin</title><meta name="description" content="매출액과 이익 항목을 기준으로 마진율을 비교합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/35-margin">
+<link rel="canonical" href="https://calcfin.kr/35-margin.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">MARGIN CALCULATOR</div><h1>마진 <span>계산기</span></h1><p>매출이익·영업이익·순이익 마진율을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">수익 정보</div>
 <div class="field"><label>매출액</label><div class="input-wrap"><input type="number" id="rev" value="100000000" step="1000000"><span class="unit">원</span></div></div>
@@ -20,14 +20,19 @@ function calc(){
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">매출·이익률 계산: 계산 기준과 활용 방법</h2>
-  <p>매출액과 이익 항목을 기준으로 마진율을 비교합니다. 매출총이익·영업이익·순이익은 포함하는 비용이 다르므로 같은 이름의 비율끼리만 비교하세요.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>회계 계정 분류, 기간, 부가세와 일회성 비용 처리에 따라 계산 결과가 달라질 수 있습니다. 사업 의사결정이나 재무 공시에는 장부와 회계 기준을 사용하세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/34-cost">원가 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/36-roi">ROI 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/37-cpc">광고 CPC 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+<h2 id="editorial-title">마진율과 이익률 구분</h2>
+<p>마진율은 판매가격 대비 이익의 비율로 쓰이지만, 매출총이익률·영업이익률·순이익률은 각각 포함하는 비용이 다릅니다.</p>
+<h3>구분하기</h3>
+<ul>
+<li>매출총이익은 매출에서 매출원가를 뺀 금액입니다.</li>
+<li>영업이익은 영업 관련 비용을 추가로 반영합니다.</li>
+<li>순이익은 영업 외 항목과 세금 등까지 반영한 결과입니다.</li>
+</ul>
+<h3>예시</h3>
+<p>판매가 20,000원, 해당 상품 원가 12,000원이라면 다른 비용을 제외한 차액은 8,000원이며 판매가 대비 비율은 40%입니다. 이것이 최종 순이익률이라는 뜻은 아닙니다.</p>
+<h3>주의사항</h3>
+<p>가격 정책을 정할 때는 수수료, 광고비, 반품, 배송비와 세금을 포함할지 명확히 정하세요.</p>
+<p class="editorial-note">계산 결과는 입력값과 페이지에 설명된 가정에 따른 참고 정보입니다. 실제 계약·신고·의료·공공요금·광고 수익은 공식 자료와 실제 이용 내역을 기준으로 확인하세요.</p>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -39,4 +44,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>대출 계산기 | CalcFin</title><meta name="description" content="원리금균등은 매달 같은 금액을 내고, 원금균등은 원금을 같은 폭으로 나누어 갚으며, 만기일시는 만기에 원금을 갚는 방식입니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/01-loan">
+<link rel="canonical" href="https://calcfin.kr/01-loan.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">LOAN CALCULATOR</div><h1>대출 <span>이자 계산기</span></h1><p>원리금균등 · 원금균등 · 만기일시 상환 방식별 월 납입금과 총 이자를 계산하세요</p></div>
 <div class="two-col">
 <div class="card anim-1"><div class="card-title">대출 정보 입력</div>
-<div class="field"><label>대출 금액</label><div class="input-wrap"><input type="number" id="amt" value="30000000" step="1000000"><span class="unit">원</span></div><input type="range" id="amtR" min="1000000" max="100000000" step="1000000" value="30000000"><div class="slider-labels"><span>100만</span><span>1억</span></div></div>
-<div class="field"><label>연 이자율</label><div class="input-wrap"><input type="number" id="rate" value="5.5" min="0.1" max="30" step="0.1"><span class="unit">%</span></div><input type="range" id="rateR" min="0.1" max="20" step="0.1" value="5.5"><div class="slider-labels"><span>0.1%</span><span>20%</span></div></div>
-<div class="field"><label>대출 기간</label><div class="input-wrap"><input type="number" id="term" value="36" min="1" max="360"><span class="unit">개월</span></div><input type="range" id="termR" min="1" max="120" step="1" value="36"><div class="slider-labels"><span>1개월</span><span>120개월</span></div></div>
+<div class="field"><label for="amt">대출 금액</label><div class="input-wrap"><input type="number" id="amt" value="30000000" min="1000000" max="100000000" step="1000000" inputmode="numeric"><span class="unit">원</span></div><input type="range" id="amtR" min="1000000" max="100000000" step="1000000" value="30000000"><div class="slider-labels"><span>100만</span><span>1억</span></div></div>
+<div class="field"><label for="rate">연 이자율</label><div class="input-wrap"><input type="number" id="rate" value="5.5" min="0" max="30" step="0.1"><span class="unit">%</span></div><input type="range" id="rateR" min="0" max="20" step="0.1" value="5.5"><div class="slider-labels"><span>0%</span><span>20%</span></div></div>
+<div class="field"><label for="term">대출 기간</label><div class="input-wrap"><input type="number" id="term" value="36" min="1" max="360" step="1"><span class="unit">개월</span></div><input type="range" id="termR" min="1" max="120" step="1" value="36"><div class="slider-labels"><span>1개월</span><span>120개월</span></div></div>
 <div class="field"><label>상환 방식</label><div class="btn-group"><button class="btn-opt active" data-m="equal">원리금균등</button><button class="btn-opt" data-m="principal">원금균등</button><button class="btn-opt" data-m="bullet">만기일시</button></div></div>
 <button class="calc-btn" onclick="calc()">계산하기</button></div>
 <div class="card anim-2" id="res"><div class="card-title">계산 결과</div><div class="empty-state"><div class="empty-icon">💳</div><div>정보를 입력하고 계산하세요</div></div></div>
@@ -20,9 +20,22 @@ document.querySelectorAll('.btn-opt').forEach(b=>b.addEventListener('click',func
 function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return Math.round(n).toLocaleString()+'원'}
 function calc(){
   const p=+document.getElementById('amt').value,ar=+document.getElementById('rate').value,m=+document.getElementById('term').value;
-  if(!p||!ar||!m)return;
+  const errorBox = document.getElementById('res');
+  if(!Number.isFinite(p)||!Number.isFinite(ar)||!Number.isFinite(m)||p<1000000||p>100000000||ar<0||ar>30||m<1||m>360||!Number.isInteger(m)){
+    errorBox.innerHTML='<div class="card-title">입력값을 확인해 주세요</div><p role="alert">대출금액은 100만~1억 원, 연이율은 0~30%, 기간은 1~360개월 범위로 입력해 주세요.</p>';
+    return;
+  }
   const mr=ar/100/12;let sch=[],tp=0,ti=0;
-  if(method==='equal'){const pay=p*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);let bal=p;for(let i=1;i<=m;i++){const int=bal*mr,prn=pay-int;bal-=prn;sch.push({i,pay:Math.round(pay),prn:Math.round(prn),int:Math.round(int),bal:Math.max(0,Math.round(bal))});tp+=pay;ti+=int}}
+  if(method==='equal'){
+    const pay = mr===0 ? p/m : p*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
+    let bal=p;
+    for(let i=1;i<=m;i++){
+      const int=bal*mr,prn=(i===m?bal:pay-int);bal-=prn;
+      const roundedPay=Math.round(prn+int);
+      sch.push({i,pay:roundedPay,prn:Math.round(prn),int:Math.round(int),bal:Math.max(0,Math.round(bal))});
+      tp+=prn+int;ti+=int;
+    }
+  }
   else if(method==='principal'){const prn=p/m;let bal=p;for(let i=1;i<=m;i++){const int=bal*mr,pay=prn+int;bal-=prn;sch.push({i,pay:Math.round(pay),prn:Math.round(prn),int:Math.round(int),bal:Math.max(0,Math.round(bal))});tp+=pay;ti+=int}}
   else{const int=p*mr;for(let i=1;i<=m;i++){const pay=i===m?p+int:int;sch.push({i,pay:Math.round(pay),prn:i===m?Math.round(p):0,int:Math.round(int),bal:i===m?0:Math.round(p)});tp+=pay;ti+=int}}
   const ir=(ti/tp*100).toFixed(1);
@@ -38,14 +51,20 @@ calc();
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">대출 이자 계산: 계산 기준과 활용 방법</h2>
-  <p>원리금균등은 매달 같은 금액을 내고, 원금균등은 원금을 같은 폭으로 나누어 갚으며, 만기일시는 만기에 원금을 갚는 방식입니다. 이 페이지는 입력한 원금·연이율·개월 수로 월별 원리금과 총이자를 추정합니다.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>금융기관의 실제 상환액에는 실행일, 일수 계산, 변동금리, 중도상환수수료와 부대비용이 반영될 수 있습니다. 대출 조건을 비교하는 참고값으로 사용하고 계약 전에는 금융기관의 상환예정표를 확인하세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/02-compound">복리 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/12-savings">적금 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/15-mortgage">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+  <h2 id="editorial-title">대출 이자 계산 방법과 결과 읽는 법</h2>
+  <p>이 계산기는 대출 원금, 연이율, 상환 기간을 입력해 원리금균등·원금균등·만기일시 방식의 예상 상환액을 비교합니다. 연이율을 12로 나누어 월 이율로 환산하고, 입력한 개월 수를 기준으로 상환 일정을 추정합니다. 실제 금융기관의 일수 계산이나 수수료까지 재현하는 견적서는 아닙니다.</p>
+  <h3>상환 방식은 무엇이 다른가요?</h3>
+  <ul>
+    <li><strong>원리금균등:</strong> 매월 원금과 이자를 합친 납입액이 대체로 일정합니다. 초기에 이자 비중이 크고 시간이 지나며 원금 비중이 커집니다.</li>
+    <li><strong>원금균등:</strong> 매월 갚는 원금이 일정해 초반 납입액이 크고 이후 점차 줄어듭니다.</li>
+    <li><strong>만기일시:</strong> 기간 중 이자를 납부하고 만기에 원금을 상환하는 방식으로, 만기 원금 마련 계획이 필요합니다.</li>
+  </ul>
+  <h3>계산 예제</h3>
+  <p>예를 들어 원금 3,000만 원, 연 5.5%, 36개월을 입력하면 세 가지 상환 방식의 첫 달 납입액과 총이자를 비교할 수 있습니다. 숫자는 입력값과 반올림 방식에 따라 달라지므로 실제 계약 조건을 넣어 다시 확인하세요.</p>
+  <h3>결과를 이용할 때 확인할 점</h3>
+  <p>실제 상환액에는 대출 실행일, 일수 계산, 금리 변동, 보증료, 인지세, 중도상환수수료 등 조건이 반영될 수 있습니다. 변동금리 상품은 향후 금리가 바뀌면 결과도 달라집니다. 계약 전에는 금융기관이 제공하는 상환예정표와 상품 설명서를 확인하세요.</p>
+  <p class="editorial-note">이 계산기는 비교를 돕는 참고 도구이며 대출 승인 가능성이나 금융상품을 추천하지 않습니다. 결과만으로 대출 여부를 결정하지 마세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>함께 비교하면 좋은 계산기</h3><div class="related-grid"><a class="related-link" href="/02-compound.html">복리 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/12-savings.html">적금 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/15-mortgage.html">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -59,4 +78,4 @@ calc();
 </script>
 	
 	<div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

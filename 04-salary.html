@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>연봉 실수령액 계산기 | CalcFin</title><meta name="description" content="연봉을 월 단위로 나누고 입력한 부양가족, 자녀와 비과세 급여 조건을 반영해 공제 후 금액을 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/04-salary">
+<link rel="canonical" href="https://calcfin.kr/04-salary.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">SALARY 2026</div><h1>연봉 <span>실수령액</span> 계산기</h1><p>2026년 기준 4대보험·소득세 공제 후 월 실수령액을 계산합니다</p></div>
 <div class="two-col">
 <div class="card anim-1"><div class="card-title">급여 정보</div>
@@ -43,16 +43,21 @@ calc();
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">연봉 실수령액 추정: 계산 기준과 활용 방법</h2>
-  <p>연봉에서 비과세 월급여를 제외한 월 보수액을 기준으로 근로자 부담 국민연금·건강보험·장기요양보험·고용보험료를 추정합니다. 국민연금은 2026년 7월 이후 기준소득월액 하한 41만 원·상한 659만 원과 근로자 보험료율 4.75%를 반영했습니다. 건강보험 근로자 부담률은 3.595%, 장기요양보험은 건강보험료에 0.9448% ÷ 7.19%를 적용하고, 고용보험 근로자 부담률은 0.9%로 계산합니다.</p>
-  <p>소득세는 입력한 공제대상가족 수와 근로소득공제를 사용한 간이 연간 추정치입니다. 실제 월 원천징수액을 산출하는 국세청 근로소득 간이세액표를 그대로 구현한 것이 아니며, 자녀 세액공제·세액감면·연말정산 공제는 반영하지 않습니다. 2026년 소득세 누진세율 구간은 <a href="https://www.law.go.kr/법령/소득세법/제55조" target="_blank" rel="noopener">소득세법 제55조</a> 기준으로 반영했습니다.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>사회보험료는 보수월액·기준소득월액, 상·하한, 비과세 급여와 개인 자격에 따라 달라질 수 있습니다. 실제 소득세 원천징수액은 <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7871&amp;mi=6595" target="_blank" rel="noopener">국세청 근로소득 간이세액표</a>를 참고하세요. 이 결과는 급여명세서·세무 신고액이나 회사의 실제 지급액을 확정하지 않습니다.</p>
-  <p>요율 출처: <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0016M0.do?menuId=MN24001108" target="_blank" rel="noopener">국민연금공단(2026년 보험료율)</a>, <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html" target="_blank" rel="noopener">국민건강보험공단(2026년 보험료율)</a>.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/05-hourly">시급 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/06-monthly">월급 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/17-tax">세금 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+  <h2 id="editorial-title">연봉 실수령액 계산 기준과 확인 방법</h2>
+  <p>연봉 실수령액은 계약 연봉을 단순히 12로 나눈 금액과 다릅니다. 실제 급여에서는 국민연금·건강보험·장기요양보험·고용보험과 근로소득세 등이 공제될 수 있으며, 비과세 급여와 개인별 공제 조건도 결과에 영향을 줍니다.</p>
+  <h3>계산 결과를 비교하는 순서</h3>
+  <ol>
+    <li>근로계약서의 연봉이 세전 금액인지, 상여금이 포함되어 있는지 확인합니다.</li>
+    <li>비과세 급여가 있다면 입력란의 설명에 맞게 입력합니다.</li>
+    <li>부양가족 등 개인 조건을 입력하고 월 예상 공제액과 실수령액을 확인합니다.</li>
+    <li>회사 급여명세서와 차이가 있다면 공제 항목 및 적용 기준을 비교합니다.</li>
+  </ol>
+  <h3>예를 들어</h3>
+  <p>세전 연봉이 같더라도 비과세 식대, 부양가족, 상여금 지급 방식에 따라 월별 실수령액은 달라질 수 있습니다. 따라서 계산 결과는 이직 제안이나 연봉 협상 시 대략적인 비교 자료로 활용하고, 실제 지급액으로 단정하지 않는 것이 좋습니다.</p>
+  <h3>공식 자료 확인</h3>
+  <p>사회보험료율과 상·하한은 변경될 수 있습니다. 국민연금은 <a href="https://www.nps.or.kr/" target="_blank" rel="noopener noreferrer">국민연금공단</a>, 건강보험은 <a href="https://www.nhis.or.kr/" target="_blank" rel="noopener noreferrer">국민건강보험공단</a>, 근로소득 원천징수는 <a href="https://www.nts.go.kr/" target="_blank" rel="noopener noreferrer">국세청</a>의 최신 안내를 확인하세요.</p>
+  <p class="editorial-note">이 도구는 급여명세서나 세금 신고를 대신하지 않습니다. 개인별 공제·감면과 회사의 급여 처리에 따라 실제 금액이 다를 수 있습니다.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/05-hourly.html">시급 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/06-monthly.html">월급 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/17-tax.html">세금 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -64,4 +69,4 @@ calc();
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

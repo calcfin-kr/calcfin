@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>전기요금 계산기 | CalcFin</title><meta name="description" content="입력한 전력 사용량으로 요금 구간별 예상액을 계산합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/29-electricity">
+<link rel="canonical" href="https://calcfin.kr/29-electricity.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">ELECTRICITY BILL</div><h1>전기요금 <span>계산기</span></h1><p>가정용 전력 사용량 기반 전기요금을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">사용량 정보</div>
 <div class="field"><label>월 사용량</label><div class="input-wrap"><input type="number" id="kwh" value="350" min="0" max="2000"><span class="unit">kWh</span></div><input type="range" id="kwhR" min="0" max="1000" step="10" value="350"><div class="slider-labels"><span>0</span><span>1,000kWh</span></div></div>
@@ -33,14 +33,19 @@ function calc(){
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">전기요금 참고 계산: 계산 기준과 활용 방법</h2>
-  <p>입력한 전력 사용량으로 요금 구간별 예상액을 계산합니다. 사용량 단위(kWh), 주택용 여부와 적용 요금 기준이 맞는지 확인한 뒤 결과를 비교하세요.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>전기요금은 계약 종별, 누진 구간, 계절·시간대, 세금·기금과 조정 항목에 따라 실제 청구액과 달라질 수 있습니다. 화면의 계산 기준과 최신 전기요금표를 확인하세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/30-gas-bill">가스요금 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/31-water-bill">수도요금 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/32-shipping">배송비 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+  <h2 id="editorial-title">전기요금 예상액 계산 기준</h2>
+  <p>전기요금은 사용량(kWh)만으로 항상 정확히 결정되지는 않습니다. 계약 종별, 주택용 여부, 사용 기간, 계절, 누진 구간, 기본요금, 전력량요금과 각종 조정·세금 항목이 실제 청구액에 영향을 줍니다. 이 계산기는 입력값과 페이지에 구현된 요금 가정에 따른 예상액을 보여 줍니다.</p>
+  <h3>계산 결과를 비교하는 방법</h3>
+  <ol>
+    <li>고지서에 적힌 사용량과 계산기에 입력한 kWh가 같은 기간의 값인지 확인합니다.</li>
+    <li>계산기가 가정하는 계약 유형과 실제 계약 유형이 같은지 확인합니다.</li>
+    <li>지난달과 사용량을 비교할 때는 계절과 검침 기간의 차이도 고려합니다.</li>
+    <li>실제 청구액과 차이가 있다면 기본요금, 누진 구간, 세금·기금 및 조정 항목의 포함 여부를 확인합니다.</li>
+  </ol>
+  <h3>참고 자료</h3>
+  <p>요금표와 제도 변경은 <a href="https://home.kepco.co.kr/" target="_blank" rel="noopener noreferrer">한국전력공사</a>의 최신 안내를 확인하세요. 이 페이지의 산식이 최신 요금표의 모든 계약 유형과 예외를 반영한다고 가정하지 마세요.</p>
+  <p class="editorial-note">계산 결과는 예산 계획을 위한 참고값이며 실제 전기요금 고지서와 다를 수 있습니다. 납부액 확인은 공급자의 공식 고지 내역을 기준으로 하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/30-gas-bill.html">가스요금 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/31-water-bill.html">수도요금 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/32-shipping.html">배송비 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -52,4 +57,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

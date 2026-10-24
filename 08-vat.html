@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>부가세 계산기 | CalcFin</title><meta name="description" content="공급가액을 기준으로 세액을 더해 부가세 포함 금액을 구하거나, 포함 금액에서 공급가액과 세액을 나누어 볼 수 있습니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/08-vat">
+<link rel="canonical" href="https://calcfin.kr/08-vat.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">VAT CALCULATOR</div><h1>부가세 <span>계산기</span></h1><p>공급가액과 부가세 포함가를 양방향으로 계산합니다</p></div>
 <div class="two-col">
 <div class="card anim-1"><div class="card-title">계산 정보</div>
@@ -28,14 +28,19 @@ calc();
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">부가가치세 계산: 계산 기준과 활용 방법</h2>
-  <p>공급가액을 기준으로 세액을 더해 부가세 포함 금액을 구하거나, 포함 금액에서 공급가액과 세액을 나누어 볼 수 있습니다. 일반적인 세율을 가정한 산술 계산으로 금액 구성을 확인하는 데 활용하세요.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>실제 거래에는 면세·영세율, 간이과세, 공제 여부와 반올림 규칙 등 추가 조건이 적용될 수 있습니다. 신고나 세금계산서 발급 전에는 거래 유형과 적용 세율을 확인하세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/09-discount">할인율 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/34-cost">원가 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/17-tax">세금 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+<h2 id="editorial-title">부가가치세 계산과 공급가액 구분</h2>
+<p>부가가치세를 계산할 때는 입력한 금액이 세전 공급가액인지, 세금이 포함된 합계금액인지 먼저 구분해야 합니다.</p>
+<h3>계산 원리</h3>
+<ul>
+<li>세전 공급가액에 세율을 적용해 세액을 계산합니다.</li>
+<li>부가세 포함 금액에서 공급가액을 역산할 때는 적용 세율을 기준으로 나눕니다.</li>
+<li>면세·영세율·간이과세 등은 일반적인 단순 계산과 다를 수 있습니다.</li>
+</ul>
+<h3>예시</h3>
+<p>일반적인 10% 세율을 가정한 단순 예시에서 공급가액 100,000원에 대한 부가세는 10,000원이며 합계는 110,000원입니다.</p>
+<h3>공식 자료</h3>
+<p>실제 신고 기준과 예외는 국세청(https://www.nts.go.kr/) 및 국가법령정보센터(https://www.law.go.kr/)를 확인하세요.</p>
+<p class="editorial-note">계산 결과는 입력값과 페이지에 설명된 가정에 따른 참고 정보입니다. 실제 계약·신고·의료·공공요금·광고 수익은 공식 자료와 실제 이용 내역을 기준으로 확인하세요.</p>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -47,4 +52,4 @@ calc();
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

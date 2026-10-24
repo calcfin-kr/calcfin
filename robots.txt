@@ -1,4 +1,3 @@
-# CalcFin crawler access
 User-agent: *
 Allow: /
 

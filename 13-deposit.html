@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>예금 계산기 | CalcFin</title><meta name="description" content="예치 원금과 기간·금리를 이용해 만기 이자와 수령액을 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/13-deposit">
+<link rel="canonical" href="https://calcfin.kr/13-deposit.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">DEPOSIT CALCULATOR</div><h1>예금 <span>계산기</span></h1><p>예금 이자와 세후 수령액을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">예금 정보</div>
 <div class="field"><label>예치 원금</label><div class="input-wrap"><input type="number" id="p" value="10000000" step="1000000"><span class="unit">원</span></div></div>
@@ -20,14 +20,19 @@ function calc(){
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">예금 만기액 계산: 계산 기준과 활용 방법</h2>
-  <p>예치 원금과 기간·금리를 이용해 만기 이자와 수령액을 추정합니다. 입력 조건이 같더라도 단리·복리 방식과 이자 지급 시점이 다르면 결과가 달라질 수 있습니다.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>중도 해지 금리, 세금, 우대 조건, 이자 지급 방식은 금융상품마다 다릅니다. 이 계산은 상품의 확정 견적이 아니므로 가입 전 해당 금융기관의 상품 설명을 확인하세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/12-savings">적금 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/03-simple-interest">단리 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/02-compound">복리 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+<h2 id="editorial-title">예금 이자와 만기 수령액</h2>
+<p>예금 계산기는 목돈을 일정 기간 예치할 때 발생할 수 있는 이자와 만기 금액을 추정합니다. 상품의 이자 지급 방식과 과세 여부를 구분해 확인해야 합니다.</p>
+<h3>계산 전에 확인</h3>
+<ul>
+<li>예치 원금, 연이율, 예치 기간을 확인합니다.</li>
+<li>단리·복리 또는 만기 지급 등 상품의 이자 방식이 계산 가정과 같은지 확인합니다.</li>
+<li>세전 이자와 세후 수령액을 구분합니다.</li>
+</ul>
+<h3>예시</h3>
+<p>원금 1,000,000원, 연 3%, 1년을 단순 가정하면 세전 단리 이자는 30,000원입니다. 실제 상품은 일수 계산과 세금에 따라 차이가 납니다.</p>
+<h3>주의사항</h3>
+<p>가입 전 금융기관의 상품 설명서와 예금자 보호 관련 안내를 확인하세요.</p>
+<p class="editorial-note">계산 결과는 입력값과 페이지에 설명된 가정에 따른 참고 정보입니다. 실제 계약·신고·의료·공공요금·광고 수익은 공식 자료와 실제 이용 내역을 기준으로 확인하세요.</p>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -39,4 +44,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>

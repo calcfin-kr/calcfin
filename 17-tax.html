@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>세금 계산기 | CalcFin</title><meta name="description" content="입력한 소득과 조건을 바탕으로 세금 또는 실효세율을 산술적으로 추정합니다."><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="common.css">
   
-<link rel="canonical" href="https://calcfin.kr/17-tax">
+<link rel="canonical" href="https://calcfin.kr/17-tax.html">
 </head><body><nav class="site-nav"><div class="nav-inner"><a href="/" class="site-logo">CALCFIN</a><a href="/" class="nav-home">← 전체 계산기</a></div></nav><div class="container"><div class="page-header"><div class="header-badge">INCOME TAX</div><h1>소득세 <span>계산기</span></h1><p>소득세·지방세·실효세율을 계산합니다</p></div>
 <div class="two-col"><div class="card anim-1"><div class="card-title">소득 정보</div>
 <div class="field"><label>종합소득금액 (연간)</label><div class="input-wrap"><input type="number" id="inc" value="60000000" step="1000000"><span class="unit">원</span></div></div>
@@ -29,14 +29,21 @@ function calc(){
      crossorigin="anonymous"></script>
 
 <section class="editorial-content" aria-labelledby="editorial-title">
-  <h2 id="editorial-title">세금 계산 참고: 계산 기준과 활용 방법</h2>
-  <p>입력한 소득과 조건을 바탕으로 세금 또는 실효세율을 산술적으로 추정합니다. 세율 구간형 계산은 과세표준이 구간을 넘을 때 초과분에 다음 세율이 적용되는 구조를 이해하는 데 도움이 됩니다.</p>
-  <h3>결과를 확인할 때</h3>
-  <p>공제·감면, 소득 종류, 귀속연도, 지방세와 개인별 신고 조건에 따라 실제 납부액은 달라집니다. 화면에 표시된 적용 연도와 계산 항목을 확인하고 신고·납부 전에는 국세청 또는 세무 전문가의 안내를 따르세요.</p>
-  <p class="editorial-note">계산 결과는 입력 조건에 따른 참고값입니다. 정확한 판단이 필요한 경우 해당 금융기관·공공기관 또는 자격 있는 전문가의 자료를 확인하세요.</p>
-  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/04-salary">연봉 실수령액 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/08-vat">부가세 계산기<span class="arr" aria-hidden="true">→</span></a>
-<a class="related-link" href="/15-mortgage">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
+  <h2 id="editorial-title">세금 계산 결과를 해석하는 방법</h2>
+  <p>세금은 소득의 종류, 과세표준, 귀속연도, 공제·감면 여부에 따라 달라집니다. 이 계산기는 입력값에 따라 세금 또는 실효세율을 산술적으로 추정하는 도구입니다. 모든 개인별 신고 상황과 세법상 예외를 자동으로 판단하지는 않습니다.</p>
+  <h3>계산 전에 구분할 항목</h3>
+  <ul>
+    <li><strong>소득:</strong> 근로·사업·금융 등 소득 유형에 따라 적용 규칙이 다를 수 있습니다.</li>
+    <li><strong>과세표준:</strong> 총소득과 과세표준은 같은 개념이 아닙니다. 공제 적용 여부를 확인해야 합니다.</li>
+    <li><strong>세율과 세액:</strong> 누진세율은 일반적으로 과세표준 전체에 최고 세율 하나를 곱하는 방식과 다릅니다.</li>
+    <li><strong>지방소득세 및 기타 항목:</strong> 계산기에서 포함하는 항목과 제외하는 항목을 결과와 함께 확인하세요.</li>
+  </ul>
+  <h3>결과 확인 예제</h3>
+  <p>동일한 소득이라도 공제 가능 항목과 소득 유형이 다르면 최종 납부세액이 달라질 수 있습니다. 계산 결과를 세금 신고 전의 대략적인 점검에 활용하고, 신고서 작성 시에는 해당 과세연도의 공식 안내를 확인하세요.</p>
+  <h3>공식 자료</h3>
+  <p>세법과 신고 안내는 <a href="https://www.nts.go.kr/" target="_blank" rel="noopener noreferrer">국세청</a> 및 <a href="https://www.law.go.kr/" target="_blank" rel="noopener noreferrer">국가법령정보센터</a>에서 확인할 수 있습니다. 계산기에 적용된 연도와 산식이 실제 신고 상황에 맞는지도 확인하세요.</p>
+  <p class="editorial-note">이 페이지의 결과는 세무 자문이나 신고세액 확정이 아닙니다. 복잡한 소득·공제 상황은 국세청 안내 또는 세무 전문가에게 확인하세요.</p>
+  <nav class="editorial-related" aria-label="관련 계산기"><h3>관련 계산기</h3><div class="related-grid"><a class="related-link" href="/04-salary.html">연봉 실수령액 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/08-vat.html">부가세 계산기<span class="arr" aria-hidden="true">→</span></a><a class="related-link" href="/15-mortgage.html">주택담보대출 계산기<span class="arr" aria-hidden="true">→</span></a></div></nav>
 </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
@@ -48,4 +55,4 @@ function calc(){
 <script>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script><div class="site-footer"><p>© 2026 CalcFin · 본 계산기는 참고용입니다</p>
-    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a></p></div></div></body></html>
+    <p style="margin-top:6px"><a href="privacy.html" style="color:var(--accent)">개인정보처리방침</a> &nbsp;·&nbsp; <a href="terms.html">이용약관</a></p><p><a href="/">전체 계산기 목록</a> &nbsp;·&nbsp; <a href="/about.html">사이트 소개</a> &nbsp;·&nbsp; <a href="/contact.html">문의 및 오류 제보</a></p></div></div></body></html>
