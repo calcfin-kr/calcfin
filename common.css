@@ -102,3 +102,8 @@ tr:hover td{background:rgba(0,212,170,.03);}
 .editorial-related .related-grid{margin-top:10px;}
 .index-guide{margin-top:46px;}
 @media(max-width:640px){.editorial-content{padding:20px 17px;margin:22px 0;}.editorial-content p{font-size:13px;}}
+
+.editorial-extra{margin-top:8px;}
+.editorial-content ul,.editorial-content ol{margin:0 0 12px 20px;font-size:14px;color:var(--text-muted);line-height:1.85;}
+.editorial-extra .faq-q{margin-bottom:14px;}
+.editorial-extra .faq-q strong{color:var(--text);}

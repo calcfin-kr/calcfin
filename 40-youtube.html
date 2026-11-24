@@ -16,7 +16,7 @@ const sy=(a,b)=>{document.getElementById(a).addEventListener('input',function(){
 sy('views','viewsR');
 function fw(n){if(n>=100000000)return(n/100000000).toFixed(1)+'억원';if(n>=10000)return Math.round(n/10000).toLocaleString()+'만원';return Math.round(n).toLocaleString()+'원'}
 function calc(){
-  if(!qualified){document.getElementById('res').innerHTML='<div class="ri danger" style="padding:24px;text-align:center"><div class="rl">수익화 불가</div><div class="rv">수익화 조건을 먼저 달성하세요</div><div class="rs">구독자 500명 + 최근 12개월 조회수 3,000시간</div></div>';return}
+  if(!qualified){document.getElementById('res').innerHTML='<div class="ri danger" style="padding:24px;text-align:center"><div class="rl">수익화 불가</div><div class="rv">수익화 조건을 먼저 달성하세요</div><div class="rs">YouTube 파트너 프로그램 조건(구독자·시청 시간 등)을 충족해야 합니다</div></div>';return}
   const views=+document.getElementById('views').value,rpm=+document.getElementById('rpm').value;
   const monthRev=Math.round(views/1000*rpm),yearRev=monthRev*12;
   const superchat=Math.round(monthRev*0.05),membership=Math.round(monthRev*0.1),total=monthRev+superchat+membership;
@@ -39,7 +39,8 @@ function calc(){
 <h3>공식 자료</h3>
 <p>수익 지표와 자격 요건은 YouTube 고객센터(https://support.google.com/youtube/)의 최신 안내와 YouTube Studio의 실제 분석 자료를 확인하세요.</p>
 <p class="editorial-note">계산 결과는 입력값과 페이지에 설명된 가정에 따른 참고 정보입니다. 실제 계약·신고·의료·공공요금·광고 수익은 공식 자료와 실제 이용 내역을 기준으로 확인하세요.</p>
-</section>
+<div class="editorial-extra"><h3>계산 산식과 적용 기준</h3><p>AdSense 월 수익 = 월 조회수 ÷ 1,000 × RPM입니다. 슈퍼챗은 월 수익의 5%, 멤버십은 10%로 가정한 참고 값을 더해 총 월 예상 수익을 보여 줍니다. RPM은 채널 주제, 시청자 국가, 시즌에 따라 변하므로 유튜브 스튜디오의 실제 값을 입력하는 것이 좋습니다. 광고 수익 공유 조건은 YouTube 파트너 프로그램의 최신 기준(구독자 수와 시청 시간 등)을 확인하세요.</p><h3>계산 예시</h3><p>월 조회수 10만 회, RPM 1,500원이면 AdSense 월 수익은 15만 원, 슈퍼챗 약 7,500원, 멤버십 약 15,000원을 더한 월 총 예상 수익은 약 17만 2,500원, AdSense 연 수익은 180만 원입니다.</p><h3>활용 팁</h3><ul><li>쇼츠와 롱폼은 RPM이 크게 달라 따로 계산하세요.</li><li>수익화 승인 전에는 이 결과가 실제 수익으로 이어지지 않습니다.</li><li>조회수보다 시청 지속 시간과 구독 전환이 장기적으로 중요합니다.</li></ul><h3>자주 묻는 질문</h3><p class="faq-q"><strong>Q. RPM과 CPM은 어떻게 다른가요?</strong><br>A. CPM은 광고주 지불 단가이고 RPM은 수수료 이후 크리에이터가 받는 1,000회 조회당 수익입니다.</p><p class="faq-q"><strong>Q. 슈퍼챗과 멤버십 비율은 정확한가요?</strong><br>A. 채널마다 다르며 이 계산기의 5%, 10%는 가정 값입니다.</p><p class="faq-q"><strong>Q. 수익화 조건은 어디서 확인하나요?</strong><br>A. 유튜브 고객센터의 YouTube 파트너 프로그램 안내에서 확인하세요.</p></div>
+  </section>
 <!-- CALCFIN 수동광고 -->
 <ins class="adsbygoogle"
      style="display:block"
